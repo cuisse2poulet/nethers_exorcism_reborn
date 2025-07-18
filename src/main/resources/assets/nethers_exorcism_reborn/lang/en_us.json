@@ -1,3 +1,7 @@
 {
-  "item.nethers_exorcism_reborn.raw_indigo_salamander_tail": "Raw Indigo Salamander Tail"
+  "item.nethers_exorcism_reborn.raw_indigo_salamander_tail": "Raw Indigo Salamander Tail",
+  "item.nethers_exorcism_reborn.cooked_indigo_salamander_tail": "Cooked Indigo Salamander Tail",
+  "block.nethers_exorcism_reborn.indigo_planks": "Indigo Planks",
+  "creativetab.nethers_exorcism_reborn.bio_deltas_tab": "Biohazardous Deltas",
+  "creativetab.nethers_exorcism_reborn.dna_forest_tab": "DNA Forest"
 }

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "cookingtime": 100,
+  "experience": 0.45,
+  "ingredient": {
+    "item": "nethers_exorcism_reborn:raw_indigo_salamander_tail"
+  },
+  "result": {
+    "id": "nethers_exorcism_reborn:cooked_indigo_salamander_tail"
+  }
+}

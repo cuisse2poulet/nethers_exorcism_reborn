@@ -1,5 +1,7 @@
 package net.enorme.NER;
 
+import net.enorme.NER.block.ModBlocks;
+import net.enorme.NER.item.ModCreativeModTab;
 import net.enorme.NER.item.ModItems;
 import org.slf4j.Logger;
 
@@ -44,8 +46,10 @@ public class NethersExorcismMod {
         modEventBus.addListener(this::commonSetup);
         NeoForge.EVENT_BUS.register(this);
 
-        ModItems.register(modEventBus);
+        ModCreativeModTab.register(modEventBus);
 
+        ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
@@ -61,6 +65,10 @@ public class NethersExorcismMod {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS){
             event.accept(ModItems.RAW_INDIGO_SALAMANDER_TAIL);
+            event.accept(ModItems.COOKED_INDIGO_SALAMANDER_TAIL);
+        }
+        if(event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS){
+            event.accept(ModBlocks.INDIGO_PLANKS);
         }
     }
 
