@@ -1,5 +1,6 @@
 package net.enorme.NER;
 
+import net.enorme.NER.item.ModItems;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -43,6 +44,8 @@ public class NethersExorcismMod {
         modEventBus.addListener(this::commonSetup);
         NeoForge.EVENT_BUS.register(this);
 
+        ModItems.register(modEventBus);
+
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
@@ -56,7 +59,9 @@ public class NethersExorcismMod {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-
+        if(event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS){
+            event.accept(ModItems.RAW_INDIGO_SALAMANDER_TAIL);
+        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
