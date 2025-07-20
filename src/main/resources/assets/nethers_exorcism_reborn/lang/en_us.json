@@ -3,5 +3,10 @@
   "item.nethers_exorcism_reborn.cooked_indigo_salamander_tail": "Cooked Indigo Salamander Tail",
   "block.nethers_exorcism_reborn.indigo_planks": "Indigo Planks",
   "creativetab.nethers_exorcism_reborn.bio_deltas_tab": "Biohazardous Deltas",
-  "creativetab.nethers_exorcism_reborn.dna_forest_tab": "DNA Forest"
+  "creativetab.nethers_exorcism_reborn.dna_forest_tab": "DNA Forest",
+  "effect.nethers_exorcism_reborn.instant_cure": "Instant Cure",
+  "item.minecraft.potion.effect.instant_cure_potion": "Instant Cure Potion",
+  "item.minecraft.splash_potion.effect.instant_cure_potion": "Instant Cure Splash Potion",
+  "item.minecraft.lingering_potion.effect.instant_cure_potion": "Instant Cure Lingering Potion",
+  "item.minecraft.tipped_arrow.effect.instant_cure_potion": "Arrow of Instant Cure"
 }

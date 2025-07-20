@@ -13,11 +13,11 @@ public class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(NethersExorcismMod.MODID);
 
     public static final DeferredItem<Item> RAW_INDIGO_SALAMANDER_TAIL = ITEMS.register("raw_indigo_salamander_tail",
-            () -> new Item(new Item.Properties().food(ModFoodProperties.RAW_INDIGO_SALAMANDER)));
+            () -> new Item(new Item.Properties().food(ModFoodProperties.RAW_INDIGO_SALAMANDER_TAIL)));
 
 
     public static final DeferredItem<Item> COOKED_INDIGO_SALAMANDER_TAIL = ITEMS.register("cooked_indigo_salamander_tail",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(new Item.Properties().food(ModFoodProperties.COOKED_INDIGO_SALAMANDER_TAIL)));
 
 
     public static void register(IEventBus eventBus) {

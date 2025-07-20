@@ -1,8 +1,10 @@
 package net.enorme.NER;
 
 import net.enorme.NER.block.ModBlocks;
+import net.enorme.NER.effect.ModEffect;
 import net.enorme.NER.item.ModCreativeModTab;
 import net.enorme.NER.item.ModItems;
+import net.enorme.NER.potion.ModPotions;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -50,6 +52,8 @@ public class NethersExorcismMod {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModEffect.register(modEventBus);
+        ModPotions.register(modEventBus);
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
