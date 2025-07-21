@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "nethers_exorcism_reborn:block/indigo_stem_top",
+    "down": "nethers_exorcism_reborn:block/indigo_stem_top",
+    "up": "nethers_exorcism_reborn:block/indigo_stem_top",
+    "north": "nethers_exorcism_reborn:block/indigo_stem_side",
+    "east": "nethers_exorcism_reborn:block/indigo_stem_side",
+    "south": "nethers_exorcism_reborn:block/indigo_stem_side",
+    "west": "nethers_exorcism_reborn:block/indigo_stem_side"
+  }
+}

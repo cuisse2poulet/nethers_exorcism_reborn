@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -30,6 +31,8 @@ public class ModCreativeModTab {
                         output.accept(ModItems.RAW_INDIGO_SALAMANDER_TAIL);
                         output.accept(ModItems.COOKED_INDIGO_SALAMANDER_TAIL);
                         output.accept(ModBlocks.INDIGO_PLANKS);
+                        output.accept(ModBlocks.INDIGO_STEM);
+                        output.accept(ModBlocks.STRIPPED_INDIGO_STEM);
                     }).build());
 
    public static final Supplier<CreativeModeTab> BIO_DELTAS_TAB = CREATIVE_MOD_TAB.register("bio_deltas_tab",

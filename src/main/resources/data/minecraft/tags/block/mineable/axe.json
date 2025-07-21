@@ -86,6 +86,8 @@
     "minecraft:bamboo_mosaic_stairs",
     "#minecraft:bamboo_blocks",
     "minecraft:chiseled_bookshelf",
-    "nethers_exorcism_reborn:indigo_planks"
+    "nethers_exorcism_reborn:indigo_planks",
+    "nethers_exorcism_reborn:indigo_stem",
+    "nethers_exorcism_reborn:stripped_indigo_stem"
   ]
 }

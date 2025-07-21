@@ -5,16 +5,15 @@ import net.enorme.NER.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import javax.swing.*;
+import java.util.Optional;
 import java.util.function.Supplier;
-
-import static net.minecraft.world.item.Items.registerBlock;
 
 public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
@@ -22,6 +21,12 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> INDIGO_PLANKS = register("indigo_planks",
     () -> new Block(BlockBehaviour.Properties.of().strength(2f).sound(SoundType.NETHER_WOOD)));
+
+    public static final DeferredBlock<Block> INDIGO_STEM = register("indigo_stem",
+            () -> new RotatableBLocks(BlockBehaviour.Properties.of().strength(2f).sound(SoundType.STEM)));
+
+    public static final DeferredBlock<Block> STRIPPED_INDIGO_STEM = register("stripped_indigo_stem",
+            () -> new RotatableBLocks(BlockBehaviour.Properties.of().strength(2f).sound(SoundType.STEM)));
 
 
     private static <T extends Block> DeferredBlock<T> register(String name, Supplier<T> block) {

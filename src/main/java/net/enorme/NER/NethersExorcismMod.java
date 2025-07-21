@@ -5,6 +5,7 @@ import net.enorme.NER.effect.ModEffect;
 import net.enorme.NER.item.ModCreativeModTab;
 import net.enorme.NER.item.ModItems;
 import net.enorme.NER.potion.ModPotions;
+import net.minecraft.world.level.ItemLike;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -73,6 +74,8 @@ public class NethersExorcismMod {
         }
         if(event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS){
             event.accept(ModBlocks.INDIGO_PLANKS);
+            event.accept(ModBlocks.INDIGO_STEM);
+            event.accept(ModBlocks.STRIPPED_INDIGO_STEM);
         }
     }
 

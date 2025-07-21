@@ -30,6 +30,8 @@
     "minecraft:warped_sign",
     "minecraft:warped_hanging_sign",
     "minecraft:crimson_hanging_sign",
-    "nethers_exorcism_reborn:indigo_planks"
+    "nethers_exorcism_reborn:indigo_planks",
+    "nethers_exorcism_reborn:indigo_stem",
+    "nethers_exorcism_reborn:stripped_indigo_stem"
   ]
 }
