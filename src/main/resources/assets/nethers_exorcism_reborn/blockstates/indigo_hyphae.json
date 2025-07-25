@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "nethers_exorcism_reborn:block/indigo_hyphae",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "nethers_exorcism_reborn:block/indigo_hyphae"
+    },
+    "axis=z": {
+      "model": "nethers_exorcism_reborn:block/indigo_hyphae",
+      "x": 90
+    }
+  }
+}

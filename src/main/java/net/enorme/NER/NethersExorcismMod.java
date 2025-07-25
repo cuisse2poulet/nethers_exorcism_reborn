@@ -76,6 +76,8 @@ public class NethersExorcismMod {
             event.accept(ModBlocks.INDIGO_PLANKS);
             event.accept(ModBlocks.INDIGO_STEM);
             event.accept(ModBlocks.STRIPPED_INDIGO_STEM);
+            event.accept(ModBlocks.INDIGO_HYPHAE);
+            event.accept(ModBlocks.STRIPPED_INDIGO_HYPHAE);
         }
     }
 

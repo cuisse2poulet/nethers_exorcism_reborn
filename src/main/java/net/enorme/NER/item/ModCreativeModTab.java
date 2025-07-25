@@ -33,6 +33,8 @@ public class ModCreativeModTab {
                         output.accept(ModBlocks.INDIGO_PLANKS);
                         output.accept(ModBlocks.INDIGO_STEM);
                         output.accept(ModBlocks.STRIPPED_INDIGO_STEM);
+                        output.accept(ModBlocks.INDIGO_HYPHAE);
+                        output.accept(ModBlocks.STRIPPED_INDIGO_HYPHAE);
                     }).build());
 
    public static final Supplier<CreativeModeTab> BIO_DELTAS_TAB = CREATIVE_MOD_TAB.register("bio_deltas_tab",

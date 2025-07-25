@@ -1,0 +1,14 @@
+{
+  "type": "crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag":"nethers_exorcism_reborn:indigo_stems"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "nethers_exorcism_reborn:indigo_planks"
+  }
+}

@@ -88,6 +88,8 @@
     "minecraft:chiseled_bookshelf",
     "nethers_exorcism_reborn:indigo_planks",
     "nethers_exorcism_reborn:indigo_stem",
-    "nethers_exorcism_reborn:stripped_indigo_stem"
+    "nethers_exorcism_reborn:stripped_indigo_stem",
+    "nethers_exorcism_reborn:stripped_indigo_hyphae",
+    "nethers_exorcism_reborn:indigo_hyphae"
   ]
 }

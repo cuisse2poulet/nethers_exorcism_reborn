@@ -1,9 +1,8 @@
 {
   "values": [
-    "#minecraft:logs_that_burn",
-    "#minecraft:crimson_stems",
-    "#minecraft:warped_stems",
     "nethers_exorcism_reborn:indigo_stem",
+    "nethers_exorcism_reborn:stripped_indigo_stem",
+    "nethers_exorcism_reborn:stripped_indigo_hyphae",
     "nethers_exorcism_reborn:indigo_hyphae"
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "nethers_exorcism_reborn:indigo_stem"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "netehrs_exorcism_reborn:blocks/indigo_stem"
+}
