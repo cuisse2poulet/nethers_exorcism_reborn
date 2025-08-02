@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_fence_gate_open",
+  "textures": {
+    "texture": "nethers_exorcism_reborn:block/indigo_planks"
+  }
+}

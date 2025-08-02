@@ -1,0 +1,16 @@
+// 1.21.1	2025-08-01T14:22:12.1432398	Tags for minecraft:block mod id nethers_exorcism_reborn
+ef64d0bc81f98eb5f26a197e97958fbc9fb1bc3a data/minecraft/tags/block/enderman_holdable.json
+b9c2ac5f96f5f7f8082be661ed7c2a066778cd5e data/minecraft/tags/block/fence_gates.json
+308524179d9a31d4b6e0de4b61b0db4cf8f768b4 data/minecraft/tags/block/logs.json
+0951c488a7fa7b6592bed064342011c4041eb7ed data/minecraft/tags/block/mineable/axe.json
+68cc6fcb5474f67bff900ec1be85193028bd0f09 data/minecraft/tags/block/mineable/hoe.json
+ef64d0bc81f98eb5f26a197e97958fbc9fb1bc3a data/minecraft/tags/block/mineable/pickaxe.json
+ef64d0bc81f98eb5f26a197e97958fbc9fb1bc3a data/minecraft/tags/block/mushroom_grow_block.json
+ef64d0bc81f98eb5f26a197e97958fbc9fb1bc3a data/minecraft/tags/block/nylium.json
+1bf160708bb363427b69b11b769990a2d335fed6 data/minecraft/tags/block/wooden_buttons.json
+96e82252a5af16077c854cd2356ecff30f013eef data/minecraft/tags/block/wooden_doors.json
+ba1124f8d06a751150477fbe3a2815685b95b8bd data/minecraft/tags/block/wooden_fences.json
+7ed08eb979e1726e20022db87ea371d3c56bd39d data/minecraft/tags/block/wooden_pressure_plates.json
+8ff231cac2dfac0befdb7d98f87f7cc7cb178051 data/minecraft/tags/block/wooden_slabs.json
+754db0fb1b6d2491433b9b87e4c99f1539e28832 data/minecraft/tags/block/wooden_stairs.json
+ec14b10fafd721da5fe8a10c10323af4ae76a256 data/minecraft/tags/block/wooden_trapdoors.json

@@ -30,11 +30,20 @@ public class ModCreativeModTab {
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(ModItems.RAW_INDIGO_SALAMANDER_TAIL);
                         output.accept(ModItems.COOKED_INDIGO_SALAMANDER_TAIL);
-                        output.accept(ModBlocks.INDIGO_PLANKS);
                         output.accept(ModBlocks.INDIGO_STEM);
                         output.accept(ModBlocks.STRIPPED_INDIGO_STEM);
                         output.accept(ModBlocks.INDIGO_HYPHAE);
                         output.accept(ModBlocks.STRIPPED_INDIGO_HYPHAE);
+                        output.accept(ModBlocks.INDIGO_PLANKS);
+                        output.accept(ModBlocks.INDIGO_STAIRS);
+                        output.accept(ModBlocks.INDIGO_SlAB);
+                        output.accept(ModBlocks.INDIGO_DOOR);
+                        output.accept(ModBlocks.INDIGO_TRAPDOOR);
+                        output.accept(ModBlocks.INDIGO_FENCE);
+                        output.accept(ModBlocks.INDIGO_FENCE_GATE);
+                        output.accept(ModBlocks.INDIGO_BUTTON);
+                        output.accept(ModBlocks.INDIGO_PRESSURE_PLATE);
+                        output.accept(ModBlocks.INDIGO_NYLIUM);
                     }).build());
 
    public static final Supplier<CreativeModeTab> BIO_DELTAS_TAB = CREATIVE_MOD_TAB.register("bio_deltas_tab",

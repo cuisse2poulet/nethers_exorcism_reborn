@@ -1,7 +1,7 @@
 {
   "variants": {
     "axis=x": {
-      "model": "nethers_exorcism_reborn:block/stripped_indigo_stem",
+      "model": "nethers_exorcism_reborn:block/stripped_indigo_stem_horizontal",
       "x": 90,
       "y": 90
     },
@@ -9,7 +9,7 @@
       "model": "nethers_exorcism_reborn:block/stripped_indigo_stem"
     },
     "axis=z": {
-      "model": "nethers_exorcism_reborn:block/stripped_indigo_stem",
+      "model": "nethers_exorcism_reborn:block/stripped_indigo_stem_horizontal",
       "x": 90
     }
   }

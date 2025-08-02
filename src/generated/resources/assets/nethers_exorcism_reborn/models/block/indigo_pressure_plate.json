@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pressure_plate_up",
+  "textures": {
+    "texture": "nethers_exorcism_reborn:block/indigo_planks"
+  }
+}

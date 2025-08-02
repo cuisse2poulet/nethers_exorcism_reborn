@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "nethers_exorcism_reborn:block/stripped_indigo_stem_side"
+    "end": "nethers_exorcism_reborn:block/stripped_indigo_stem_side",
+    "side": "nethers_exorcism_reborn:block/stripped_indigo_stem_side"
   }
 }

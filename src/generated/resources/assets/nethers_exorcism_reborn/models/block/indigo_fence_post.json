@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "textures": {
+    "texture": "nethers_exorcism_reborn:block/indigo_planks"
+  }
+}

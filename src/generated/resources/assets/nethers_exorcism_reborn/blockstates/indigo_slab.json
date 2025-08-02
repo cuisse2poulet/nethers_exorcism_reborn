@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "nethers_exorcism_reborn:block/indigo_slab"
+    },
+    "type=double": {
+      "model": "nethers_exorcism_reborn:block/indigo_planks"
+    },
+    "type=top": {
+      "model": "nethers_exorcism_reborn:block/indigo_slab_top"
+    }
+  }
+}

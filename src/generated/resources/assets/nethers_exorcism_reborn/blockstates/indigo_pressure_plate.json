@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "nethers_exorcism_reborn:block/indigo_pressure_plate"
+    },
+    "powered=true": {
+      "model": "nethers_exorcism_reborn:block/indigo_pressure_plate_down"
+    }
+  }
+}

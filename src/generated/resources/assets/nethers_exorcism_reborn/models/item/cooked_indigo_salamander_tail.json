@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nethers_exorcism_reborn:item/cooked_indigo_salamander_tail"
+  }
+}

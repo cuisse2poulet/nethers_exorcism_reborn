@@ -78,6 +78,15 @@ public class NethersExorcismMod {
             event.accept(ModBlocks.STRIPPED_INDIGO_STEM);
             event.accept(ModBlocks.INDIGO_HYPHAE);
             event.accept(ModBlocks.STRIPPED_INDIGO_HYPHAE);
+            event.accept(ModBlocks.INDIGO_STAIRS);
+            event.accept(ModBlocks.INDIGO_SlAB);
+            event.accept(ModBlocks.INDIGO_DOOR);
+            event.accept(ModBlocks.INDIGO_TRAPDOOR);
+            event.accept(ModBlocks.INDIGO_FENCE);
+            event.accept(ModBlocks.INDIGO_FENCE_GATE);
+            event.accept(ModBlocks.INDIGO_BUTTON);
+            event.accept(ModBlocks.INDIGO_PRESSURE_PLATE);
+            event.accept(ModBlocks.INDIGO_NYLIUM);
         }
     }
 

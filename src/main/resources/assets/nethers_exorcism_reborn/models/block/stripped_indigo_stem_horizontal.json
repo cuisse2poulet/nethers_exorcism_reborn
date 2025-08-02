@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "nethers_exorcism_reborn:block/stripped_indigo_stem_top",
+    "side": "nethers_exorcism_reborn:block/stripped_indigo_stem_side"
+  }
+}
