@@ -5,6 +5,7 @@ import net.enorme.NER.effect.ModEffect;
 import net.enorme.NER.item.ModCreativeModTab;
 import net.enorme.NER.item.ModItems;
 import net.enorme.NER.potion.ModPotions;
+import net.enorme.NER.sound.ModSound;
 import net.minecraft.world.level.ItemLike;
 import org.slf4j.Logger;
 
@@ -57,6 +58,7 @@ public class NethersExorcismMod {
         ModPotions.register(modEventBus);
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
+        ModSound.register(modEventBus);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
@@ -65,6 +67,7 @@ public class NethersExorcismMod {
     private void commonSetup(FMLCommonSetupEvent event) {
 
     }
+
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
@@ -86,12 +89,20 @@ public class NethersExorcismMod {
             event.accept(ModBlocks.INDIGO_FENCE_GATE);
             event.accept(ModBlocks.INDIGO_BUTTON);
             event.accept(ModBlocks.INDIGO_PRESSURE_PLATE);
+        }
+        if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES){
+            event.accept(ModItems.GENETIC_MIRACLE_MUSIC_DISC);
+        }
+        if(event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             event.accept(ModBlocks.INDIGO_NYLIUM);
+            event.accept(ModBlocks.VERDANT_SHROOMLIGHT);
+            event.accept(ModBlocks.INDIGO_FUNGUS);
         }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
+
     }
 }

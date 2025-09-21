@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:huge_fungus",
+  "config": {
+    "hat_state": {
+      "Name": "nethers_exorcism_reborn:indigo_wart_block"
+    },
+    "decor_state": {
+      "Name": "nethers_exorcism_reborn:verdant_shroomlight"
+    },
+    "stem_state": {
+      "Name": "nethers_exorcism_reborn:indigo_stem"
+    },
+    "valid_base_block": {
+      "Name": "nethers_exorcism_reborn:indigo_nylium"
+    },
+    "replaceable_blocks": {
+      "type": "minecraft:replaceable"
+    }
+  }
+}

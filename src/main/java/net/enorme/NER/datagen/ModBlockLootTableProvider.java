@@ -38,6 +38,9 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(ModBlocks.INDIGO_BUTTON.get());
         dropSelf(ModBlocks.INDIGO_PRESSURE_PLATE.get());
         dropSelf(ModBlocks.INDIGO_WART_BLOCK.get());
+        dropSelf(ModBlocks.VERDANT_SHROOMLIGHT.get());
+        dropSelf(ModBlocks.INDIGO_FUNGUS.get());
+        dropWhenSilkTouch(ModBlocks.INDIGO_NYLIUM.get());
         add(ModBlocks.INDIGO_DOOR.get(),
                 block -> createDoorTable(ModBlocks.INDIGO_DOOR.get()));
 

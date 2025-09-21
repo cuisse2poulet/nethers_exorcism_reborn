@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "item.nethers_exorcism_reborn.genetic_miracle_music_disc.desc"
+  },
+  "length_in_seconds": 192.6,
+  "sound_event": "nethers_exorcism_reborn:genetic_miracle"
+}

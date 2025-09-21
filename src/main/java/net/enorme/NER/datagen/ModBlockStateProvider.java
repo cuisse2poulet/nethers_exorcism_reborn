@@ -2,7 +2,10 @@ package net.enorme.NER.datagen;
 
 import net.enorme.NER.NethersExorcismMod;
 import net.enorme.NER.block.ModBlocks;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.neoforged.neoforge.client.extensions.IDimensionSpecialEffectsExtension;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
@@ -19,6 +22,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
     blockWithItem(ModBlocks.INDIGO_PLANKS);
     blockWithItem(ModBlocks.INDIGO_WART_BLOCK);
+    blockWithItem(ModBlocks.VERDANT_SHROOMLIGHT);
 
     stairsBlock(ModBlocks.INDIGO_STAIRS.get(),blockTexture(ModBlocks.INDIGO_PLANKS.get()));
     slabBlock(ModBlocks.INDIGO_SlAB.get(),blockTexture(ModBlocks.INDIGO_PLANKS.get()),blockTexture(ModBlocks.INDIGO_PLANKS.get()));
@@ -32,7 +36,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     doorBlockWithRenderType(ModBlocks.INDIGO_DOOR.get(),modLoc("block/indigo_door_bottom"),modLoc("block/indigo_door_top"), "cutout");
     trapdoorBlockWithRenderType(ModBlocks.INDIGO_TRAPDOOR.get(), modLoc("block/indigo_trapdoor"),true,"cutout");
 
-
+    FungusBlock(ModBlocks.INDIGO_FUNGUS);
 
     blockItem(ModBlocks.INDIGO_STAIRS);
     blockItem(ModBlocks.INDIGO_SlAB);
@@ -41,7 +45,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
     blockItem(ModBlocks.INDIGO_TRAPDOOR,"_bottom");
 
     }
-
+    private void FungusBlock(DeferredBlock<Block> blockRegistryObject){
+        simpleBlock(blockRegistryObject.get(),
+                models().cross(BuiltInRegistries.BLOCK.getKey(blockRegistryObject.get()).getPath(),
+                        blockTexture(blockRegistryObject.get())).renderType("cutout"));
+    }
 
     private void blockWithItem(DeferredBlock<?> deferedBlock) {
         simpleBlockWithItem(deferedBlock.get(),cubeAll(deferedBlock.get()));

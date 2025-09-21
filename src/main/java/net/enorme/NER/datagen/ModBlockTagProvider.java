@@ -33,7 +33,8 @@ tag(BlockTags.MINEABLE_WITH_AXE)
         .add(ModBlocks.INDIGO_TRAPDOOR.get());
 
 tag(BlockTags.MINEABLE_WITH_HOE)
-        .add(ModBlocks.INDIGO_WART_BLOCK.get());
+        .add(ModBlocks.INDIGO_WART_BLOCK.get())
+        .add(ModBlocks.VERDANT_SHROOMLIGHT.get());
 tag(BlockTags.MINEABLE_WITH_PICKAXE)
         .add(ModBlocks.INDIGO_NYLIUM.get());
 tag(BlockTags.ENDERMAN_HOLDABLE)

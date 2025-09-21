@@ -1,0 +1,10 @@
+{
+  "genetic_miracle": {
+    "sounds": [
+      {
+        "name": "nethers_exorcism_reborn:genetic_miracle",
+        "stream": true
+      }
+    ]
+  }
+}

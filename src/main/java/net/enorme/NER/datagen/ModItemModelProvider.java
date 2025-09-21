@@ -19,6 +19,8 @@ public class ModItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
     basicItem(ModItems.COOKED_INDIGO_SALAMANDER_TAIL.get());
     basicItem(ModItems.RAW_INDIGO_SALAMANDER_TAIL.get());
+    basicItem(ModItems.GENETIC_MIRACLE_MUSIC_DISC.get());
+    basicItem(ModBlocks.INDIGO_FUNGUS.asItem());
 
     buttonItem(ModBlocks.INDIGO_BUTTON,ModBlocks.INDIGO_PLANKS);
     fenceItem(ModBlocks.INDIGO_FENCE,ModBlocks.INDIGO_PLANKS);

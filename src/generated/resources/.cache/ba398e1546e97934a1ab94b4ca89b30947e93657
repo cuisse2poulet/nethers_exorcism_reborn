@@ -1,9 +1,9 @@
-// 1.21.1	2025-08-01T14:22:12.1432398	Tags for minecraft:block mod id nethers_exorcism_reborn
+// 1.21.1	2025-08-10T15:12:39.0514405	Tags for minecraft:block mod id nethers_exorcism_reborn
 ef64d0bc81f98eb5f26a197e97958fbc9fb1bc3a data/minecraft/tags/block/enderman_holdable.json
 b9c2ac5f96f5f7f8082be661ed7c2a066778cd5e data/minecraft/tags/block/fence_gates.json
 308524179d9a31d4b6e0de4b61b0db4cf8f768b4 data/minecraft/tags/block/logs.json
 0951c488a7fa7b6592bed064342011c4041eb7ed data/minecraft/tags/block/mineable/axe.json
-68cc6fcb5474f67bff900ec1be85193028bd0f09 data/minecraft/tags/block/mineable/hoe.json
+e434e6653d7f0ada98905ef5b4dd2adbf764c78d data/minecraft/tags/block/mineable/hoe.json
 ef64d0bc81f98eb5f26a197e97958fbc9fb1bc3a data/minecraft/tags/block/mineable/pickaxe.json
 ef64d0bc81f98eb5f26a197e97958fbc9fb1bc3a data/minecraft/tags/block/mushroom_grow_block.json
 ef64d0bc81f98eb5f26a197e97958fbc9fb1bc3a data/minecraft/tags/block/nylium.json

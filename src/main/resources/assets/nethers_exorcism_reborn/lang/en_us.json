@@ -6,6 +6,8 @@
   "block.nethers_exorcism_reborn.indigo_nylium": "Indigo Nylium",
   "block.nethers_exorcism_reborn.indigo_wart_block": "Indigo Wart Block",
   "block.nethers_exorcism_reborn.indigo_stairs": "Indigo Stairs",
+  "block.nethers_exorcism_reborn.verdant_shroomlight": "Verdant Shroomlight",
+  "block.nethers_exorcism_reborn.indigo_fungus": "Indigo Fungus",
   "block.nethers_exorcism_reborn.indigo_slab": "Indigo Slab",
   "block.nethers_exorcism_reborn.indigo_fence": "Indigo Fence",
   "block.nethers_exorcism_reborn.indigo_fence_gate": "Indigo Fence Gate",
@@ -22,5 +24,9 @@
   "item.minecraft.potion.effect.instant_cure_potion": "Instant Cure Potion",
   "item.minecraft.splash_potion.effect.instant_cure_potion": "Instant Cure Splash Potion",
   "item.minecraft.lingering_potion.effect.instant_cure_potion": "Instant Cure Lingering Potion",
-  "item.minecraft.tipped_arrow.effect.instant_cure_potion": "Arrow of Instant Cure"
+  "item.minecraft.tipped_arrow.effect.instant_cure_potion": "Arrow of Instant Cure",
+  "item.nethers_exorcism_reborn.genetic_miracle_music_disc": "Music Disc",
+  "item.nethers_exorcism_reborn.genetic_miracle_music_disc.desc": "Pufferfish - Genetic Miracle",
+  "tooltip.nethers_exorcism_reborn.cooked_indigo_salamander_tail.tooltip": "§9Instant Cure (00:08)",
+  "tooltip.nethers_exorcism_reborn.raw_indigo_salamander_tail.tooltip": "§cPoison (00:08)"
 }

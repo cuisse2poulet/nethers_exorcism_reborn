@@ -1,0 +1,24 @@
+{
+  "temperature": 2,
+  "downfall": 0,
+  "has_precipitation": false,
+  "effects": {
+    "sky_color": 3414085,
+    "fog_color": 2169410,
+    "water_color": 5975483,
+    "water_fog_color": 6170562,
+    "grass_color": 7811744,
+    "foliage_color": 7089793,
+    "music": {
+      "sound": "nethers_exorcism_reborn:genetic_miracle",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": true
+    },
+    "music_volume": 1
+  },
+  "spawners": {},
+  "spawn_costs": {},
+  "carvers": {},
+  "features": []
+}
