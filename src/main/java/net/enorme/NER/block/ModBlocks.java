@@ -1,25 +1,16 @@
 package net.enorme.NER.block;
 
-import com.mojang.realmsclient.client.Request;
 import net.enorme.NER.NethersExorcismMod;
 import net.enorme.NER.item.ModItems;
 import net.enorme.NER.worldgen.ModConfiguredFeatures;
-import net.enorme.NER.worldgen.tree.ModTreeGrowers;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockSetType;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.WoodType;
-import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.awt.*;
 import java.util.function.Supplier;
 
 public class ModBlocks {
@@ -77,8 +68,14 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> VERDANT_SHROOMLIGHT = register("verdant_shroomlight",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SHROOMLIGHT).strength(1f).sound(SoundType.SHROOMLIGHT)));
+
     public static final DeferredBlock<Block> INDIGO_FUNGUS = register("indigo_fungus",
-            () -> new FungusBlock(ModConfiguredFeatures.INDIGO_KEY, ModBlocks.INDIGO_NYLIUM.get(),BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_FUNGUS)));
+            () -> new FungusBlock(
+                    ModConfiguredFeatures.INDIGO_KEY,
+                    ModBlocks.INDIGO_NYLIUM.get(),
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_FUNGUS)
+            )
+    );
 
     private static <T extends Block> DeferredBlock<T> register(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

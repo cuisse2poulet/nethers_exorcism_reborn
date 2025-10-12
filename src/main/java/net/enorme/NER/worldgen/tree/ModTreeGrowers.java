@@ -7,6 +7,6 @@ import net.minecraft.world.level.block.grower.TreeGrower;
 import java.util.Optional;
 
 public class ModTreeGrowers {
-    public static final TreeGrower Indigo = new TreeGrower(NethersExorcismMod.MODID + ":indigo", Optional.empty()
+    public static final TreeGrower INDIGO = new TreeGrower(NethersExorcismMod.MODID + ":indigo", Optional.empty()
             , Optional.of(ModConfiguredFeatures.INDIGO_KEY), Optional.empty());
 }

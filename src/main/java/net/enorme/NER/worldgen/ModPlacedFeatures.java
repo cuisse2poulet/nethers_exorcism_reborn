@@ -14,9 +14,9 @@ import java.util.List;
 
 public class ModPlacedFeatures {
 
-public static void bootstrap(BootstrapContext<PlacedFeature> context){
-var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
-}
+    public static void bootstrap(BootstrapContext<PlacedFeature> context){
+           var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
+    }
 
 
     private static ResourceKey<PlacedFeature> registerKey(String name){
