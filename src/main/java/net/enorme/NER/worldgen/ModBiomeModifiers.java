@@ -10,12 +10,12 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 public class ModBiomeModifiers {
 
-    public static void bootstrap(BootstrapContext<BiomeModifier> context){
+    public static void bootstrap(BootstrapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
         var biomes = context.lookup(Registries.BIOME);
     }
 
-    private static ResourceKey<BiomeModifier> registerKey(String name){
+    private static ResourceKey<BiomeModifier> registerKey(String name) {
         return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID, name));
     }
 }

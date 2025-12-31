@@ -17,25 +17,25 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-    basicItem(ModItems.COOKED_INDIGO_SALAMANDER_TAIL.get());
-    basicItem(ModItems.RAW_INDIGO_SALAMANDER_TAIL.get());
-    basicItem(ModItems.GENETIC_MIRACLE_MUSIC_DISC.get());
-    basicItem(ModBlocks.INDIGO_FUNGUS.asItem());
+        basicItem(ModItems.COOKED_INDIGO_SALAMANDER_TAIL.get());
+        basicItem(ModItems.RAW_INDIGO_SALAMANDER_TAIL.get());
+        basicItem(ModItems.GENETIC_MIRACLE_MUSIC_DISC.get());
+        basicItem(ModBlocks.INDIGO_FUNGUS.asItem());
 
-    buttonItem(ModBlocks.INDIGO_BUTTON,ModBlocks.INDIGO_PLANKS);
-    fenceItem(ModBlocks.INDIGO_FENCE,ModBlocks.INDIGO_PLANKS);
-    basicItem(ModBlocks.INDIGO_DOOR.asItem());
+        buttonItem(ModBlocks.INDIGO_BUTTON, ModBlocks.INDIGO_PLANKS);
+        fenceItem(ModBlocks.INDIGO_FENCE, ModBlocks.INDIGO_PLANKS);
+        basicItem(ModBlocks.INDIGO_DOOR.asItem());
     }
 
     public void buttonItem(DeferredBlock<?> block, DeferredBlock<Block> baseBlock) {
         this.withExistingParent(block.getId().getPath(), mcLoc("block/button_inventory"))
-                .texture("texture",  ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID,
+                .texture("texture", ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID,
                         "block/" + baseBlock.getId().getPath()));
     }
 
     public void fenceItem(DeferredBlock<?> block, DeferredBlock<Block> baseBlock) {
         this.withExistingParent(block.getId().getPath(), mcLoc("block/fence_inventory"))
-                .texture("texture",  ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID,
+                .texture("texture", ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID,
                         "block/" + baseBlock.getId().getPath()));
     }
 }

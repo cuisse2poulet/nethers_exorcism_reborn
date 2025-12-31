@@ -14,18 +14,18 @@ import java.util.List;
 
 public class ModPlacedFeatures {
 
-public static void bootstrap(BootstrapContext<PlacedFeature> context){
-var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
-}
+    public static void bootstrap(BootstrapContext<PlacedFeature> context) {
+        var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
+    }
 
 
-    private static ResourceKey<PlacedFeature> registerKey(String name){
+    private static ResourceKey<PlacedFeature> registerKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID, name));
 
     }
 
-    private static void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<? , ?>> configuration,
-                                 List<PlacementModifier> modifiers){
+    private static void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,
+                                 List<PlacementModifier> modifiers) {
         context.register(key, new PlacedFeature(configuration, List.copyOf(modifiers)));
     }
 }
