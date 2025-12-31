@@ -20,10 +20,6 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         super(codec);
     }
 
-    // Small, reusable candidate class for positions
-        private record BlobCandidate(int tx, int tz, double score, BlockPos pos) {
-    }
-
     @Override
     public boolean place(FeaturePlaceContext<TreeConfiguration> ctx) {
         WorldGenLevel level = ctx.level();
@@ -44,7 +40,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         BlockState shroomLight = ModBlocks.VERDANT_SHROOMLIGHT.get().defaultBlockState();
 
         for (int y = 0; y < height; y++) {
-            double t = (double)y / (height - 1);
+            double t = (double) y / (height - 1);
 
             double angle1 = t * turns * twoPi;
             double x1c = radius * Math.cos(angle1);
@@ -58,8 +54,8 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
             for (double dx = -thickness; dx <= thickness; dx += 0.5) {
                 for (double dz = -thickness; dz <= thickness; dz += 0.5) {
                     if (dx * dx + dz * dz <= thickness * thickness + 0.15) {
-                        BlockPos vine1 = base.offset((int)Math.round(x1c + dx), y, (int)Math.round(z1c + dz));
-                        BlockPos vine2 = base.offset((int)Math.round(x2c + dx), y, (int)Math.round(z2c + dz));
+                        BlockPos vine1 = base.offset((int) Math.round(x1c + dx), y, (int) Math.round(z1c + dz));
+                        BlockPos vine2 = base.offset((int) Math.round(x2c + dx), y, (int) Math.round(z2c + dz));
                         level.setBlock(vine1, trunk, 2);
                         level.setBlock(vine2, trunk, 2);
                     }
@@ -101,7 +97,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
 
         for (int turnIndex = 0; turnIndex < turns; turnIndex++) {
             double midT = (turnIndex + 0.5) / (double) turns;
-            int yForBlob = (int)Math.round(midT * (height - 1));
+            int yForBlob = (int) Math.round(midT * (height - 1));
             double baseAngle = midT * turns * twoPi;
 
             for (int spiral = 0; spiral < 2; spiral++) {
@@ -109,11 +105,11 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
                 double xCenter = radius * Math.cos(angle);
                 double zCenter = radius * Math.sin(angle);
 
-                int centerIx = (int)Math.round(xCenter);
-                int centerIz = (int)Math.round(zCenter);
+                int centerIx = (int) Math.round(xCenter);
+                int centerIz = (int) Math.round(zCenter);
 
-                int dirX = (int)Math.signum(xCenter);
-                int dirZ = (int)Math.signum(zCenter);
+                int dirX = (int) Math.signum(xCenter);
+                int dirZ = (int) Math.signum(zCenter);
                 if (dirX == 0 && dirZ == 0) {
                     dirX = Integer.signum(centerIx);
                     dirZ = Integer.signum(centerIz);
@@ -220,8 +216,8 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
      * Collect candidates for a square/rim layer, applying euclidean smoothing and shifting outward by dirX/dirZ.
      */
     private List<BlobCandidate> collectLayerCandidates(BlockPos base, WorldGenLevel level, BlockState trunk,
-                                                   double xCenter, double zCenter, int centerIx, int centerIz,
-                                                   int layerRadius, int yLayer, int dirX, int dirZ) {
+                                                       double xCenter, double zCenter, int centerIx, int centerIz,
+                                                       int layerRadius, int yLayer, int dirX, int dirZ) {
         List<BlobCandidate> candidates = new ArrayList<>();
         for (int ix = centerIx - layerRadius - 1; ix <= centerIx + layerRadius + 1; ix++) {
             for (int iz = centerIz - layerRadius - 1; iz <= centerIz + layerRadius + 1; iz++) {
@@ -252,7 +248,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         for (BlobCandidate c : source) {
             boolean adjacentToTrunk = false;
             BlockPos check = c.pos;
-            BlockPos[] neighbors = new BlockPos[] {
+            BlockPos[] neighbors = new BlockPos[]{
                     check.north(), check.south(), check.east(), check.west(),
                     check.north().east(), check.north().west(), check.south().east(), check.south().west()
             };
@@ -262,7 +258,8 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
                     break;
                 }
             }
-            if (adjacentToTrunk) touchingOut.add(c); else nonTouchingOut.add(c);
+            if (adjacentToTrunk) touchingOut.add(c);
+            else nonTouchingOut.add(c);
         }
     }
 
@@ -313,11 +310,11 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
                                           BlobCandidate anchor, double xCenter, double zCenter) {
         int wartX = anchor.tx;
         int wartZ = anchor.tz;
-        int wartDirX = Integer.signum(wartX != 0 ? wartX : (int)Math.round(xCenter));
-        int wartDirZ = Integer.signum(wartZ != 0 ? wartZ : (int)Math.round(zCenter));
+        int wartDirX = Integer.signum(wartX != 0 ? wartX : (int) Math.round(xCenter));
+        int wartDirZ = Integer.signum(wartZ != 0 ? wartZ : (int) Math.round(zCenter));
         if (wartDirX == 0 && wartDirZ == 0) wartDirZ = 1;
 
-        BlockPos[] candidatesPos = new BlockPos[] {
+        BlockPos[] candidatesPos = new BlockPos[]{
                 base.offset(wartX + wartDirX, anchor.pos.getY(), wartZ + wartDirZ), // outward adjacent on anchor layer
                 base.offset(wartX + wartDirX, anchor.pos.getY() + 1, wartZ + wartDirZ), // outward + up
                 base.offset(wartX, anchor.pos.getY() + 1, wartZ), // on top of wart (center)
@@ -346,5 +343,9 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
     private boolean isSameBlockAs(BlockPos pos, WorldGenLevel level, BlockState state) {
         BlockState s = level.getBlockState(pos);
         return s.getBlock() == state.getBlock();
+    }
+
+    // Small, reusable candidate class for positions
+    private record BlobCandidate(int tx, int tz, double score, BlockPos pos) {
     }
 }

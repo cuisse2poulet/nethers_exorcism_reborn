@@ -26,11 +26,10 @@ public class ModSound {
         return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID, name));
     }
 
-    private static Supplier<SoundEvent> registerSoundEvent(String name){
+    private static Supplier<SoundEvent> registerSoundEvent(String name) {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID, name);
-        return SOUND_EVENTS.register(name,() -> SoundEvent.createVariableRangeEvent(id));
+        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(id));
     }
-
 
 
     public static void register(IEventBus eventBus) {

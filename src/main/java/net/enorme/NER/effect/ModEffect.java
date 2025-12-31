@@ -12,8 +12,8 @@ public class ModEffect {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS =
             DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, NethersExorcismMod.MODID);
 
-public static final Holder<MobEffect> INSTANT_CURE_EFFECT = MOB_EFFECTS.register("instant_cure",
-        () -> new InstantCureEffect(MobEffectCategory.BENEFICIAL,0xBA6BDD));
+    public static final Holder<MobEffect> INSTANT_CURE_EFFECT = MOB_EFFECTS.register("instant_cure",
+            () -> new InstantCureEffect(MobEffectCategory.BENEFICIAL, 0xBA6BDD));
 
 
     public static void register(IEventBus eventBus) {

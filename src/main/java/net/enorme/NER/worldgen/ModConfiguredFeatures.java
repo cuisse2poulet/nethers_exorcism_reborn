@@ -17,9 +17,9 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlac
 
 public class ModConfiguredFeatures {
 
-    public static ResourceKey<ConfiguredFeature<?,?>> INDIGO_KEY = registerKey("indigo");
+    public static ResourceKey<ConfiguredFeature<?, ?>> INDIGO_KEY = registerKey("indigo");
 
-    public static void bootstrap(BootstrapContext<ConfiguredFeature<? , ?>> context){
+    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         context.register(INDIGO_KEY, new ConfiguredFeature<>(
                 ModFeatures.INDIGO_TREE.get(),
                 new TreeConfiguration.TreeConfigurationBuilder(
@@ -32,7 +32,7 @@ public class ModConfiguredFeatures {
         ));
     }
 
-    public static ResourceKey<ConfiguredFeature<? , ?>> registerKey(String name){
+    public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE,
                 ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID, name));
     }

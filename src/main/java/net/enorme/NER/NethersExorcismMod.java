@@ -27,6 +27,7 @@ public class NethersExorcismMod {
     public static final String MODID = "nethers_exorcism_reborn";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
+
     // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace
     public NethersExorcismMod(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
@@ -55,11 +56,11 @@ public class NethersExorcismMod {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS){
+        if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
             event.accept(ModItems.RAW_INDIGO_SALAMANDER_TAIL);
             event.accept(ModItems.COOKED_INDIGO_SALAMANDER_TAIL);
         }
-        if(event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS){
+        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(ModBlocks.INDIGO_PLANKS);
             event.accept(ModBlocks.INDIGO_STEM);
             event.accept(ModBlocks.STRIPPED_INDIGO_STEM);
@@ -74,10 +75,10 @@ public class NethersExorcismMod {
             event.accept(ModBlocks.INDIGO_BUTTON);
             event.accept(ModBlocks.INDIGO_PRESSURE_PLATE);
         }
-        if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES){
+        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(ModItems.GENETIC_MIRACLE_MUSIC_DISC);
         }
-        if(event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
+        if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
             event.accept(ModBlocks.INDIGO_NYLIUM);
             event.accept(ModBlocks.VERDANT_SHROOMLIGHT);
             event.accept(ModBlocks.INDIGO_FUNGUS);
