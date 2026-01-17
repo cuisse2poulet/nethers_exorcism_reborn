@@ -39,9 +39,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         add(ModBlocks.INDIGO_DOOR.get(),
                 block -> createDoorTable(ModBlocks.INDIGO_DOOR.get()));
 
-
-        //for ores:
-        // add(ModBlocks.YOURBLOCK.get(), block -> createOreDrop(ModBlocks.YOURBLOCK.get(),ModItems.YOURITEM.get()));
+        dropSelf(ModBlocks.DNA_VINE_POINT.get());
+        dropSelf(ModBlocks.DNA_VINE.get());
     }
 
     @Override

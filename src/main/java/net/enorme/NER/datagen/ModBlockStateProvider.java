@@ -35,12 +35,24 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         FungusBlock(ModBlocks.INDIGO_FUNGUS);
 
+        crossPlantWithItem(ModBlocks.DNA_VINE);
+        crossPlantWithItem(ModBlocks.DNA_VINE_POINT);
+
         blockItem(ModBlocks.INDIGO_STAIRS);
         blockItem(ModBlocks.INDIGO_SlAB);
         blockItem(ModBlocks.INDIGO_PRESSURE_PLATE);
         blockItem(ModBlocks.INDIGO_FENCE_GATE);
         blockItem(ModBlocks.INDIGO_TRAPDOOR, "_bottom");
 
+    }
+
+    private void crossPlantWithItem(DeferredBlock<?> blockRegistryObject) {
+        simpleBlock(blockRegistryObject.get(),
+                models().cross(BuiltInRegistries.BLOCK.getKey(blockRegistryObject.get()).getPath(),
+                        blockTexture(blockRegistryObject.get())).renderType("cutout"));
+
+        simpleBlockItem(blockRegistryObject.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/" + blockRegistryObject.getId().getPath())));
     }
 
     private void FungusBlock(DeferredBlock<Block> blockRegistryObject) {

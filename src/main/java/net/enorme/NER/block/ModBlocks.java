@@ -1,6 +1,10 @@
 package net.enorme.NER.block;
 
 import net.enorme.NER.NethersExorcismMod;
+import net.enorme.NER.block.custom.DNAVinesBlock;
+import net.enorme.NER.block.custom.DNAVinesPointBlock;
+import net.enorme.NER.block.custom.RotatableBlocks;
+import net.enorme.NER.block.custom.StrippableRotatableBlocks;
 import net.enorme.NER.item.ModItems;
 import net.enorme.NER.worldgen.ModConfiguredFeatures;
 import net.minecraft.world.item.BlockItem;
@@ -17,19 +21,26 @@ public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(NethersExorcismMod.MODID);
 
+    //Indigo Wood Set
     public static final DeferredBlock<Block> INDIGO_PLANKS = register("indigo_planks",
             () -> new Block(BlockBehaviour.Properties.of().strength(2f).sound(SoundType.NETHER_WOOD)));
+
     public static final DeferredBlock<StairBlock> INDIGO_STAIRS = register("indigo_stairs",
             () -> new StairBlock(ModBlocks.INDIGO_PLANKS.get().defaultBlockState(),
                     BlockBehaviour.Properties.of().strength(2f).sound(SoundType.NETHER_WOOD)));
+
     public static final DeferredBlock<Block> INDIGO_STEM = register("indigo_stem",
             () -> new StrippableRotatableBlocks(BlockBehaviour.Properties.of().strength(2f).sound(SoundType.STEM)));
+
     public static final DeferredBlock<Block> STRIPPED_INDIGO_STEM = register("stripped_indigo_stem",
             () -> new RotatableBlocks(BlockBehaviour.Properties.of().strength(2f).sound(SoundType.STEM)));
+
     public static final DeferredBlock<Block> INDIGO_HYPHAE = register("indigo_hyphae",
             () -> new StrippableRotatableBlocks(BlockBehaviour.Properties.of().strength(2f).sound(SoundType.STEM)));
+
     public static final DeferredBlock<Block> STRIPPED_INDIGO_HYPHAE = register("stripped_indigo_hyphae",
             () -> new RotatableBlocks(BlockBehaviour.Properties.of().strength(2f).sound(SoundType.STEM)));
+
     public static final DeferredBlock<SlabBlock> INDIGO_SlAB = register("indigo_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.of().strength(2f).sound(SoundType.NETHER_WOOD)));
 
@@ -61,11 +72,20 @@ public class ModBlocks {
                     BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_FUNGUS)
             )
     );
+
     public static final DeferredBlock<Block> INDIGO_WART_BLOCK = register("indigo_wart_block",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_WART_BLOCK).strength(1f).sound(SoundType.WART_BLOCK)));
 
     public static final DeferredBlock<Block> VERDANT_SHROOMLIGHT = register("verdant_shroomlight",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SHROOMLIGHT).strength(1f).sound(SoundType.SHROOMLIGHT)));
+
+
+    public static final DeferredBlock<DNAVinesBlock> DNA_VINE = register("dna_vine",
+            () -> new DNAVinesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TWISTING_VINES_PLANT)));
+
+    public static final DeferredBlock<DNAVinesPointBlock> DNA_VINE_POINT = register("dna_vine_point",
+            () -> new DNAVinesPointBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TWISTING_VINES)));
+
 
     private static <T extends Block> DeferredBlock<T> register(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

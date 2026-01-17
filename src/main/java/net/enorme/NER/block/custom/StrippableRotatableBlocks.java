@@ -1,5 +1,6 @@
-package net.enorme.NER.block;
+package net.enorme.NER.block.custom;
 
+import net.enorme.NER.block.ModBlocks;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.RotatedPillarBlock;

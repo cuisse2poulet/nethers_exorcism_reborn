@@ -1,4 +1,4 @@
-package net.enorme.NER.block;
+package net.enorme.NER.block.custom;
 
 import net.minecraft.world.level.block.RotatedPillarBlock;
 
