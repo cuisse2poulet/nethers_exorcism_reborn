@@ -1,8 +1,13 @@
 package net.enorme.NER.block;
 
 import net.enorme.NER.NethersExorcismMod;
-import net.enorme.NER.block.custom.DNAVinesBlock;
-import net.enorme.NER.block.custom.DNAVinesPointBlock;
+import net.enorme.NER.block.custom.plants.IndigoRootsBlock;
+import net.enorme.NER.block.custom.plants.IndigoSproutsBlock;
+import net.enorme.NER.block.custom.plants.candlespire.IndigoCandleSpire;
+import net.enorme.NER.block.custom.plants.coilsprout.CoilSproutBlock;
+import net.enorme.NER.block.custom.plants.coilsprout.CoilSproutTopBlock;
+import net.enorme.NER.block.custom.plants.dna.DNAVinesBlock;
+import net.enorme.NER.block.custom.plants.dna.DNAVinesPointBlock;
 import net.enorme.NER.block.custom.RotatableBlocks;
 import net.enorme.NER.block.custom.StrippableRotatableBlocks;
 import net.enorme.NER.item.ModItems;
@@ -85,6 +90,21 @@ public class ModBlocks {
 
     public static final DeferredBlock<DNAVinesPointBlock> DNA_VINE_POINT = register("dna_vine_point",
             () -> new DNAVinesPointBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TWISTING_VINES)));
+
+    public static final DeferredBlock<CoilSproutBlock> INDIGO_COILSPROUT = register("indigo_coilsprout_bottom",
+            () -> new CoilSproutBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WEEPING_VINES)));
+
+    public static final DeferredBlock<CoilSproutTopBlock> INDIGO_COILSPROUT_TOP = register("indigo_coilsprout_top",
+            () -> new CoilSproutTopBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WEEPING_VINES_PLANT)));
+
+    public static final DeferredBlock<IndigoCandleSpire> INDIGO_CANDLESPIRE = register("indigo_candlespire",
+            () -> new IndigoCandleSpire(BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS).noOcclusion().noCollission()));
+
+    public static final DeferredBlock<IndigoRootsBlock> INDIGO_ROOTS = register("indigo_roots",
+            () -> new IndigoRootsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_ROOTS).noCollission().noOcclusion()));
+
+    public static final DeferredBlock<IndigoSproutsBlock> INDIGO_SPROUTS = register("indigo_sprout",
+            () -> new IndigoSproutsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_SPROUTS).noCollission().noOcclusion()));
 
 
     private static <T extends Block> DeferredBlock<T> register(String name, Supplier<T> block) {

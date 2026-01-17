@@ -40,7 +40,15 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                 block -> createDoorTable(ModBlocks.INDIGO_DOOR.get()));
 
         dropSelf(ModBlocks.DNA_VINE_POINT.get());
-        dropSelf(ModBlocks.DNA_VINE.get());
+        dropOther(ModBlocks.DNA_VINE.get(), ModBlocks.DNA_VINE_POINT.get());
+
+        dropSelf(ModBlocks.INDIGO_COILSPROUT_TOP.get());
+        dropOther(ModBlocks.INDIGO_COILSPROUT.get(),ModBlocks.INDIGO_COILSPROUT_TOP.get());
+
+        dropSelf(ModBlocks.INDIGO_CANDLESPIRE.get());
+
+        dropSelf(ModBlocks.INDIGO_ROOTS.get());
+        dropSelf(ModBlocks.INDIGO_SPROUTS.get());
     }
 
     @Override

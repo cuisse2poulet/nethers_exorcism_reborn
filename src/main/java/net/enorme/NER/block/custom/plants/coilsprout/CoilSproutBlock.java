@@ -1,0 +1,34 @@
+package net.enorme.NER.block.custom.plants.coilsprout;
+
+import com.mojang.serialization.MapCodec;
+import net.enorme.NER.block.ModBlocks;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.GrowingPlantBodyBlock;
+import net.minecraft.world.level.block.GrowingPlantHeadBlock;
+import net.minecraft.world.phys.shapes.VoxelShape;
+
+public class CoilSproutBlock extends GrowingPlantBodyBlock {
+    private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D);
+
+    public static final MapCodec<CoilSproutBlock> CODEC = simpleCodec(CoilSproutBlock::new);
+
+    public CoilSproutBlock(Properties properties) {
+        super(properties, Direction.DOWN, SHAPE, true);
+    }
+
+    @Override
+    protected MapCodec<? extends GrowingPlantBodyBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    protected GrowingPlantHeadBlock getHeadBlock() {
+        return ModBlocks.INDIGO_COILSPROUT_TOP.get();
+    }
+
+    @Override
+    protected Block getBodyBlock() {
+        return ModBlocks.INDIGO_COILSPROUT.get();
+    }
+}
