@@ -1,6 +1,7 @@
 package net.enorme.NER.block;
 
 import net.enorme.NER.NethersExorcismMod;
+import net.enorme.NER.block.custom.IndigoNyliumBlock;
 import net.enorme.NER.block.custom.plants.IndigoRootsBlock;
 import net.enorme.NER.block.custom.plants.IndigoSproutsBlock;
 import net.enorme.NER.block.custom.plants.candlespire.IndigoCandleSpire;
@@ -68,8 +69,9 @@ public class ModBlocks {
     public static final DeferredBlock<TrapDoorBlock> INDIGO_TRAPDOOR = register("indigo_trapdoor",
             () -> new TrapDoorBlock(NERBlockSetType.INDIGO, BlockBehaviour.Properties.of().strength(2f).sound(SoundType.NETHER_WOOD).noOcclusion()));
 
-    public static final DeferredBlock<Block> INDIGO_NYLIUM = register("indigo_nylium",
-            () -> new Block(BlockBehaviour.Properties.of().strength(1f).sound(SoundType.NYLIUM)));
+    public static final DeferredBlock<IndigoNyliumBlock> INDIGO_NYLIUM = register("indigo_nylium",
+            () -> new IndigoNyliumBlock(BlockBehaviour.Properties.of().strength(1f).sound(SoundType.NYLIUM)));
+
     public static final DeferredBlock<Block> INDIGO_FUNGUS = register("indigo_fungus",
             () -> new FungusBlock(
                     ModConfiguredFeatures.INDIGO_KEY,
