@@ -5,6 +5,7 @@ import net.enorme.NER.block.ModBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -62,5 +63,16 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         tag(BlockTags.WOODEN_STAIRS)
                 .add(ModBlocks.INDIGO_STAIRS.get());
 
+        tag(ModTags.INDIGO_SPROUTS_PLACEABLE)
+                .addTag(BlockTags.NYLIUM)
+                .add(Blocks.NETHERRACK)
+                .add(Blocks.SOUL_SOIL)
+                .add(Blocks.NETHERRACK)
+                .add(ModBlocks.INDIGO_NYLIUM.get());
+
+    }
+    @Override
+    public String getName() {
+        return "NER Block Tags";
     }
 }
