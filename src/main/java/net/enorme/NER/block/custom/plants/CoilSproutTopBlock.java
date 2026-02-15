@@ -1,4 +1,4 @@
-package net.enorme.NER.block.custom.plants.coilsprout;
+package net.enorme.NER.block.custom.plants;
 
 
 import com.mojang.serialization.MapCodec;

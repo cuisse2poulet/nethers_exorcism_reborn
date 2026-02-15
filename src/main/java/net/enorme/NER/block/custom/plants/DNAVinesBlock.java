@@ -1,4 +1,4 @@
-package net.enorme.NER.block.custom.plants.dna;
+package net.enorme.NER.block.custom.plants;
 
 import com.mojang.serialization.MapCodec;
 import net.enorme.NER.block.ModBlocks;
