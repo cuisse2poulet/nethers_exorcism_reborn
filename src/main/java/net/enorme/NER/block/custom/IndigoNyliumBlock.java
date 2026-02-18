@@ -1,5 +1,6 @@
 package net.enorme.NER.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import net.enorme.NER.worldgen.ModConfiguredFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,8 +21,15 @@ import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
 public class IndigoNyliumBlock extends Block implements BonemealableBlock {
+    public static final MapCodec<IndigoNyliumBlock> CODEC = simpleCodec(IndigoNyliumBlock::new);
+
     public IndigoNyliumBlock(BlockBehaviour.Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public MapCodec<IndigoNyliumBlock> codec() {
+        return CODEC;
     }
 
     private static boolean canBeNylium(BlockState state, LevelReader reader, BlockPos pos) {
@@ -41,20 +49,7 @@ public class IndigoNyliumBlock extends Block implements BonemealableBlock {
 
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-        if (state.getBlock() == this) {
-            return level.getBlockState(pos.above()).isAir();
-        }
-
-        if (state.is(Blocks.NETHERRACK)) {
-            for (Direction dir : Direction.Plane.HORIZONTAL) {
-                BlockPos adjPos = pos.relative(dir);
-                if (level.getBlockState(adjPos).getBlock() == this) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return level.getBlockState(pos.above()).isAir();
     }
 
     @Override
@@ -64,75 +59,39 @@ public class IndigoNyliumBlock extends Block implements BonemealableBlock {
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-        if (state.is(Blocks.NETHERRACK)) {
-            boolean foundNylium = false;
-            for (Direction dir : Direction.Plane.HORIZONTAL) {
-                BlockPos adjPos = pos.relative(dir);
-                if (level.getBlockState(adjPos).getBlock() == this) {
-                    foundNylium = true;
-                    break;
-                }
-            }
-
-            if (!foundNylium) {
-                return;
-            }
-
-            level.setBlockAndUpdate(pos, this.defaultBlockState());
-
-            growVegetation(level, random, pos, this.defaultBlockState());
-
-            return;
-        }
-
-        if (state.getBlock() == this) {
-            growVegetation(level, random, pos, state);
-        }
-    }
-
-    /**
-     * Grows Indigo vegetation above this nylium block. No nylium spreading here.
-     */
-    private void growVegetation(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-        BlockPos placePos = pos.above();
-        if (!level.getBlockState(placePos).isAir()) {
-            return;
-        }
-
-        ChunkGenerator chunkGenerator = level.getChunkSource().getGenerator();
+        BlockPos abovePos = pos.above();
+        ChunkGenerator chunkGen = level.getChunkSource().getGenerator();
         Registry<ConfiguredFeature<?, ?>> registry =
                 level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE);
 
-        boolean placedAny = false;
+        if (state.getBlock() == this) {
+            place(registry, ModConfiguredFeatures.INDIGO_FOREST_VEGETATION_BONEMEAL,
+                    level, chunkGen, random, abovePos);
 
-        if (random.nextInt(16) == 0) { // 1/16 chance
-            placedAny |= place(registry, ModConfiguredFeatures.INDIGO_FOREST_VEGETATION_BONEMEAL,
-                    level, chunkGenerator, random, placePos);
-        }
-        if (random.nextInt(6) == 0) { // 1/6 chance
-            placedAny |= place(registry, ModConfiguredFeatures.INDIGO_SPROUTS_BONEMEAL,
-                    level, chunkGenerator, random, placePos);
-        }
-        if (random.nextInt(16) == 0) { // 1/16 chance
-            placedAny |= place(registry, ModConfiguredFeatures.INDIGO_COILSPROUT_BONEMEAL,
-                    level, chunkGenerator, random, placePos);
-        }
-        if (!placedAny && random.nextBoolean()) {
             place(registry, ModConfiguredFeatures.INDIGO_SPROUTS_BONEMEAL,
-                    level, chunkGenerator, random, placePos);
+                    level, chunkGen, random, abovePos);
+
+            if (random.nextInt(8) == 0) {
+                place(registry, ModConfiguredFeatures.INDIGO_COILSPROUT_BONEMEAL,
+                        level, chunkGen, random, abovePos);
+            }
         }
     }
 
-    private boolean place(
-            Registry<ConfiguredFeature<?, ?>> featureRegistry,
-            ResourceKey<ConfiguredFeature<?, ?>> featureKey,
+    private void place(
+            Registry<ConfiguredFeature<?, ?>> registry,
+            ResourceKey<ConfiguredFeature<?, ?>> key,
             ServerLevel level,
-            ChunkGenerator chunkGenerator,
+            ChunkGenerator chunkGen,
             RandomSource random,
             BlockPos pos
     ) {
-        return featureRegistry.getHolder(featureKey)
-                .map(holder -> holder.value().place(level, chunkGenerator, random, pos))
-                .orElse(false);
+        registry.getHolder(key)
+                .ifPresent(holder -> holder.value().place(level, chunkGen, random, pos));
+    }
+
+    @Override
+    public BonemealableBlock.Type getType() {
+        return BonemealableBlock.Type.NEIGHBOR_SPREADER;
     }
 }
