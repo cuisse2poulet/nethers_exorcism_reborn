@@ -63,12 +63,6 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         tag(BlockTags.WOODEN_STAIRS)
                 .add(ModBlocks.INDIGO_STAIRS.get());
 
-        tag(ModTags.INDIGO_SPROUTS_PLACEABLE)
-                .addTag(BlockTags.NYLIUM)
-                .add(Blocks.NETHERRACK)
-                .add(Blocks.SOUL_SOIL)
-                .add(Blocks.NETHERRACK)
-                .add(ModBlocks.INDIGO_NYLIUM.get());
 
     }
     @Override

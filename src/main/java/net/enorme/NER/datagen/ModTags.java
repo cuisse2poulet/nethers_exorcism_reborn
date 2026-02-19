@@ -7,10 +7,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
 public class ModTags {
-    public static final TagKey<Block> INDIGO_SPROUTS_PLACEABLE =
-            create("indigo_sprouts_placeable");
 
-    private static TagKey<Block> create(String name) {
+    private static TagKey<Block> createBlockTags(String name) {
         return TagKey.create(Registries.BLOCK,  ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID, name));
     }
 }
