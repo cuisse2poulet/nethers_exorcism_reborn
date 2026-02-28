@@ -2,9 +2,9 @@ package net.enorme.NER.event;
 
 import net.enorme.NER.block.ModBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,14 +19,14 @@ public class ModEvents {
     public static void onBonemeal(BonemealEvent event) {
         Level level = event.getLevel();
         if (level.isClientSide()) return;
-
         BlockPos pos = event.getPos();
         BlockState state = level.getBlockState(pos);
-
         if (!state.is(Blocks.NETHERRACK)) {
             return;
         }
-
+        if (level.getBlockState(pos.above()).canOcclude()) {
+            return;
+        }
         boolean hasIndigoNeighbor = false;
         int radius = 1;
         for (int dx = -radius; dx <= radius && !hasIndigoNeighbor; dx++) {
@@ -45,13 +45,14 @@ public class ModEvents {
         if (!hasIndigoNeighbor) {
             return;
         }
-
         level.setBlockAndUpdate(pos, ModBlocks.INDIGO_NYLIUM.get().defaultBlockState());
-
         if (level instanceof ServerLevel serverLevel) {
             spawnBonemealParticles(serverLevel, pos);
         }
-
+        Player player = event.getPlayer();
+        if (player == null || !player.getAbilities().instabuild) {
+            event.getStack().shrink(1);
+        }
         event.setSuccessful(true);
     }
 
@@ -60,15 +61,11 @@ public class ModEvents {
         double y = pos.getY() + 1.0;
         double z = pos.getZ() + 0.5;
 
-        int i = level.sendParticles(
+        level.sendParticles(
                 ParticleTypes.HAPPY_VILLAGER,
-                x,
-                y,
-                z,
+                x, y, z,
                 8,
-                0.3D,
-                0.3D,
-                0.3D,
+                0.3D, 0.3D, 0.3D,
                 0.0D
         );
     }
