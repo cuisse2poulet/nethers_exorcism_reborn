@@ -91,9 +91,9 @@ public class ModConfiguredFeatures {
                 Feature.RANDOM_SELECTOR,
                 new RandomFeatureConfiguration(
                         List.of(
-                                new WeightedPlacedFeature(placed.getOrThrow(ModPlacedFeatures.INDIGO_ROOT_PATCH), 6.0F),
-                                new WeightedPlacedFeature(placed.getOrThrow(ModPlacedFeatures.INDIGO_SPROUTS_PATCH), 4.0F),
-                                new WeightedPlacedFeature(placed.getOrThrow(ModPlacedFeatures.INDIGO_FUNGUS_PATCH), 1.0F)
+                                new WeightedPlacedFeature(placed.getOrThrow(ModPlacedFeatures.INDIGO_ROOT_PATCH), 0.545f),
+                                new WeightedPlacedFeature(placed.getOrThrow(ModPlacedFeatures.INDIGO_SPROUTS_PATCH), 0.364f),
+                                new WeightedPlacedFeature(placed.getOrThrow(ModPlacedFeatures.INDIGO_FUNGUS_PATCH), 0.091f)
                         ),
                         placed.getOrThrow(ModPlacedFeatures.INDIGO_CANDLESPIRE_PATCH)
                 )
@@ -103,9 +103,9 @@ public class ModConfiguredFeatures {
                 Feature.RANDOM_SELECTOR,
                 new RandomFeatureConfiguration(
                         List.of(
-                                new WeightedPlacedFeature(placed.getOrThrow(ModPlacedFeatures.INDIGO_ROOT_PATCH), 6.0F),
-                                new WeightedPlacedFeature(placed.getOrThrow(ModPlacedFeatures.INDIGO_SPROUTS_PATCH), 4.0F),
-                                new WeightedPlacedFeature(placed.getOrThrow(ModPlacedFeatures.INDIGO_FUNGUS_PATCH), 1.0F)
+                                new WeightedPlacedFeature(placed.getOrThrow(ModPlacedFeatures.INDIGO_ROOT_PATCH), 0.545f),
+                                new WeightedPlacedFeature(placed.getOrThrow(ModPlacedFeatures.INDIGO_SPROUTS_PATCH), 0.364f),
+                                new WeightedPlacedFeature(placed.getOrThrow(ModPlacedFeatures.INDIGO_FUNGUS_PATCH), 0.091f)
                         ),
                         placed.getOrThrow(ModPlacedFeatures.INDIGO_CANDLESPIRE_PATCH)
                 )

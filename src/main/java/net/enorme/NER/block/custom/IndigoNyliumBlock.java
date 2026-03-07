@@ -67,23 +67,9 @@ public class IndigoNyliumBlock extends Block implements BonemealableBlock {
         Registry<ConfiguredFeature<?, ?>> registry =
                 level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE);
 
-        int roll = random.nextInt(12);
-
-        if (roll < 6) {
-            place(registry, ModConfiguredFeatures.INDIGO_ROOT_BONEMEAL,
-                    level, chunkGen, random, abovePos);
-        } else if (roll < 10) {
-            place(registry, ModConfiguredFeatures.INDIGO_SPROUTS_BONEMEAL,
-                    level, chunkGen, random, abovePos);
-        } else if (roll < 11) {
-            place(registry, ModConfiguredFeatures.INDIGO_FUNGUS_BONEMEAL,
-                    level, chunkGen, random, abovePos);
-        } else {
-            place(registry, ModConfiguredFeatures.INDIGO_CANDLESPIRE_BONEMEAL,
-                    level, chunkGen, random, abovePos);
-        }
+        place(registry, ModConfiguredFeatures.DNA_FOREST_VEGETATION_BONEMEAL,
+                level, chunkGen, random, abovePos);
     }
-
     private void place(
             Registry<ConfiguredFeature<?, ?>> registry,
             ResourceKey<ConfiguredFeature<?, ?>> key,
