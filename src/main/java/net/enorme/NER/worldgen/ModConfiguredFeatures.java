@@ -12,6 +12,7 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.NetherForestVegetationConfig;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -56,34 +57,38 @@ public class ModConfiguredFeatures {
         ));
 
         FeatureUtils.register(context, INDIGO_ROOT_BONEMEAL,
-                Feature.RANDOM_PATCH,
-                FeatureUtils.simplePatchConfiguration(
-                        Feature.SIMPLE_BLOCK,
-                        new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.INDIGO_ROOTS.get()))
+                ModFeatures.INDIGO_FOREST_VEGETATION.get(),
+                new NetherForestVegetationConfig(
+                        BlockStateProvider.simple(ModBlocks.INDIGO_ROOTS.get()),
+                        7,
+                        1
                 )
         );
 
         FeatureUtils.register(context, INDIGO_SPROUTS_BONEMEAL,
-                Feature.RANDOM_PATCH,
-                FeatureUtils.simplePatchConfiguration(
-                        Feature.SIMPLE_BLOCK,
-                        new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.INDIGO_SPROUTS.get()))
+                ModFeatures.INDIGO_FOREST_VEGETATION.get(),
+                new NetherForestVegetationConfig(
+                        BlockStateProvider.simple(ModBlocks.INDIGO_SPROUTS.get()),
+                        7,
+                        1
                 )
         );
 
         FeatureUtils.register(context, INDIGO_FUNGUS_BONEMEAL,
-                Feature.RANDOM_PATCH,
-                FeatureUtils.simplePatchConfiguration(
-                        Feature.SIMPLE_BLOCK,
-                        new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.INDIGO_FUNGUS.get()))
+                ModFeatures.INDIGO_FOREST_VEGETATION.get(),
+                new NetherForestVegetationConfig(
+                        BlockStateProvider.simple(ModBlocks.INDIGO_FUNGUS.get()),
+                        7,
+                        1
                 )
         );
 
         FeatureUtils.register(context, INDIGO_CANDLESPIRE_BONEMEAL,
-                Feature.RANDOM_PATCH,
-                FeatureUtils.simplePatchConfiguration(
-                        Feature.SIMPLE_BLOCK,
-                        new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.INDIGO_CANDLESPIRE.get()))
+                ModFeatures.INDIGO_FOREST_VEGETATION.get(),
+                new NetherForestVegetationConfig(
+                        BlockStateProvider.simple(ModBlocks.INDIGO_CANDLESPIRE.get()),
+                        7,
+                        1
                 )
         );
 

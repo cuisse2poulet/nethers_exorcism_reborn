@@ -31,7 +31,6 @@ public class ModPlacedFeatures {
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
 
-        // Patch placed features (these wrap your 4 RANDOM_PATCH configured features)
         register(context, INDIGO_ROOT_PATCH,
                 configuredFeatures.getOrThrow(ModConfiguredFeatures.INDIGO_ROOT_BONEMEAL),
                 List.of()
@@ -49,7 +48,6 @@ public class ModPlacedFeatures {
                 List.of()
         );
 
-        // These point at selector configured features (you still need to register them in ModConfiguredFeatures)
         register(context, DNA_FOREST_VEGETATION,
                 configuredFeatures.getOrThrow(ModConfiguredFeatures.DNA_FOREST_VEGETATION),
                 List.of()
