@@ -6,6 +6,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NetherForestVegetationConfig;
@@ -22,14 +24,14 @@ public class IndigoForestVegetationFeature extends Feature<NetherForestVegetatio
         BlockState state = level.getBlockState(pos.below());
         NetherForestVegetationConfig config = context.config();
         RandomSource random = context.random();
-        
+
         if (!state.is(ModBlocks.INDIGO_NYLIUM.get())) {
             return false;
         }
 
         int placed = 0;
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
-        
+
         for (int i = 0; i < config.spreadWidth * config.spreadWidth; i++) {
             mutablePos.setWithOffset(
                 pos,
@@ -42,8 +44,23 @@ public class IndigoForestVegetationFeature extends Feature<NetherForestVegetatio
                 continue;
             }
 
-            if (level.isEmptyBlock(mutablePos) && config.stateProvider.getState(random, mutablePos).canSurvive(level, mutablePos)) {
-                level.setBlock(mutablePos, config.stateProvider.getState(random, mutablePos), 2);
+            if (!level.isEmptyBlock(mutablePos)) {
+                continue;
+            }
+
+            BlockState placeState = config.stateProvider.getState(random, mutablePos);
+            if (!placeState.canSurvive(level, mutablePos)) {
+                continue;
+            }
+
+            if (placeState.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
+                if (level.isEmptyBlock(mutablePos.above())) {
+                    level.setBlock(mutablePos, placeState.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER), 2);
+                    level.setBlock(mutablePos.above(), placeState.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER), 2);
+                    placed++;
+                }
+            } else {
+                level.setBlock(mutablePos, placeState, 2);
                 placed++;
             }
         }
