@@ -82,6 +82,11 @@ public class NethersExorcismMod {
             event.accept(ModBlocks.INDIGO_NYLIUM);
             event.accept(ModBlocks.VERDANT_SHROOMLIGHT);
             event.accept(ModBlocks.INDIGO_FUNGUS);
+            event.accept(ModBlocks.INDIGO_ROOTS);
+            event.accept(ModBlocks.INDIGO_SPROUTS);
+            event.accept(ModBlocks.INDIGO_CANDLESPIRE);
+            event.accept(ModBlocks.INDIGO_COILSPROUT_TOP);
+            event.accept(ModBlocks.DNA_VINE_POINT);
         }
     }
 
