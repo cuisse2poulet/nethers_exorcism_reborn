@@ -23,11 +23,17 @@ import net.neoforged.fml.common.Mod;
 public class ModConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> INDIGO_KEY = registerKey("indigo");
+    
+    public static final ResourceKey<ConfiguredFeature<?, ?>> INDIGO_TREES = registerKey("indigo_trees");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> DNA_FOREST_VEGETATION_BONEMEAL =
             registerKey("dna_forest_vegetation_bonemeal");
+    
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DNA_FOREST_VEGETATION_WORLDGEN =
+            registerKey("dna_forest_vegetation_worldgen");
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
+        // Single tree configuration
         context.register(INDIGO_KEY, new ConfiguredFeature<>(
                 ModFeatures.INDIGO_TREE.get(),
                 new TreeConfiguration.TreeConfigurationBuilder(
@@ -38,8 +44,20 @@ public class ModConfiguredFeatures {
                         new TwoLayersFeatureSize(1, 0, 1)
                 ).build()
         ));
+        
+        // Trees for world generation (sparse placement)
+        context.register(INDIGO_TREES, new ConfiguredFeature<>(
+                ModFeatures.INDIGO_TREE.get(),
+                new TreeConfiguration.TreeConfigurationBuilder(
+                        BlockStateProvider.simple(ModBlocks.INDIGO_STEM.get()),
+                        new StraightTrunkPlacer(1, 0, 0),
+                        BlockStateProvider.simple(ModBlocks.INDIGO_WART_BLOCK.get()),
+                        new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), 4),
+                        new TwoLayersFeatureSize(1, 0, 1)
+                ).build()
+        ));
 
-
+        // Vegetation for bonemeal
         FeatureUtils.register(context, DNA_FOREST_VEGETATION_BONEMEAL,
                 ModFeatures.INDIGO_FOREST_VEGETATION.get(),
                 new NetherForestVegetationConfig(
@@ -51,6 +69,22 @@ public class ModConfiguredFeatures {
                                 .add(ModBlocks.INDIGO_COILSPROUT.get().defaultBlockState(), 3)
                                 .build()),
                         3,
+                        4
+                )
+        );
+        
+        // Vegetation for world generation (more dense)
+        FeatureUtils.register(context, DNA_FOREST_VEGETATION_WORLDGEN,
+                ModFeatures.INDIGO_FOREST_VEGETATION.get(),
+                new NetherForestVegetationConfig(
+                        new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                                .add(ModBlocks.INDIGO_ROOTS.get().defaultBlockState(), 85)
+                                .add(ModBlocks.INDIGO_SPROUTS.get().defaultBlockState(), 30)
+                                .add(ModBlocks.INDIGO_FUNGUS.get().defaultBlockState(), 10)
+                                .add(ModBlocks.INDIGO_CANDLESPIRE.get().defaultBlockState(), 8)
+                                .add(ModBlocks.INDIGO_COILSPROUT.get().defaultBlockState(), 8)
+                                .build()),
+                        8,
                         4
                 )
         );
