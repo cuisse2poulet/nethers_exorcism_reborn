@@ -27,8 +27,25 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         RandomSource random = ctx.random();
         TreeConfiguration config = ctx.config();
 
+        // Reject nether roof crust: bedrock close below means we are on the ceiling
+        if (nearBedrock(level, base)) {
+            return false;
+        }
+
         int minHeight = 32, maxHeight = 64;
         int height = minHeight + random.nextInt(maxHeight - minHeight + 1);
+
+        // Clamp height so cap + pyramid never breach bedrock roof
+        int pyramidLayers = 2;
+        int reserved = 6;
+        int roofY = findRoofY(level, base, 7, maxHeight + 8);
+        if (roofY != Integer.MAX_VALUE) {
+            int maxHeightByRoof = roofY - base.getY() - pyramidLayers - reserved;
+            if (maxHeightByRoof < minHeight) {
+                return false;
+            }
+            height = Math.min(height, maxHeightByRoof);
+        }
 
         int turns = 2 + random.nextInt(4);
         double twoPi = Math.PI * 2;
@@ -40,6 +57,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         BlockState shroomLight = ModBlocks.VERDANT_SHROOMLIGHT.get().defaultBlockState();
 
         for (int y = 0; y < height; y++) {
+            if (base.getY() + y >= roofY) break;
             double t = (double) y / (height - 1);
 
             double angle1 = t * turns * twoPi;
@@ -76,10 +94,9 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         int capStart = Math.max(0, height - capHeight);
         int capRadius = 5;
         // use helper to place cap + drips (extracted to reduce duplication)
-        placeCap(level, base, wart, random, capStart, height, capRadius);
+        placeCap(level, base, wart, random, capStart, height, capRadius, roofY);
 
         int pyramidBaseRadius = 5;
-        int pyramidLayers = 2;
         for (int py = 0; py < pyramidLayers; py++) {
             int layerRadius = Math.max(0, pyramidBaseRadius - py);
             int yLevel = height + py;
@@ -87,7 +104,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
                 for (int dz = -layerRadius; dz <= layerRadius; dz++) {
                     if (dx * dx + dz * dz <= layerRadius * layerRadius + 1.0) {
                         BlockPos pyramidPos = base.offset(dx, yLevel, dz);
-                        if (!level.isOutsideBuildHeight(pyramidPos) && (level.isEmptyBlock(pyramidPos) || isReplaceableDirt(level, pyramidPos))) {
+                        if (pyramidPos.getY() < roofY && !level.isOutsideBuildHeight(pyramidPos) && (level.isEmptyBlock(pyramidPos) || isReplaceableDirt(level, pyramidPos))) {
                             level.setBlock(pyramidPos, wart, 2);
                         }
                     }
@@ -159,13 +176,13 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
                 placedBottom.addAll(nonTouchingBottom);
                 placedBottom.sort(Comparator.comparingDouble((BlobCandidate c) -> c.score).reversed());
 
-                BlobCandidate bestMain = placeCandidates(level, wart, placedMain);
-                BlobCandidate bestTop = placeCandidates(level, wart, placedTop);
-                BlobCandidate bestBottom = placeCandidates(level, wart, placedBottom);
+                BlobCandidate bestMain = placeCandidates(level, wart, placedMain, roofY);
+                BlobCandidate bestTop = placeCandidates(level, wart, placedTop, roofY);
+                BlobCandidate bestBottom = placeCandidates(level, wart, placedBottom, roofY);
 
                 BlobCandidate anchor = bestTop != null ? bestTop : (bestMain != null ? bestMain : bestBottom);
                 if (anchor != null) {
-                    placeShroomlightAttached(level, base, trunk, shroomLight, anchor, xCenter, zCenter);
+                    placeShroomlightAttached(level, base, trunk, shroomLight, anchor, xCenter, zCenter, roofY);
                 }
             }
         }
@@ -177,7 +194,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
     /**
      * Place cap layers and drips (extracted to reduce duplication).
      */
-    private void placeCap(WorldGenLevel level, BlockPos base, BlockState wart, RandomSource random, int capStart, int height, int capRadius) {
+    private void placeCap(WorldGenLevel level, BlockPos base, BlockState wart, RandomSource random, int capStart, int height, int capRadius, int roofY) {
         for (int y = capStart; y < height; y++) {
             for (int dx = -capRadius; dx <= capRadius; dx++) {
                 for (int dz = -capRadius; dz <= capRadius; dz++) {
@@ -185,14 +202,14 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
                     double distSq = dx * dx + dz * dz;
                     if (distSq <= capRadius * capRadius + 2.0) {
                         BlockPos capPos = base.offset(dx, y, dz);
-                        if (!level.isOutsideBuildHeight(capPos) && (level.isEmptyBlock(capPos) || isReplaceableDirt(level, capPos))) {
+                        if (capPos.getY() < roofY && !level.isOutsideBuildHeight(capPos) && (level.isEmptyBlock(capPos) || isReplaceableDirt(level, capPos))) {
                             level.setBlock(capPos, wart, 2);
                         }
                         if (y == capStart && distSq >= (capRadius - 1) * (capRadius - 1) && random.nextDouble() < 0.65) {
                             int dripLen = 2 + random.nextInt(3);
                             for (int d = 1; d <= dripLen; d++) {
                                 BlockPos dripPos = base.offset(dx, y - d, dz);
-                                if (!level.isOutsideBuildHeight(dripPos) && (level.isEmptyBlock(dripPos) || isReplaceableDirt(level, dripPos))) {
+                                if (dripPos.getY() < roofY && !level.isOutsideBuildHeight(dripPos) && (level.isEmptyBlock(dripPos) || isReplaceableDirt(level, dripPos))) {
                                     level.setBlock(dripPos, wart, 2);
                                 }
                             }
@@ -201,7 +218,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
                             int dripLen = 1 + random.nextInt(2);
                             for (int d = 1; d <= dripLen; d++) {
                                 BlockPos dripPos = base.offset(dx, y - d, dz);
-                                if (!level.isOutsideBuildHeight(dripPos) && (level.isEmptyBlock(dripPos) || isReplaceableDirt(level, dripPos))) {
+                                if (dripPos.getY() < roofY && !level.isOutsideBuildHeight(dripPos) && (level.isEmptyBlock(dripPos) || isReplaceableDirt(level, dripPos))) {
                                     level.setBlock(dripPos, wart, 2);
                                 }
                             }
@@ -291,10 +308,10 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
     /**
      * Place blocks for a sorted list of candidates. Returns the first-placed candidate (most outward placed), or null.
      */
-    private BlobCandidate placeCandidates(WorldGenLevel level, BlockState wart, List<BlobCandidate> candidates) {
+    private BlobCandidate placeCandidates(WorldGenLevel level, BlockState wart, List<BlobCandidate> candidates, int roofY) {
         BlobCandidate best = null;
         for (BlobCandidate c : candidates) {
-            if (!level.isOutsideBuildHeight(c.pos) && (level.isEmptyBlock(c.pos) || isReplaceableDirt(level, c.pos))) {
+            if (c.pos.getY() < roofY && !level.isOutsideBuildHeight(c.pos) && (level.isEmptyBlock(c.pos) || isReplaceableDirt(level, c.pos))) {
                 level.setBlock(c.pos, wart, 2);
                 if (best == null) best = c;
             }
@@ -307,7 +324,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
      * Preference order: outward adjacent on same layer, outward+up, on-top, orthogonal outwards, fallback to wart.
      */
     private void placeShroomlightAttached(WorldGenLevel level, BlockPos base, BlockState trunk, BlockState shroomLight,
-                                          BlobCandidate anchor, double xCenter, double zCenter) {
+                                          BlobCandidate anchor, double xCenter, double zCenter, int roofY) {
         int wartX = anchor.tx;
         int wartZ = anchor.tz;
         int wartDirX = Integer.signum(wartX != 0 ? wartX : (int) Math.round(xCenter));
@@ -325,14 +342,42 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
 
         for (BlockPos candidatePos : candidatesPos) {
             if (candidatePos == null) continue;
+            if (candidatePos.getY() >= roofY) continue; // never above bedrock roof
             if (level.isOutsideBuildHeight(candidatePos)) continue;
             if (isSameBlockAs(candidatePos, level, trunk)) continue; // never overwrite trunk
+            if (nearBedrock(level, candidatePos)) continue; // only beneath the roof
 
             if (level.isEmptyBlock(candidatePos) || isReplaceableDirt(level, candidatePos) || candidatePos.equals(anchor.pos)) {
                 level.setBlock(candidatePos, shroomLight, 2);
                 return;
             }
         }
+    }
+
+    private int findRoofY(WorldGenLevel level, BlockPos base, int searchRadius, int maxScan) {
+        int roofY = Integer.MAX_VALUE;
+        for (int dx = -searchRadius; dx <= searchRadius; dx++) {
+            for (int dz = -searchRadius; dz <= searchRadius; dz++) {
+                for (int y = 1; y <= maxScan; y++) {
+                    BlockPos p = base.offset(dx, y, dz);
+                    if (level.isOutsideBuildHeight(p)) break;
+                    if (level.getBlockState(p).is(Blocks.BEDROCK)) {
+                        roofY = Math.min(roofY, p.getY());
+                        break;
+                    }
+                }
+            }
+        }
+        return roofY;
+    }
+
+    private boolean nearBedrock(WorldGenLevel level, BlockPos pos) {
+        for (int d = 1; d <= 8; d++) {
+            if (level.getBlockState(pos.below(d)).is(Blocks.BEDROCK)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isReplaceableDirt(WorldGenLevel level, BlockPos pos) {
