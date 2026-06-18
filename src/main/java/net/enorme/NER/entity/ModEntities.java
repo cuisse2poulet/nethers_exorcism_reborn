@@ -15,8 +15,12 @@ public class ModEntities {
             DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, NethersExorcismMod.MODID);
 
     public static final Supplier<EntityType<IndigoScyphozoaEntity>> SCYPHOZOA =
-            ENTITY_TYPES.register("gecko", () -> EntityType.Builder.of(IndigoScyphozoaEntity::new, MobCategory.CREATURE)
-                    .sized(0.75f, 0.35f).build("gecko"));
+            ENTITY_TYPES.register("indigo_scyphozoa",
+                    () -> EntityType.Builder.of(
+                                    IndigoScyphozoaEntity::new,
+                                    MobCategory.CREATURE)
+                            .sized(1.2F, 3.5F)
+                            .build("indigo_scyphozoa"));
 
 
     public static void register(IEventBus eventBus) {

@@ -12,7 +12,7 @@ public class CryingGoal extends Goal {
 
         @Override
         public boolean canUse() {
-            return mob.getMourningTicks() > 0;
+            return mob.getCryingTicks() > 0;
         }
 
         @Override
@@ -20,10 +20,10 @@ public class CryingGoal extends Goal {
 
             mob.setMood(IndigoScyphozoaEntity.Mood.SAD);
 
-            mob.setMourningTicks(
-                    mob.getMourningTicks() - 1);
+            mob.setCryingTicks(
+                    mob.getCryingTicks() - 1);
 
-            if (mob.getMourningTicks() <= 0) {
+            if (mob.getCryingTicks() <= 0) {
                 mob.setMood(IndigoScyphozoaEntity.Mood.CALM);
             }
         }

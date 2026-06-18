@@ -39,16 +39,11 @@ public class GroupDefendGoal extends TargetGoal {
     @Override
     public void start() {
 
-        mob.setTarget(attacker);
+        LivingEntity attacker = mob.getLastHurtByMob();
 
-        List<IndigoScyphozoaEntity> nearby =
-                mob.level().getEntitiesOfClass(
-                        IndigoScyphozoaEntity.class,
-                        mob.getBoundingBox().inflate(12));
+        if (attacker == null)
+            return;
 
-        for (IndigoScyphozoaEntity jelly : nearby) {
-            jelly.setTarget(attacker);
-            jelly.setMood(IndigoScyphozoaEntity.Mood.ANGRY);
-        }
+        ScyphozoaGroupHelper.alertGroup((IndigoScyphozoaEntity) mob, attacker);
     }
 }
