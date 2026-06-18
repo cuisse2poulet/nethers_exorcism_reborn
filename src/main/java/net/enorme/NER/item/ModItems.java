@@ -1,6 +1,7 @@
 package net.enorme.NER.item;
 
 import net.enorme.NER.NethersExorcismMod;
+import net.enorme.NER.entity.ModEntities;
 import net.enorme.NER.sound.ModSound;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -8,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -34,6 +36,12 @@ public class ModItems {
                     super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                 }
             });
+
+
+
+    public static final DeferredItem<Item> SCYPHOZOA_SPAWN_EGG = ITEMS.register("scyphozoa_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.SCYPHOZOA, 0x31afaf, 0xffac00,
+                    new Item.Properties()));
 
 
     public static final DeferredItem<Item> GENETIC_MIRACLE_MUSIC_DISC = ITEMS.register("genetic_miracle_music_disc",
