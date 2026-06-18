@@ -34,9 +34,9 @@ public class IndigoScyphozoaEntity extends FlyingMob {
     public static final int MIN_HOVER_HEIGHT = 1;
     public static final int MAX_HOVER_HEIGHT = 5;
 
-    public static final int MOURNING_RADIUS = 16;
+    public static final int CRYING_RADIUS = 16;
 
-    private int mourningTicks;
+    private int cryingTicks;
 
     public IndigoScyphozoaEntity(EntityType<? extends FlyingMob> type, Level level) {
         super(type, level);
@@ -59,11 +59,11 @@ public class IndigoScyphozoaEntity extends FlyingMob {
     }
 
     public int getMourningTicks() {
-        return mourningTicks;
+        return cryingTicks;
     }
 
     public void setMourningTicks(int mourningTicks) {
-        this.mourningTicks = mourningTicks;
+        this.cryingTicks = mourningTicks;
     }
 
     @Override
@@ -86,25 +86,18 @@ public class IndigoScyphozoaEntity extends FlyingMob {
     protected void registerGoals() {
         super.registerGoals();
 
-        // Keep near terrain
         goalSelector.addGoal(0, new MaintainAltitudeGoal(this));
 
-        // Run away when alone
         goalSelector.addGoal(1, new FleeWhenAloneGoal(this));
 
-        // Release hallucination cloud after taking damage
         goalSelector.addGoal(2, new HallucinationDefenseGoal(this));
 
-        // Home in on attacker while angry
         goalSelector.addGoal(3, new HomingInGoal(this));
 
-        // Mourning behavior
         goalSelector.addGoal(4, new CryingGoal(this));
 
-        // Idle movement
         goalSelector.addGoal(5, new LowFlyingWanderGoal(this));
 
-        // Target propagation
         targetSelector.addGoal(1, new GroupDefendGoal(this));
     }
 }
