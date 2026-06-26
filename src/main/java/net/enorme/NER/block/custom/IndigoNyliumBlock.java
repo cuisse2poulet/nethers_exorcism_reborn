@@ -1,9 +1,9 @@
 package net.enorme.NER.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import net.enorme.NER.worldgen.ModConfiguredFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
-import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -16,84 +16,74 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
 public class IndigoNyliumBlock extends Block implements BonemealableBlock {
+    public static final MapCodec<IndigoNyliumBlock> CODEC = simpleCodec(IndigoNyliumBlock::new);
+
     public IndigoNyliumBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
 
-    private static boolean canBeNylium(BlockState state, LevelReader reader, BlockPos pos) {
+    @Override
+    public MapCodec<IndigoNyliumBlock> codec() {
+        return CODEC;
+    }
+
+
+    private static boolean canBeNylium(LevelReader reader, BlockPos pos) {
         BlockPos above = pos.above();
         BlockState aboveState = reader.getBlockState(above);
-        int lightBlocked = LightEngine.getLightBlockInto(reader, state, pos, aboveState, above, Direction.UP, aboveState.getLightBlock(reader, above));
-        return lightBlocked < reader.getMaxLightLevel();
+        return !aboveState.canOcclude();
     }
 
     @Override
     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (!canBeNylium(state, level, pos)) {
+        if (!canBeNylium(level, pos)) {
             level.setBlockAndUpdate(pos, Blocks.NETHERRACK.defaultBlockState());
         }
     }
 
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-        return level.getBlockState(pos.above()).isAir();
+        BlockState above = level.getBlockState(pos.above());
+        return !above.canOcclude();
     }
 
     @Override
     public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
-        return true;
+        return isValidBonemealTarget(level, pos, state);
     }
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-        BlockPos placePos = pos.above();
-        ChunkGenerator chunkGenerator = level.getChunkSource().getGenerator();
-        Registry<ConfiguredFeature<?, ?>> registry = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE);
+        BlockPos abovePos = pos.above();
 
-        for (int i = 0; i < 8; ++i) {
-            BlockPos targetPos = pos.offset(
-                    random.nextInt(3) - 1,
-                    random.nextInt(3) - 1,
-                    random.nextInt(3) - 1
-            );
-
-            BlockState targetState = level.getBlockState(targetPos);
-            BlockState aboveTarget = level.getBlockState(targetPos.above());
-            if (targetState.is(Blocks.NETHERRACK) && aboveTarget.isAir() && canBeNylium(state, level, targetPos)) {
-                level.setBlockAndUpdate(targetPos, this.defaultBlockState());
-            }
+        if (level.getBlockState(abovePos).canOcclude()) {
+            return;
         }
 
-        boolean placedAny = false;
+        ChunkGenerator chunkGen = level.getChunkSource().getGenerator();
+        Registry<ConfiguredFeature<?, ?>> registry =
+                level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE);
 
-        if (random.nextInt(16) == 0) { // 1/16 chance, was 1/8
-            placedAny |= place(registry, ModConfiguredFeatures.INDIGO_FOREST_VEGETATION_BONEMEAL, level, chunkGenerator, random, placePos);
-        }
-        if (random.nextInt(6) == 0) { // 1/6 chance, was 1/3
-            placedAny |= place(registry, ModConfiguredFeatures.INDIGO_SPROUTS_BONEMEAL, level, chunkGenerator, random, placePos);
-        }
-        if (random.nextInt(16) == 0) { // 1/16 chance, was 1/8
-            placedAny |= place(registry, ModConfiguredFeatures.INDIGO_COILSPROUT_BONEMEAL, level, chunkGenerator, random, placePos);
-        }
-        if (!placedAny && random.nextBoolean()) {
-            place(registry, ModConfiguredFeatures.INDIGO_SPROUTS_BONEMEAL, level, chunkGenerator, random, placePos);
-        }
+        place(registry, ModConfiguredFeatures.DNA_FOREST_VEGETATION_BONEMEAL,
+                level, chunkGen, random, abovePos);
     }
-
-    private boolean place(
-            Registry<ConfiguredFeature<?, ?>> featureRegistry,
-            ResourceKey<ConfiguredFeature<?, ?>> featureKey,
+    private void place(
+            Registry<ConfiguredFeature<?, ?>> registry,
+            ResourceKey<ConfiguredFeature<?, ?>> key,
             ServerLevel level,
-            ChunkGenerator chunkGenerator,
+            ChunkGenerator chunkGen,
             RandomSource random,
             BlockPos pos
     ) {
-        return featureRegistry.getHolder(featureKey)
-                .map(holder -> holder.value().place(level, chunkGenerator, random, pos))
-                .orElse(false);
+        registry.getHolder(key)
+                .ifPresent(holder -> holder.value().place(level, chunkGen, random, pos));
+    }
+
+    @Override
+    public BonemealableBlock.Type getType() {
+        return BonemealableBlock.Type.NEIGHBOR_SPREADER;
     }
 }
