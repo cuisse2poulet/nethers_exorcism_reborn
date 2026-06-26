@@ -71,8 +71,9 @@ public class ModEvents {
                 x, y, z,
                 8,
                 0.3D, 0.3D, 0.3D,
-                0.0D)
+                0.0D);
     }
+    @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(
                 ModEntities.SCYPHOZOA.get(),
