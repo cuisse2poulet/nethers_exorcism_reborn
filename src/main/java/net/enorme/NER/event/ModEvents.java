@@ -11,6 +11,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.BonemealEvent;
+import net.enorme.NER.entity.ModEntities;
+import net.enorme.NER.entity.custom.indigoscyphozoa.IndigoScyphozoaEntity;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 
 @EventBusSubscriber
 public class ModEvents {
@@ -66,7 +71,12 @@ public class ModEvents {
                 x, y, z,
                 8,
                 0.3D, 0.3D, 0.3D,
-                0.0D
+                0.0D)
+    }
+    public static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(
+                ModEntities.SCYPHOZOA.get(),
+                IndigoScyphozoaEntity.createAttributes().build()
         );
     }
 }

@@ -3,6 +3,7 @@ package net.enorme.NER;
 import com.mojang.logging.LogUtils;
 import net.enorme.NER.block.ModBlocks;
 import net.enorme.NER.effect.ModEffect;
+import net.enorme.NER.entity.ModEntities;
 import net.enorme.NER.item.ModCreativeModTab;
 import net.enorme.NER.item.ModItems;
 import net.enorme.NER.potion.ModPotions;
@@ -43,6 +44,7 @@ public class NethersExorcismMod {
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
         ModSound.register(modEventBus);
+        ModEntities.register(modEventBus);
         ModFeatures.register(modEventBus);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us

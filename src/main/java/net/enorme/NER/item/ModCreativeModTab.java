@@ -16,6 +16,7 @@ import java.util.function.Supplier;
 public class ModCreativeModTab {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MOD_TAB =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, NethersExorcismMod.MODID);
+
     public static final Supplier<CreativeModeTab> DNA_FOREST_TAB = CREATIVE_MOD_TAB.register("dna_forest_tab",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ModItems.RAW_INDIGO_SALAMANDER_TAIL.get()))
@@ -46,7 +47,10 @@ public class ModCreativeModTab {
                         output.accept(ModBlocks.INDIGO_CANDLESPIRE);
                         output.accept(ModBlocks.DNA_VINE_POINT);
                         output.accept(ModBlocks.INDIGO_COILSPROUT_TOP);
+
+                        output.accept(ModItems.SCYPHOZOA_SPAWN_EGG);
                     }).build());
+
     public static final Supplier<CreativeModeTab> BIO_DELTAS_TAB = CREATIVE_MOD_TAB.register("bio_deltas_tab",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(Blocks.BASALT.asItem()))
