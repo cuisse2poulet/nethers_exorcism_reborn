@@ -17,7 +17,16 @@
     },
     "music_volume": 1
   },
-  "spawners": {},
+  "spawners": {
+    "creature": [
+      {
+        "type": "nethers_exorcism_reborn:indigo_scyphozoa",
+        "weight": 20,
+        "minCount": 1,
+        "maxCount": 5
+      }
+    ]
+  },
   "spawn_costs": {},
   "carvers": {},
   "features": [

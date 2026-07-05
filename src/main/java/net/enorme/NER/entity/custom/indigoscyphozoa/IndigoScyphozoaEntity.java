@@ -14,6 +14,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -99,10 +100,21 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
     public void tick() {
         super.tick();
 
+        LivingEntity target = getTarget();
+        if (target instanceof Player player && (player.isCreative() || player.isSpectator())) {
+            setTarget(null);
+            if (getMood() == Mood.ANGRY) {
+                setMood(Mood.CALM);
+            }
+        }
+
         if (moodTicks > 0) {
             moodTicks--;
 
             if (moodTicks <= 0 && cryingTicks <= 0) {
+                if (getMood() == Mood.ANGRY) {
+                    setTarget(null);
+                }
                 setMood(Mood.CALM);
             }
         }

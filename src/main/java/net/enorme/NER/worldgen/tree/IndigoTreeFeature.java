@@ -1,5 +1,7 @@
 package net.enorme.NER.worldgen.tree;
 
+
+
 import com.mojang.serialization.Codec;
 import net.enorme.NER.block.ModBlocks;
 import net.minecraft.core.BlockPos;
@@ -313,13 +315,14 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         int wartDirX = Integer.signum(wartX != 0 ? wartX : (int) Math.round(xCenter));
         int wartDirZ = Integer.signum(wartZ != 0 ? wartZ : (int) Math.round(zCenter));
         if (wartDirX == 0 && wartDirZ == 0) wartDirZ = 1;
+        int wartY = anchor.pos.getY() - base.getY();
 
         BlockPos[] candidatesPos = new BlockPos[]{
-                base.offset(wartX + wartDirX, anchor.pos.getY(), wartZ + wartDirZ), // outward adjacent on anchor layer
-                base.offset(wartX + wartDirX, anchor.pos.getY() + 1, wartZ + wartDirZ), // outward + up
-                base.offset(wartX, anchor.pos.getY() + 1, wartZ), // on top of wart (center)
-                base.offset(wartX + wartDirX, anchor.pos.getY(), wartZ), // outward X
-                base.offset(wartX, anchor.pos.getY(), wartZ + wartDirZ), // outward Z
+                base.offset(wartX + wartDirX, wartY, wartZ + wartDirZ), // outward adjacent on anchor layer
+                base.offset(wartX + wartDirX, wartY + 1, wartZ + wartDirZ), // outward + up
+                base.offset(wartX, wartY + 1, wartZ), // on top of wart (center)
+                base.offset(wartX + wartDirX, wartY, wartZ), // outward X
+                base.offset(wartX, wartY, wartZ + wartDirZ), // outward Z
                 anchor.pos // fallback: on wart itself
         };
 

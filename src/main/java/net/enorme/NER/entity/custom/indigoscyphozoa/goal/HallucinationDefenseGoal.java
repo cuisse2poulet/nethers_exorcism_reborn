@@ -37,6 +37,10 @@ public class HallucinationDefenseGoal extends Goal {
         if (mob.hurtTime != 10 || cooldown > 0)
             return;
 
+        LivingEntity attacker = mob.getLastHurtByMob();
+        if (attacker == null || attacker instanceof IndigoScyphozoaEntity)
+            return;
+
         int groupSize = mob.level()
                 .getEntitiesOfClass(
                         IndigoScyphozoaEntity.class,
@@ -65,21 +69,13 @@ public class HallucinationDefenseGoal extends Goal {
                 0.02
         );
 
-        for (LivingEntity entity : level.getEntitiesOfClass(
-                LivingEntity.class,
-                mob.getBoundingBox().inflate(CLOUD_RADIUS))) {
-
-            if (entity instanceof IndigoScyphozoaEntity)
-                continue;
-
-            entity.addEffect(
-                    new MobEffectInstance(
-                            ModEffect.HALLUCINATION,
-                            200,
-                            amplifier
-                    )
-            );
-        }
+        attacker.addEffect(
+                new MobEffectInstance(
+                        ModEffect.HALLUCINATION,
+                        200,
+                        amplifier
+                )
+        );
 
         cooldown = COOLDOWN;
     }
