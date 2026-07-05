@@ -12,7 +12,7 @@ public class CryingGoal extends Goal {
 
         @Override
         public boolean canUse() {
-            return mob.getCryingTicks() > 0;
+            return mob.getCryingTicks() > 0 && mob.getMood() != IndigoScyphozoaEntity.Mood.ANGRY && mob.getMood() != IndigoScyphozoaEntity.Mood.HURT;
         }
 
         @Override

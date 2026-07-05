@@ -31,12 +31,16 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
     public static final int GROUP_RADIUS = 12;
     public static final int MIN_HOVER_HEIGHT = 1;
     public static final int MAX_HOVER_HEIGHT = 5;
+    private static final int SAD_TICKS = 600;
+    private static final int LONELY_TICKS_BEFORE_SAD = 400;
 
     private final AnimatableInstanceCache cache =
             GeckoLibUtil.createInstanceCache(this);
 
     private int cryingTicks;
     private int moodTicks;
+    private int lonelyTicks;
+    private boolean wasGrouped;
 
     public enum Mood {
         CALM,
@@ -108,6 +112,8 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
             }
         }
 
+        updateLonelyMood();
+
         if (moodTicks > 0) {
             moodTicks--;
 
@@ -117,6 +123,26 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
                 }
                 setMood(Mood.CALM);
             }
+        }
+    }
+
+    private void updateLonelyMood() {
+        if (isGrouped()) {
+            wasGrouped = true;
+            lonelyTicks = 0;
+            return;
+        }
+
+        if (!wasGrouped || getTarget() != null || getMood() == Mood.ANGRY || getMood() == Mood.HURT) {
+            return;
+        }
+
+        lonelyTicks++;
+        if (lonelyTicks >= LONELY_TICKS_BEFORE_SAD) {
+            setMood(Mood.SAD, SAD_TICKS);
+            setCryingTicks(SAD_TICKS);
+            wasGrouped = false;
+            lonelyTicks = 0;
         }
     }
 
@@ -157,6 +183,7 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
 
         Entity attacker = source.getEntity();
 
+        setCryingTicks(0);
         setMood(Mood.HURT, 40);
 
         if (attacker instanceof LivingEntity living && isGrouped()) {
@@ -185,9 +212,10 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
                             getBoundingBox().inflate(16))) {
 
                 if (jelly != this) {
-                    jelly.setMood(Mood.SAD, 600);
-                    jelly.setCryingTicks(600);
-                    jelly.setTarget(null);
+                    if (jelly.getTarget() == null && jelly.getMood() != Mood.ANGRY) {
+                        jelly.setMood(Mood.SAD, SAD_TICKS);
+                        jelly.setCryingTicks(SAD_TICKS);
+                    }
                 }
             }
         }
