@@ -47,7 +47,7 @@ public class ModCreativeModTab {
                         output.accept(ModBlocks.INDIGO_CANDLESPIRE);
                         output.accept(ModBlocks.DNA_VINE_POINT);
                         output.accept(ModBlocks.INDIGO_COILSPROUT_TOP);
-
+                        output.accept(ModItems.GLOWING_JELLY);
                         output.accept(ModItems.SCYPHOZOA_SPAWN_EGG);
                     }).build());
 

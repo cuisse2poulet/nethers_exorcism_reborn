@@ -35,5 +35,8 @@
   "block.nethers_exorcism_reborn.indigo_coilsprout_top": "Indigo CoilSprout",
   "block.nethers_exorcism_reborn.indigo_candlespire": "Indigo CandleSpire",
   "block.nethers_exorcism_reborn.dna_vine": "DNA Vine",
-  "block.nethers_exorcism_reborn.dna_vine_point": "DNA Vine"
+  "block.nethers_exorcism_reborn.dna_vine_point": "DNA Vine",
+  "item.nethers_exorcism_reborn.glowing_jelly": "Glowing Jelly",
+  "tooltip.nethers_exorcism_reborn.glowing_jelly.tooltip": "§9Glowing (00:08)",
+  "item.nethers_exorcism_reborn.scyphozoa_spawn_egg": "Indigo Scyphozoa Spawn Egg"
 }

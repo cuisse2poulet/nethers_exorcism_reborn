@@ -36,11 +36,19 @@ public class ModItems {
                     super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                 }
             });
+    public static final DeferredItem<Item> GLOWING_JELLY = ITEMS.register("glowing_jelly",
+            () -> new Item(new Item.Properties().food(ModFoodProperties.GLOWING_JELLY)){
+        @Override
+            public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                tooltipComponents.add(Component.translatable("tooltip.nethers_exorcism_reborn.glowing_jelly.tooltip"));
+                super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
 
+        }
+    });
 
 
     public static final DeferredItem<Item> SCYPHOZOA_SPAWN_EGG = ITEMS.register("scyphozoa_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntities.SCYPHOZOA, 0x31afaf, 0xffac00,
+            () -> new DeferredSpawnEggItem(ModEntities.SCYPHOZOA, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
 

@@ -21,7 +21,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.RAW_INDIGO_SALAMANDER_TAIL.get());
         basicItem(ModItems.GENETIC_MIRACLE_MUSIC_DISC.get());
         basicItem(ModBlocks.INDIGO_FUNGUS.asItem());
-
+        basicItem(ModItems.GLOWING_JELLY.get());
         buttonItem(ModBlocks.INDIGO_BUTTON, ModBlocks.INDIGO_PLANKS);
         fenceItem(ModBlocks.INDIGO_FENCE, ModBlocks.INDIGO_PLANKS);
         basicItem(ModBlocks.INDIGO_DOOR.asItem());

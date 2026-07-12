@@ -11,4 +11,7 @@ public class ModFoodProperties {
 
     public static final FoodProperties COOKED_INDIGO_SALAMANDER_TAIL = (new FoodProperties.Builder().nutrition(6).saturationModifier(0.55f)
             .effect(() -> new MobEffectInstance(ModEffect.INSTANT_CURE_EFFECT, 180, 0), 1.0f)).build();
+
+    public static final FoodProperties GLOWING_JELLY = (new FoodProperties.Builder().nutrition(4).saturationModifier(0.25f)
+            .effect(() -> new MobEffectInstance(MobEffects.GLOWING, 140, 0), 1.0f)).build();
 }

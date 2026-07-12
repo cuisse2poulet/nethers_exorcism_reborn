@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nethers_exorcism_reborn:item/scyphozoa_spawn_egg",
+    "layer1": "nethers_exorcism_reborn:item/scyphozoa_spawn_egg"
+  }
+}
