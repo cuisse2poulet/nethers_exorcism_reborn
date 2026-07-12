@@ -5,6 +5,7 @@ import net.enorme.NER.effect.ModEffect;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.alchemy.Potion;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -15,6 +16,9 @@ public class ModPotions {
 
     public static final Holder<Potion> INSTANT_CURE_POTION = POTIONS.register("instant_cure_potion",
             () -> new Potion(new MobEffectInstance(ModEffect.INSTANT_CURE_EFFECT, 1200, 0)));
+
+    public static final Holder<Potion> JELLYCIOUS_BREW_POTION = POTIONS.register("jellycious_brew_potion",
+            () -> new Potion(new MobEffectInstance(MobEffects.GLOWING, 1200, 0),(new MobEffectInstance(MobEffects.SLOW_FALLING, 1200, 0))));
 
     public static void register(IEventBus eventBus) {
         POTIONS.register(eventBus);

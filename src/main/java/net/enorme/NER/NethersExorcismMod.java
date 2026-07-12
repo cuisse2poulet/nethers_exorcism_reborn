@@ -10,6 +10,9 @@ import net.enorme.NER.potion.ModPotions;
 import net.enorme.NER.sound.ModSound;
 import net.enorme.NER.worldgen.ModFeatures;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.Potions;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -18,8 +21,13 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
+
+import static net.enorme.NER.potion.ModPotions.INSTANT_CURE_POTION;
+import static net.enorme.NER.potion.ModPotions.JELLYCIOUS_BREW_POTION;
+import static net.minecraft.world.item.alchemy.Potions.POISON;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(NethersExorcismMod.MODID)
@@ -34,7 +42,7 @@ public class NethersExorcismMod {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
         NeoForge.EVENT_BUS.register(this);
-
+        NeoForge.EVENT_BUS.addListener(NethersExorcismMod::registerBrewingRecipes);
         ModCreativeModTab.register(modEventBus);
 
         ModItems.register(modEventBus);
@@ -92,9 +100,44 @@ public class NethersExorcismMod {
         }
     }
 
+
+
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
 
     }
+
+    public static void registerBrewingRecipes(RegisterBrewingRecipesEvent event) {
+        // Gets the builder to add recipes to
+        PotionBrewing.Builder builder = event.getBuilder();
+
+        // Will add brewing recipes for all container potions (e.g. potion, splash potion, lingering potion)
+        builder.addMix(
+                // The initial potion to apply to
+                Potions.MUNDANE,
+                // The brewing ingredient. This is the item at the top of the brewing stand.
+                ModItems.COOKED_INDIGO_SALAMANDER_TAIL.get(),
+                        // The resulting potion
+                        INSTANT_CURE_POTION
+        );
+                builder.addMix(
+                        // The initial potion to apply to
+                        Potions.AWKWARD,
+                // The brewing ingredient. This is the item at the top of the brewing stand.
+                ModItems.GLOWING_JELLY.get(),
+                // The resulting potion
+                JELLYCIOUS_BREW_POTION
+        );
+        builder.addMix(
+                // The initial potion to apply to
+                Potions.AWKWARD,
+                // The brewing ingredient. This is the item at the top of the brewing stand.
+                ModItems.RAW_INDIGO_SALAMANDER_TAIL.get(),
+                // The resulting potion
+                POISON
+        );
+    }
+
+
 }

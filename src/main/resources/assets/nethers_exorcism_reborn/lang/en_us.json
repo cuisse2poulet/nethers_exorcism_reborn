@@ -21,9 +21,9 @@
   "creativetab.nethers_exorcism_reborn.bio_deltas_tab": "Biohazardous Deltas",
   "creativetab.nethers_exorcism_reborn.dna_forest_tab": "DNA Forest",
   "effect.nethers_exorcism_reborn.instant_cure": "Reptilious Regen",
-  "item.minecraft.potion.effect.instant_cure_potion": "Reptilious Regeneration Potion",
-  "item.minecraft.splash_potion.effect.instant_cure_potion": "Reptilious Regeneration Splash Potion",
-  "item.minecraft.lingering_potion.effect.instant_cure_potion": "Reptilious Regeneration Lingering Potion",
+  "item.minecraft.potion.effect.instant_cure_potion": "Potion of Reptilious Regeneration",
+  "item.minecraft.splash_potion.effect.instant_cure_potion": "Splash Potion of Reptilious Regeneration",
+  "item.minecraft.lingering_potion.effect.instant_cure_potion": "Lingering Potion of Reptilious Regeneration",
   "item.minecraft.tipped_arrow.effect.instant_cure_potion": "Arrow of Reptilious Regeneration",
   "item.nethers_exorcism_reborn.genetic_miracle_music_disc": "Music Disc",
   "item.nethers_exorcism_reborn.genetic_miracle_music_disc.desc": "Pufferfish - Genetic Miracle",
@@ -38,5 +38,9 @@
   "block.nethers_exorcism_reborn.dna_vine_point": "DNA Vine",
   "item.nethers_exorcism_reborn.glowing_jelly": "Glowing Jelly",
   "tooltip.nethers_exorcism_reborn.glowing_jelly.tooltip": "§9Glowing (00:08)",
-  "item.nethers_exorcism_reborn.scyphozoa_spawn_egg": "Indigo Scyphozoa Spawn Egg"
+  "item.nethers_exorcism_reborn.scyphozoa_spawn_egg": "Indigo Scyphozoa Spawn Egg",
+  "item.minecraft.potion.effect.jellycious_brew_potion": "Potion of Jellycious Brew",
+  "item.minecraft.splash_potion.effect.jellycious_brew_potion": "Splash Potion of Jellycious Brew ",
+  "item.minecraft.lingering_potion.effect.jellycious_brew_potion": "Lingering Potion of Jellycious Brew",
+  "item.minecraft.tipped_arrow.effect.jellycious_brew_potion": "Arrow of Jellycious Brew"
 }
