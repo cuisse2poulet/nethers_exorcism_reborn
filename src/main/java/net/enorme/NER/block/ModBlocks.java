@@ -2,6 +2,7 @@ package net.enorme.NER.block;
 
 import net.enorme.NER.NethersExorcismMod;
 import net.enorme.NER.block.custom.IndigoNyliumBlock;
+import net.enorme.NER.block.custom.JellyBlock;
 import net.enorme.NER.block.custom.plants.IndigoRootsBlock;
 import net.enorme.NER.block.custom.plants.IndigoSproutsBlock;
 import net.enorme.NER.block.custom.plants.IndigoCandleSpire;
@@ -108,6 +109,8 @@ public class ModBlocks {
     public static final DeferredBlock<IndigoSproutsBlock> INDIGO_SPROUTS = register("indigo_sprout",
             () -> new IndigoSproutsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_SPROUTS).noCollission().noOcclusion()));
 
+    public static final DeferredBlock<Block> GLOWING_JELLY_BLOCK = register("glowing_jelly_block",
+            () -> new JellyBlock(JellyBlock.defaultProperties()));
 
     private static <T extends Block> DeferredBlock<T> register(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

@@ -1,13 +1,11 @@
 package net.enorme.NER.item;
 
 import net.enorme.NER.NethersExorcismMod;
+import net.enorme.NER.block.ModBlocks;
 import net.enorme.NER.entity.ModEntities;
 import net.enorme.NER.sound.ModSound;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -54,6 +52,10 @@ public class ModItems {
 
     public static final DeferredItem<Item> GENETIC_MIRACLE_MUSIC_DISC = ITEMS.register("genetic_miracle_music_disc",
             () -> new Item(new Item.Properties().jukeboxPlayable(ModSound.GENETIC_MIRACLE_KEY).stacksTo(1).rarity(Rarity.RARE)));
+
+    public static final DeferredItem<BlockItem> WEIRD_GOOP_ITEM =
+            ITEMS.register("weird_goop",
+                    () -> new BlockItem(ModBlocks.GLOWING_JELLY_BLOCK.get(), new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
