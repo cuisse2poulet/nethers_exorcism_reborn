@@ -1,0 +1,45 @@
+{
+  "type": "nethers_exorcism_reborn:indigo_forest_vegetation",
+  "config": {
+    "spread_height": 4,
+    "spread_width": 3,
+    "state_provider": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "nethers_exorcism_reborn:indigo_roots"
+          },
+          "weight": 70
+        },
+        {
+          "data": {
+            "Name": "nethers_exorcism_reborn:indigo_sprout"
+          },
+          "weight": 20
+        },
+        {
+          "data": {
+            "Name": "nethers_exorcism_reborn:indigo_fungus"
+          },
+          "weight": 8
+        },
+        {
+          "data": {
+            "Name": "nethers_exorcism_reborn:indigo_candlespire",
+            "Properties": {
+              "half": "lower"
+            }
+          },
+          "weight": 3
+        },
+        {
+          "data": {
+            "Name": "nethers_exorcism_reborn:indigo_coilsprout_bottom"
+          },
+          "weight": 3
+        }
+      ]
+    }
+  }
+}

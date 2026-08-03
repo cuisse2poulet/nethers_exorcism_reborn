@@ -1,0 +1,24 @@
+{
+  "feature": "nethers_exorcism_reborn:dna_forest_vegetation_worldgen",
+  "placement": [
+    {
+      "type": "minecraft:count_on_every_layer",
+      "count": 5
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "nethers_exorcism_reborn:indigo_nylium",
+        "offset": [
+          0,
+          -1,
+          0
+        ]
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

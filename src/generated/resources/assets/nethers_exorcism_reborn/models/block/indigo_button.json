@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "nethers_exorcism_reborn:block/indigo_planks"
+  }
+}

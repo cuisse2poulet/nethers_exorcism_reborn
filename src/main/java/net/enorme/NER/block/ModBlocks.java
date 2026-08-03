@@ -15,6 +15,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -109,10 +111,17 @@ public class ModBlocks {
             () -> new IndigoSproutsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_SPROUTS).noCollission().noOcclusion()));
 
     public static final DeferredBlock<Block> GLOWING_JELLY_BLOCK = register("glowing_jelly_block",
-            () -> new JellyBlock(JellyBlock.defaultProperties()));
+            () -> new JellyBlock(JellyBlock.defaultProperties()
+                    .destroyTime(0.01f)));
 
     public static final DeferredBlock<salamander_egg> SALAMANDER_EGG = register("salamander_egg",
-            () -> new salamander_egg((BlockBehaviour.Properties.ofFullCopy(Blocks.TURTLE_EGG))));
+            () -> new salamander_egg((BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_LIGHT_GREEN)
+                    .forceSolidOn()
+                    .randomTicks()
+                    .pushReaction(PushReaction.DESTROY)
+                    .destroyTime(0.75f)
+            )));
 
 
 

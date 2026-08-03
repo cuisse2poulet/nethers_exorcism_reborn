@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "nethers_exorcism_reborn:block/indigo_wart_block"
+  }
+}

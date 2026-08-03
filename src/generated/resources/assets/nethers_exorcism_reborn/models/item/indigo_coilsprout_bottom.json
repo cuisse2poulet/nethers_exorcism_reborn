@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:item/generated",
+  "display": {
+    "firstperson_lefthand": {
+      "rotation": [
+        180,
+        0,
+        0
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        180,
+        0,
+        0
+      ]
+    },
+    "gui": {
+      "rotation": [
+        180,
+        0,
+        0
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        180,
+        0,
+        0
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        180,
+        0,
+        0
+      ]
+    }
+  },
+  "textures": {
+    "layer0": "nethers_exorcism_reborn:block/indigo_coilsprout_bottom"
+  }
+}

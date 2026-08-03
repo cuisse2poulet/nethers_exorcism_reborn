@@ -44,12 +44,15 @@ public class ModCreativeModTab {
                         output.accept(ModBlocks.INDIGO_FUNGUS);
                         output.accept(ModBlocks.INDIGO_SPROUTS);
                         output.accept(ModBlocks.INDIGO_ROOTS);
+                        output.accept(ModBlocks.INDIGO_WART_BLOCK);
                         output.accept(ModBlocks.INDIGO_CANDLESPIRE);
                         output.accept(ModBlocks.DNA_VINE_POINT);
                         output.accept(ModBlocks.INDIGO_COILSPROUT_TOP);
                         output.accept(ModItems.GLOWING_JELLY);
                         output.accept(ModItems.SCYPHOZOA_SPAWN_EGG);
                         output.accept(ModItems.SALAMANDER_SPAWN_EGG);
+                        output.accept(ModBlocks.SALAMANDER_EGG);
+                        output.accept(ModBlocks.GLOWING_JELLY_BLOCK);
                     }).build());
 
     public static final Supplier<CreativeModeTab> BIO_DELTAS_TAB = CREATIVE_MOD_TAB.register("bio_deltas_tab",

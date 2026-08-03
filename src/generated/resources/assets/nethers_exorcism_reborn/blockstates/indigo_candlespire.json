@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "nethers_exorcism_reborn:block/indigo_candlespire_bottom"
+    },
+    "half=upper": {
+      "model": "nethers_exorcism_reborn:block/indigo_candlespire_top"
+    }
+  }
+}

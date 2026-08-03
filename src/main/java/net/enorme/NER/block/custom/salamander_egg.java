@@ -1,6 +1,7 @@
 package net.enorme.NER.block.custom;
 
 import com.mojang.serialization.MapCodec;
+import net.enorme.NER.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -8,11 +9,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ambient.Bat;
-import net.minecraft.world.entity.animal.Turtle;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -34,6 +30,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
+
+import net.enorme.NER.entity.ModEntities;
+import net.enorme.NER.entity.custom.indigo_salamander.IndigoSalamanderEntity;
 
 public class salamander_egg extends TurtleEggBlock {
     public static final MapCodec<TurtleEggBlock> CODEC = simpleCodec(TurtleEggBlock::new);
@@ -88,22 +87,15 @@ public class salamander_egg extends TurtleEggBlock {
 
                 for(int j = 0; j < (Integer)state.getValue(EGGS); ++j) {
                     level.levelEvent(2001, pos, Block.getId(state));
-                    Turtle turtle = (Turtle) EntityType.TURTLE.create(level);
-                    if (turtle != null) {
-                        turtle.setAge(-24000);
-                        turtle.setHomePos(pos);
-                        turtle.moveTo((double)pos.getX() + 0.3 + (double)j * 0.2, (double)pos.getY(), (double)pos.getZ() + 0.3, 0.0F, 0.0F);
-                        level.addFreshEntity(turtle);
+                    IndigoSalamanderEntity salamander = ModEntities.SALAMANDER.get().create(level);
+                    if (salamander != null) {
+                        salamander.setAge(-24000);
+                        salamander.setNestPos(pos);
+                        salamander.moveTo((double)pos.getX() + 0.3 + (double)j * 0.2, (double)pos.getY(), (double)pos.getZ() + 0.3, 0.0F, 0.0F);
+                        level.addFreshEntity(salamander);
                     }
                 }
             }
-        }
-
-    }
-
-    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
-        if (onSand(level, pos) && !level.isClientSide) {
-            level.levelEvent(2012, pos, 15);
         }
 
     }
@@ -144,4 +136,18 @@ public class salamander_egg extends TurtleEggBlock {
         HATCH = BlockStateProperties.HATCH;
         EGGS = BlockStateProperties.EGGS;
     }
-}
+
+    public static boolean onSand(BlockGetter level, BlockPos pos) {
+        return isSand(level, pos.below());
+    }
+
+    public static boolean isSand(BlockGetter reader, BlockPos pos) {
+        return reader.getBlockState(pos).is(ModBlocks.INDIGO_WART_BLOCK);
+    }
+
+    @Override
+    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+        if (onSand(level, pos) && !level.isClientSide) {
+            level.levelEvent(2012, pos, 15);
+        }
+}}
