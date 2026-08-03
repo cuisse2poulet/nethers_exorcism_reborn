@@ -3,8 +3,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "block/salamander_egg",
-		"particle": "block/salamander_egg_crack3"
+		"0": "nethers_exorcism_reborn:block/salamander_egg",
+		"particle": "nethers_exorcism_reborn:block/salamander_egg_crack3"
 	},
 	"elements": [
 		{
