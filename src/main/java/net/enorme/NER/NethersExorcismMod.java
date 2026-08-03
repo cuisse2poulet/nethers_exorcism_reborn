@@ -9,10 +9,12 @@ import net.enorme.NER.item.ModItems;
 import net.enorme.NER.potion.ModPotions;
 import net.enorme.NER.sound.ModSound;
 import net.enorme.NER.worldgen.ModFeatures;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -23,6 +25,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
 
 import static net.enorme.NER.potion.ModPotions.INSTANT_CURE_POTION;
@@ -62,6 +65,7 @@ public class NethersExorcismMod {
     private void commonSetup(FMLCommonSetupEvent event) {
 
     }
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, NethersExorcismMod.MODID);
 
 
     // Add the example block item to the building blocks tab

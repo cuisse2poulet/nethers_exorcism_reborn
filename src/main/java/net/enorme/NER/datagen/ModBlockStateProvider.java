@@ -56,7 +56,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockItem(ModBlocks.INDIGO_PRESSURE_PLATE);
         blockItem(ModBlocks.INDIGO_FENCE_GATE);
         blockItem(ModBlocks.INDIGO_TRAPDOOR, "_bottom");
-
     }
 
     private void doubleCrossPlantWithItem(DeferredBlock<?> blockRegistryObject) {

@@ -25,7 +25,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         buttonItem(ModBlocks.INDIGO_BUTTON, ModBlocks.INDIGO_PLANKS);
         fenceItem(ModBlocks.INDIGO_FENCE, ModBlocks.INDIGO_PLANKS);
         basicItem(ModBlocks.INDIGO_DOOR.asItem());
-
+        basicItem(ModItems.INDIGO_SALAMANDER_BUCKET.get());
+        basicItem(ModBlocks.SALAMANDER_EGG.asItem());
+        basicItem(ModBlocks.GLOWING_JELLY_BLOCK.asItem());
     }
 
     public void buttonItem(DeferredBlock<?> block, DeferredBlock<Block> baseBlock) {

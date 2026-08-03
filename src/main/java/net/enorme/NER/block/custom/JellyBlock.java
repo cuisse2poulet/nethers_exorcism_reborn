@@ -16,14 +16,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-/**
- * JellyBlock: solid when an entity sprints/runs fast/jumps into it,
- * passable (with light drag) otherwise. Self-illuminating like glowstone.
- * The cyan "hologram" border is NOT done here — it's baked into the block
- * model JSON (nested shell element) + its own border texture, see
- * assets/mymod/models/block/jelly_block.json.
- */
 public class JellyBlock extends Block {
 
     private static final double SPRINT_HORIZONTAL_SPEED_THRESHOLD = 0.15D;

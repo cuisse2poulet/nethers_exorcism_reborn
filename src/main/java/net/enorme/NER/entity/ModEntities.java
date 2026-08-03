@@ -1,6 +1,7 @@
 package net.enorme.NER.entity;
 
 import net.enorme.NER.NethersExorcismMod;
+import net.enorme.NER.entity.custom.indigo_salamander.IndigoSalamanderEntity;
 import net.enorme.NER.entity.custom.indigoscyphozoa.IndigoScyphozoaEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
@@ -22,6 +23,13 @@ public class ModEntities {
                             .sized(1.2F, 3.5F)
                             .build("indigo_scyphozoa"));
 
+    public static final Supplier<EntityType<IndigoSalamanderEntity>> SALAMANDER =
+            ENTITY_TYPES.register("indigo_salamander",
+                    () -> EntityType.Builder.of(
+                                    IndigoSalamanderEntity::new,
+                                    MobCategory.CREATURE)
+                            .sized(0.5F, 0.5F)
+                            .build("indigo_salamander"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

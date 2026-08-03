@@ -1,8 +1,7 @@
 package net.enorme.NER.block;
 
 import net.enorme.NER.NethersExorcismMod;
-import net.enorme.NER.block.custom.IndigoNyliumBlock;
-import net.enorme.NER.block.custom.JellyBlock;
+import net.enorme.NER.block.custom.*;
 import net.enorme.NER.block.custom.plants.IndigoRootsBlock;
 import net.enorme.NER.block.custom.plants.IndigoSproutsBlock;
 import net.enorme.NER.block.custom.plants.IndigoCandleSpire;
@@ -10,8 +9,6 @@ import net.enorme.NER.block.custom.plants.CoilSproutBlock;
 import net.enorme.NER.block.custom.plants.CoilSproutTopBlock;
 import net.enorme.NER.block.custom.plants.DNAVinesBlock;
 import net.enorme.NER.block.custom.plants.DNAVinesPointBlock;
-import net.enorme.NER.block.custom.RotatableBlocks;
-import net.enorme.NER.block.custom.StrippableRotatableBlocks;
 import net.enorme.NER.item.ModItems;
 import net.enorme.NER.worldgen.ModConfiguredFeatures;
 import net.minecraft.world.item.BlockItem;
@@ -20,8 +17,10 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.Properties;
 import java.util.function.Supplier;
 
 public class ModBlocks {
@@ -111,6 +110,12 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> GLOWING_JELLY_BLOCK = register("glowing_jelly_block",
             () -> new JellyBlock(JellyBlock.defaultProperties()));
+
+    public static final DeferredBlock<salamander_egg> SALAMANDER_EGG = register("salamander_egg",
+            () -> new salamander_egg((BlockBehaviour.Properties.ofFullCopy(Blocks.TURTLE_EGG))));
+
+
+
 
     private static <T extends Block> DeferredBlock<T> register(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

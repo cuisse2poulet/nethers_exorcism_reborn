@@ -1,0 +1,208 @@
+{
+  "variants": {
+    "eggs=1,hatch=0": [
+      {
+        "model": "nethers_exorcism_reborn:block/salamander_egg"
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/salamander_egg",
+        "y": 90
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/salamander_egg.json",
+        "y": 180
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/salamander_egg.json",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=1": [
+      {
+        "model": "nethers_exorcism_reborn:block/salamander_egg_crack2.json"
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/salamander_egg_crack2.json",
+        "y": 90
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/salamander_egg_crack2.json",
+        "y": 180
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/salamander_egg_crack2.json",
+        "y": 270
+      }
+    ],
+    "eggs=1,hatch=2": [
+      {
+        "model": "nethers_exorcism_reborn:block/salamander_egg_crack3.json"
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/salamander_egg_crack3.json",
+        "y": 90
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/salamander_egg_crack3.json",
+        "y": 180
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/salamander_egg_crack3.json",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=0": [
+      {
+        "model": "nethers_exorcism_reborn:block/two_salamander_egg.json"
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/two_salamander_egg.json",
+        "y": 90
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/two_salamander_egg.json",
+        "y": 180
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/two_salamander_egg.json",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=1": [
+      {
+        "model": "nethers_exorcism_reborn:block/two_salamander_egg_crack2.json"
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/two_salamander_egg_crack2.json",
+        "y": 90
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/two_salamander_egg_crack2.json",
+        "y": 180
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/two_salamander_egg_crack2.json",
+        "y": 270
+      }
+    ],
+    "eggs=2,hatch=2": [
+      {
+        "model": "nethers_exorcism_reborn:block/two_salamander_egg_crack3.json"
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/two_salamander_egg_crack3.json",
+        "y": 90
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/two_salamander_egg_crack3.json",
+        "y": 180
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/two_salamander_egg_crack3.json",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=0": [
+      {
+        "model": "nethers_exorcism_reborn:block/three_salamander_egg.json"
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/three_salamander_egg.json",
+        "y": 90
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/three_salamander_egg.json",
+        "y": 180
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/three_salamander_egg.json",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=1": [
+      {
+        "model": "nethers_exorcism_reborn:block/three_salamander_egg_crack2.json"
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/three_salamander_egg_crack2.json",
+        "y": 90
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/three_salamander_egg_crack2.json",
+        "y": 180
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/three_salamander_egg_crack2.json",
+        "y": 270
+      }
+    ],
+    "eggs=3,hatch=2": [
+      {
+        "model": "nethers_exorcism_reborn:block/three_salamander_egg_crack3.json"
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/three_salamander_egg_crack3.json",
+        "y": 90
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/three_salamander_egg_crack3.json",
+        "y": 180
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/three_salamander_egg_crack3.json",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=0": [
+      {
+        "model": "nethers_exorcism_reborn:block/four_salamander_egg.json"
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/four_salamander_egg.json",
+        "y": 90
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/four_salamander_egg.json",
+        "y": 180
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/four_salamander_egg.json",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=1": [
+      {
+        "model": "nethers_exorcism_reborn:block/four_salamander_egg_crack2.json"
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/four_salamander_egg_crack2.json",
+        "y": 90
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/four_salamander_egg_crack2.json",
+        "y": 180
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/four_salamander_egg_crack2.json",
+        "y": 270
+      }
+    ],
+    "eggs=4,hatch=2": [
+      {
+        "model": "nethers_exorcism_reborn:block/four_salamander_egg_crack3.json"
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/four_salamander_egg_crack3.json",
+        "y": 90
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/four_salamander_egg_crack3.json",
+        "y": 180
+      },
+      {
+        "model": "nethers_exorcism_reborn:block/four_salamander_egg_crack3.json",
+        "y": 270
+      }
+    ]
+  }
+}

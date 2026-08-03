@@ -42,5 +42,7 @@
   "item.minecraft.potion.effect.jellycious_brew_potion": "Potion of Jellycious Brew",
   "item.minecraft.splash_potion.effect.jellycious_brew_potion": "Splash Potion of Jellycious Brew ",
   "item.minecraft.lingering_potion.effect.jellycious_brew_potion": "Lingering Potion of Jellycious Brew",
-  "item.minecraft.tipped_arrow.effect.jellycious_brew_potion": "Arrow of Jellycious Brew"
+  "item.minecraft.tipped_arrow.effect.jellycious_brew_potion": "Arrow of Jellycious Brew",
+  "item.nethers_exorcism_reborn.salamander_spawn_egg": "Indigo Salamander Spawn Egg",
+  "item.nethers_exorcism_reborn.indigo_salamander_bucket": "Bucket of Indigo Salamander "
 }

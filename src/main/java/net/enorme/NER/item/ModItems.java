@@ -5,7 +5,9 @@ import net.enorme.NER.block.ModBlocks;
 import net.enorme.NER.entity.ModEntities;
 import net.enorme.NER.sound.ModSound;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -49,13 +51,19 @@ public class ModItems {
             () -> new DeferredSpawnEggItem(ModEntities.SCYPHOZOA, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
+    public static final DeferredItem<Item> SALAMANDER_SPAWN_EGG = ITEMS.register("salamander_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.SALAMANDER, 0xFFFFFF, 0xFFFFFF,
+                    new Item.Properties()));
+
 
     public static final DeferredItem<Item> GENETIC_MIRACLE_MUSIC_DISC = ITEMS.register("genetic_miracle_music_disc",
             () -> new Item(new Item.Properties().jukeboxPlayable(ModSound.GENETIC_MIRACLE_KEY).stacksTo(1).rarity(Rarity.RARE)));
 
-    public static final DeferredItem<BlockItem> WEIRD_GOOP_ITEM =
-            ITEMS.register("weird_goop",
-                    () -> new BlockItem(ModBlocks.GLOWING_JELLY_BLOCK.get(), new Item.Properties()));
+
+    public static final DeferredItem<Item> INDIGO_SALAMANDER_BUCKET = ITEMS.register("indigo_salamander_bucket",
+            () -> new CustomBucketItem(
+                    new Item.Properties().stacksTo(1)));
+
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

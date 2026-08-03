@@ -49,6 +49,7 @@ public class ModCreativeModTab {
                         output.accept(ModBlocks.INDIGO_COILSPROUT_TOP);
                         output.accept(ModItems.GLOWING_JELLY);
                         output.accept(ModItems.SCYPHOZOA_SPAWN_EGG);
+                        output.accept(ModItems.SALAMANDER_SPAWN_EGG);
                     }).build());
 
     public static final Supplier<CreativeModeTab> BIO_DELTAS_TAB = CREATIVE_MOD_TAB.register("bio_deltas_tab",
