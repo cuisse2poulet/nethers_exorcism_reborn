@@ -3,7 +3,6 @@ package net.enorme.NER.entity.custom.indigoscyphozoa.goal;
 import net.enorme.NER.entity.custom.indigoscyphozoa.IndigoScyphozoaEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.levelgen.Heightmap;
 
 public class MaintainAltitudeGoal extends Goal {
 
@@ -20,16 +19,21 @@ public class MaintainAltitudeGoal extends Goal {
 
     @Override
     public void tick() {
-
-        BlockPos ground = mob.level().getHeightmapPos(
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                mob.blockPosition());
-
-        double distance = mob.getY() - ground.getY();
-
-        if (distance > 5) {
+        BlockPos ground = findGroundBelow();
+        if (ground != null && mob.getY() - ground.getY() > IndigoScyphozoaEntity.MAX_HOVER_HEIGHT) {
             mob.setDeltaMovement(
-                    mob.getDeltaMovement().add(0, -0.03, 0));
+                    mob.getDeltaMovement().add(0, -0.08, 0));
         }
+    }
+
+    private BlockPos findGroundBelow() {
+        BlockPos start = mob.blockPosition();
+        int minimumY = Math.max(mob.level().getMinBuildHeight(), start.getY() - 32);
+        for (BlockPos pos = start; pos.getY() >= minimumY; pos = pos.below()) {
+            if (mob.level().getBlockState(pos).isFaceSturdy(mob.level(), pos, net.minecraft.core.Direction.UP)) {
+                return pos;
+            }
+        }
+        return null;
     }
 }

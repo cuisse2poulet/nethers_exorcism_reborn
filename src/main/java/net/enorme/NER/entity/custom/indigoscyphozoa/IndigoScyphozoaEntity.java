@@ -40,7 +40,6 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
     private int cryingTicks;
     private int moodTicks;
     private int lonelyTicks;
-    private boolean wasGrouped;
 
     public enum Mood {
         CALM,
@@ -127,13 +126,25 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
     }
 
     private void updateLonelyMood() {
-        if (isGrouped()) {
-            wasGrouped = true;
+        if (level().dimension() != Level.OVERWORLD) {
             lonelyTicks = 0;
+            if (getMood() == Mood.SAD) {
+                setCryingTicks(0);
+                setMood(Mood.CALM);
+            }
             return;
         }
 
-        if (!wasGrouped || getTarget() != null || getMood() == Mood.ANGRY || getMood() == Mood.HURT) {
+        if (isGrouped()) {
+            lonelyTicks = 0;
+            if (getMood() == Mood.SAD) {
+                setCryingTicks(0);
+                setMood(Mood.CALM);
+            }
+            return;
+        }
+
+        if (getTarget() != null || getMood() == Mood.ANGRY || getMood() == Mood.HURT || getMood() == Mood.SAD) {
             return;
         }
 
@@ -141,7 +152,6 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
         if (lonelyTicks >= LONELY_TICKS_BEFORE_SAD) {
             setMood(Mood.SAD, SAD_TICKS);
             setCryingTicks(SAD_TICKS);
-            wasGrouped = false;
             lonelyTicks = 0;
         }
     }
