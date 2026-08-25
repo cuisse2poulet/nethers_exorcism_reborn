@@ -1,7 +1,14 @@
 {
   "variants": {
-    "": {
-      "model": "nethers_exorcism_reborn:block/indigo_roots"
-    }
+    "": [{
+      "model": "nethers_exorcism_reborn:block/indigo_roots","weight": 1
+    },
+{
+  "model": "nethers_exorcism_reborn:block/indigo_roots_v1","weight": 2
+},
+      {
+        "model": "nethers_exorcism_reborn:block/indigo_roots_v2","weight": 2
+      }
+    ]
   }
 }
