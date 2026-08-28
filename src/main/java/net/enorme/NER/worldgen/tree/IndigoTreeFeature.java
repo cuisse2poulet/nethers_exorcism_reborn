@@ -5,6 +5,7 @@ package net.enorme.NER.worldgen.tree;
 import com.mojang.serialization.Codec;
 import net.enorme.NER.block.ModBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -28,6 +29,10 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         BlockPos base = ctx.origin();
         RandomSource random = ctx.random();
         TreeConfiguration config = ctx.config();
+
+        if (!hasAdequateFooting(level, base, 5)) {
+            return false;
+        }
 
         int minHeight = 32, maxHeight = 64;
         int height = minHeight + random.nextInt(maxHeight - minHeight + 1);
@@ -58,8 +63,8 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
                     if (dx * dx + dz * dz <= thickness * thickness + 0.15) {
                         BlockPos vine1 = base.offset((int) Math.round(x1c + dx), y, (int) Math.round(z1c + dz));
                         BlockPos vine2 = base.offset((int) Math.round(x2c + dx), y, (int) Math.round(z2c + dz));
-                        level.setBlock(vine1, trunk, 2);
-                        level.setBlock(vine2, trunk, 2);
+                        if (!level.isOutsideBuildHeight(vine1)) level.setBlock(vine1, trunk, 2);
+                        if (!level.isOutsideBuildHeight(vine2)) level.setBlock(vine2, trunk, 2);
                     }
                 }
             }
@@ -89,7 +94,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
                 for (int dz = -layerRadius; dz <= layerRadius; dz++) {
                     if (dx * dx + dz * dz <= layerRadius * layerRadius + 1.0) {
                         BlockPos pyramidPos = base.offset(dx, yLevel, dz);
-                        if (!level.isOutsideBuildHeight(pyramidPos) && (level.isEmptyBlock(pyramidPos) || isReplaceableDirt(level, pyramidPos))) {
+                        if (!level.isOutsideBuildHeight(pyramidPos) && canOverwriteForStructure(level, pyramidPos)) {
                             level.setBlock(pyramidPos, wart, 2);
                         }
                     }
@@ -176,9 +181,30 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         return true;
     }
 
-    /**
-     * Place cap layers and drips (extracted to reduce duplication).
-     */
+
+    private boolean hasAdequateFooting(WorldGenLevel level, BlockPos base, int checkRadius) {
+        int solid = 0;
+        int total = 0;
+        for (int dx = -checkRadius; dx <= checkRadius; dx += checkRadius) {
+            for (int dz = -checkRadius; dz <= checkRadius; dz += checkRadius) {
+                total++;
+                BlockPos check = base.offset(dx, -1, dz);
+                if (level.isOutsideBuildHeight(check)) continue;
+                BlockState state = level.getBlockState(check);
+                boolean isLava = state.getFluidState().is(FluidTags.LAVA);
+                if (!state.getFluidState().isEmpty() == false && state.isSolidRender(level, check) && !isLava) {
+                    solid++;
+                } else if (!isLava && !level.isEmptyBlock(check) && state.isSolidRender(level, check)) {
+                    solid++;
+                }
+            }
+        }
+        // Require at least 6 of 9 sample points (roughly 2/3) to have solid,
+        // non-lava ground beneath them before committing to the full structure.
+        return total > 0 && solid >= (int) Math.ceil(total * 0.65);
+    }
+
+
     private void placeCap(WorldGenLevel level, BlockPos base, BlockState wart, RandomSource random, int capStart, int height, int capRadius) {
         for (int y = capStart; y < height; y++) {
             for (int dx = -capRadius; dx <= capRadius; dx++) {
@@ -187,14 +213,14 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
                     double distSq = dx * dx + dz * dz;
                     if (distSq <= capRadius * capRadius + 2.0) {
                         BlockPos capPos = base.offset(dx, y, dz);
-                        if (!level.isOutsideBuildHeight(capPos) && (level.isEmptyBlock(capPos) || isReplaceableDirt(level, capPos))) {
+                        if (!level.isOutsideBuildHeight(capPos) && canOverwriteForStructure(level, capPos)) {
                             level.setBlock(capPos, wart, 2);
                         }
                         if (y == capStart && distSq >= (capRadius - 1) * (capRadius - 1) && random.nextDouble() < 0.65) {
                             int dripLen = 2 + random.nextInt(3);
                             for (int d = 1; d <= dripLen; d++) {
                                 BlockPos dripPos = base.offset(dx, y - d, dz);
-                                if (!level.isOutsideBuildHeight(dripPos) && (level.isEmptyBlock(dripPos) || isReplaceableDirt(level, dripPos))) {
+                                if (!level.isOutsideBuildHeight(dripPos) && canOverwriteForStructure(level, dripPos)) {
                                     level.setBlock(dripPos, wart, 2);
                                 }
                             }
@@ -203,7 +229,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
                             int dripLen = 1 + random.nextInt(2);
                             for (int d = 1; d <= dripLen; d++) {
                                 BlockPos dripPos = base.offset(dx, y - d, dz);
-                                if (!level.isOutsideBuildHeight(dripPos) && (level.isEmptyBlock(dripPos) || isReplaceableDirt(level, dripPos))) {
+                                if (!level.isOutsideBuildHeight(dripPos) && canOverwriteForStructure(level, dripPos)) {
                                     level.setBlock(dripPos, wart, 2);
                                 }
                             }
@@ -214,9 +240,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         }
     }
 
-    /**
-     * Collect candidates for a square/rim layer, applying euclidean smoothing and shifting outward by dirX/dirZ.
-     */
+
     private List<BlobCandidate> collectLayerCandidates(BlockPos base, WorldGenLevel level, BlockState trunk,
                                                        double xCenter, double zCenter, int centerIx, int centerIz,
                                                        int layerRadius, int yLayer, int dirX, int dirZ) {
@@ -242,9 +266,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         return candidates;
     }
 
-    /**
-     * Partition candidate list into touching (adjacent to trunk) and non-touching lists.
-     */
+
     private void partitionTouching(WorldGenLevel level, BlockState trunk, List<BlobCandidate> source,
                                    List<BlobCandidate> touchingOut, List<BlobCandidate> nonTouchingOut) {
         for (BlobCandidate c : source) {
@@ -265,10 +287,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         }
     }
 
-    /**
-     * Limit touching candidates to maxTouch by keeping the most outward ones.
-     * Demotes extras into nonTouchingOut, attempting to nudge them one more step outward if possible.
-     */
+
     private void limitTouchingCandidates(WorldGenLevel level, BlockState trunk, BlockPos base,
                                          List<BlobCandidate> touching, List<BlobCandidate> nonTouchingOut,
                                          int maxTouch, int dirX, int dirZ, int yLayer) {
@@ -290,13 +309,11 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         }
     }
 
-    /**
-     * Place blocks for a sorted list of candidates. Returns the first-placed candidate (most outward placed), or null.
-     */
+
     private BlobCandidate placeCandidates(WorldGenLevel level, BlockState wart, List<BlobCandidate> candidates) {
         BlobCandidate best = null;
         for (BlobCandidate c : candidates) {
-            if (!level.isOutsideBuildHeight(c.pos) && (level.isEmptyBlock(c.pos) || isReplaceableDirt(level, c.pos))) {
+            if (!level.isOutsideBuildHeight(c.pos) && canOverwriteForStructure(level, c.pos)) {
                 level.setBlock(c.pos, wart, 2);
                 if (best == null) best = c;
             }
@@ -304,10 +321,6 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         return best;
     }
 
-    /**
-     * Attempt to attach a shroomlight to the blob rim near the anchor candidate.
-     * Preference order: outward adjacent on same layer, outward+up, on-top, orthogonal outwards, fallback to wart.
-     */
     private void placeShroomlightAttached(WorldGenLevel level, BlockPos base, BlockState trunk, BlockState shroomLight,
                                           BlobCandidate anchor, double xCenter, double zCenter) {
         int wartX = anchor.tx;
@@ -331,7 +344,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
             if (level.isOutsideBuildHeight(candidatePos)) continue;
             if (isSameBlockAs(candidatePos, level, trunk)) continue; // never overwrite trunk
 
-            if (level.isEmptyBlock(candidatePos) || isReplaceableDirt(level, candidatePos) || candidatePos.equals(anchor.pos)) {
+            if (canOverwriteForStructure(level, candidatePos) || candidatePos.equals(anchor.pos)) {
                 level.setBlock(candidatePos, shroomLight, 2);
                 return;
             }
@@ -340,7 +353,15 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
 
     private boolean isReplaceableDirt(WorldGenLevel level, BlockPos pos) {
         BlockState s = level.getBlockState(pos);
-        return s.getBlock() == Blocks.GRASS_BLOCK || s.getBlock() == Blocks.DIRT || s.getBlock() == Blocks.COARSE_DIRT || s.getBlock() == Blocks.ROOTED_DIRT;
+        return s.getBlock() == Blocks.GRASS_BLOCK || s.getBlock() == Blocks.DIRT
+                || s.getBlock() == Blocks.COARSE_DIRT || s.getBlock() == Blocks.ROOTED_DIRT
+                || s.is(ModBlocks.INDIGO_NYLIUM.get());
+    }
+
+    private boolean canOverwriteForStructure(WorldGenLevel level, BlockPos pos) {
+        if (level.isEmptyBlock(pos) || isReplaceableDirt(level, pos)) return true;
+        BlockState s = level.getBlockState(pos);
+        return s.getFluidState().is(FluidTags.LAVA);
     }
 
     private boolean isSameBlockAs(BlockPos pos, WorldGenLevel level, BlockState state) {
@@ -348,7 +369,6 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         return s.getBlock() == state.getBlock();
     }
 
-    // Small, reusable candidate class for positions
     private record BlobCandidate(int tx, int tz, double score, BlockPos pos) {
     }
 }

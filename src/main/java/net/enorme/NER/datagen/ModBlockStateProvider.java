@@ -47,7 +47,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         crossPlantWithItemInvert(ModBlocks.INDIGO_COILSPROUT_TOP);
 
         doubleCrossPlantWithItem(ModBlocks.INDIGO_CANDLESPIRE);
-        crossPlantWithItem(ModBlocks.INDIGO_ROOTS);
         crossPlantWithItem(ModBlocks.INDIGO_SPROUTS);
 
 
