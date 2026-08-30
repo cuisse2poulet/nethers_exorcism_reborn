@@ -2,19 +2,9 @@
   "feature": "nethers_exorcism_reborn:indigo_trees",
   "placement": [
     {
-      "type": "minecraft:rarity_filter",
-      "chance": 1
-    },
-    {
-      "type": "minecraft:count",
-      "count": 1
-    },
-    {
-      "type": "minecraft:in_square"
-    },
-    {
-      "type": "minecraft:count_on_every_layer",
-      "count": 1
+      "type": "nethers_exorcism_reborn:even_spread",
+      "separation": 13,
+      "spacing": 20
     },
     {
       "type": "minecraft:block_predicate_filter",

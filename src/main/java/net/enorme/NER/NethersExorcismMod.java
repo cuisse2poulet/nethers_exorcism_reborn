@@ -9,9 +9,9 @@ import net.enorme.NER.item.ModItems;
 import net.enorme.NER.potion.ModPotions;
 import net.enorme.NER.sound.ModSound;
 import net.enorme.NER.worldgen.ModFeatures;
+import net.enorme.NER.worldgen.ModPlacementModifiers;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -57,6 +57,7 @@ public class NethersExorcismMod {
         ModSound.register(modEventBus);
         ModEntities.register(modEventBus);
         ModFeatures.register(modEventBus);
+        ModPlacementModifiers.register(modEventBus);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);

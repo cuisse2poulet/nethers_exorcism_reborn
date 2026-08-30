@@ -30,7 +30,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         RandomSource random = ctx.random();
         TreeConfiguration config = ctx.config();
 
-        if (!hasAdequateFooting(level, base, 5)) {
+        if (!hasAdequateFooting(level, base, 3)) {
             return false;
         }
 
@@ -172,7 +172,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
 
                 BlobCandidate anchor = bestTop != null ? bestTop : (bestMain != null ? bestMain : bestBottom);
                 if (anchor != null) {
-                    placeShroomlightAttached(level, base, trunk, shroomLight, anchor, xCenter, zCenter);
+                    placeShroomlightAttached(level, base, trunk, wart, shroomLight, anchor, xCenter, zCenter);
                 }
             }
         }
@@ -321,8 +321,8 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         return best;
     }
 
-    private void placeShroomlightAttached(WorldGenLevel level, BlockPos base, BlockState trunk, BlockState shroomLight,
-                                          BlobCandidate anchor, double xCenter, double zCenter) {
+    private void placeShroomlightAttached(WorldGenLevel level, BlockPos base, BlockState trunk, BlockState wart,
+                                          BlockState shroomLight, BlobCandidate anchor, double xCenter, double zCenter) {
         int wartX = anchor.tx;
         int wartZ = anchor.tz;
         int wartDirX = Integer.signum(wartX != 0 ? wartX : (int) Math.round(xCenter));
@@ -331,24 +331,38 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         int wartY = anchor.pos.getY() - base.getY();
 
         BlockPos[] candidatesPos = new BlockPos[]{
-                base.offset(wartX + wartDirX, wartY, wartZ + wartDirZ), // outward adjacent on anchor layer
-                base.offset(wartX + wartDirX, wartY + 1, wartZ + wartDirZ), // outward + up
-                base.offset(wartX, wartY + 1, wartZ), // on top of wart (center)
-                base.offset(wartX + wartDirX, wartY, wartZ), // outward X
-                base.offset(wartX, wartY, wartZ + wartDirZ), // outward Z
-                anchor.pos // fallback: on wart itself
+                wartDirX != 0 ? base.offset(wartX + wartDirX, wartY, wartZ) : null, // outward along X
+                wartDirZ != 0 ? base.offset(wartX, wartY, wartZ + wartDirZ) : null, // outward along Z
+                base.offset(wartX, wartY + 1, wartZ),                               // on top of the wart
+                base.offset(wartX, wartY - 1, wartZ)                                // under the wart
         };
 
         for (BlockPos candidatePos : candidatesPos) {
             if (candidatePos == null) continue;
             if (level.isOutsideBuildHeight(candidatePos)) continue;
             if (isSameBlockAs(candidatePos, level, trunk)) continue; // never overwrite trunk
+            if (!canOverwriteForStructure(level, candidatePos)) continue; // never overwrite the blob
+            if (!touchesFace(level, candidatePos, wart)) continue; // never leave it floating
 
-            if (canOverwriteForStructure(level, candidatePos) || candidatePos.equals(anchor.pos)) {
-                level.setBlock(candidatePos, shroomLight, 2);
-                return;
+            level.setBlock(candidatePos, shroomLight, 2);
+            return;
+        }
+
+        if (!level.isOutsideBuildHeight(anchor.pos)) {
+            level.setBlock(anchor.pos, shroomLight, 2);
+        }
+    }
+
+    private boolean touchesFace(WorldGenLevel level, BlockPos pos, BlockState state) {
+        BlockPos[] faces = new BlockPos[]{
+                pos.above(), pos.below(), pos.north(), pos.south(), pos.east(), pos.west()
+        };
+        for (BlockPos face : faces) {
+            if (!level.isOutsideBuildHeight(face) && isSameBlockAs(face, level, state)) {
+                return true;
             }
         }
+        return false;
     }
 
     private boolean isReplaceableDirt(WorldGenLevel level, BlockPos pos) {
