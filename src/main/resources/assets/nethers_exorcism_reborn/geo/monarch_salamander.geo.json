@@ -1,0 +1,162 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 256,
+				"texture_height": 256,
+				"visible_bounds_width": 9,
+				"visible_bounds_height": 4.5,
+				"visible_bounds_offset": [0, 1.75, 0]
+			},
+			"bones": [
+				{
+					"name": "bone",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "uptorso",
+					"parent": "bone",
+					"pivot": [0, 23, -8]
+				},
+				{
+					"name": "torso",
+					"parent": "uptorso",
+					"pivot": [0, 18, 0],
+					"cubes": [
+						{"origin": [0, 21, -15], "size": [0, 21, 25], "uv": [0, 97]},
+						{"origin": [-10, 19, -16], "size": [20, 16, 19], "uv": [69, 46]}
+					]
+				},
+				{
+					"name": "bigdown",
+					"parent": "torso",
+					"pivot": [0, 22, -13],
+					"cubes": [
+						{"origin": [-12, 6, -26], "size": [24, 18, 27], "inflate": 0.1, "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "torso",
+					"pivot": [0, 28, -16],
+					"rotation": [2, 0, 0]
+				},
+				{
+					"name": "upjaw",
+					"parent": "head",
+					"pivot": [0, 29, -16],
+					"rotation": [-2.5, 0, 0],
+					"cubes": [
+						{"origin": [-5, 28, -25.9], "size": [10, 5, 4], "inflate": -0.1, "uv": [126, 112]},
+						{"origin": [-7, 28, -22], "size": [14, 5, 6], "uv": [126, 100]}
+					]
+				},
+				{
+					"name": "eyelids",
+					"parent": "upjaw",
+					"pivot": [0, 30, -16],
+					"cubes": [
+						{"origin": [-7, 29, -22], "size": [14, 5, 6], "inflate": 0.01, "uv": [166, 100]}
+					]
+				},
+				{
+					"name": "downjaw",
+					"parent": "head",
+					"pivot": [0, 29, -16],
+					"rotation": [-2.5, 0, 0],
+					"cubes": [
+						{"origin": [-6, 22, -26], "size": [12, 7, 10], "uv": [126, 82]},
+						{"origin": [-3.5, 4, -28.5], "size": [7, 22, 28], "uv": [-1, 46]}
+					]
+				},
+				{
+					"name": "tounge",
+					"parent": "downjaw",
+					"pivot": [-5, 29.80008, -23.48255],
+					"cubes": [
+						{"origin": [-7, 24, -25], "size": [2, 6, 3], "uv": [155, 112]}
+					]
+				},
+				{
+					"name": "left_arm",
+					"parent": "uptorso",
+					"pivot": [12, 18, -4],
+					"cubes": [
+						{"origin": [9, 2, -7], "size": [6, 19, 6], "uv": [56, 150]},
+						{"origin": [9, 0, -9], "size": [7, 2, 8], "uv": [81, 150]}
+					]
+				},
+				{
+					"name": "right_arm",
+					"parent": "uptorso",
+					"pivot": [-13, 18, -4],
+					"cubes": [
+						{"origin": [-15, 2, -7], "size": [6, 19, 6], "uv": [31, 150]},
+						{"origin": [-16, 0, -9], "size": [7, 2, 8], "uv": [148, 62]}
+					]
+				},
+				{
+					"name": "downtorso",
+					"parent": "bone",
+					"pivot": [0, 18, -1],
+					"cubes": [
+						{"origin": [-8, 9, -1], "size": [16, 13, 14], "uv": [51, 122]}
+					]
+				},
+				{
+					"name": "right_leg",
+					"parent": "downtorso",
+					"pivot": [-8, 16, 9],
+					"cubes": [
+						{"origin": [-12, 7, 5], "size": [6, 13, 9], "uv": [0, 143]}
+					]
+				},
+				{
+					"name": "boneright",
+					"parent": "right_leg",
+					"pivot": [-9, 14, 14],
+					"cubes": [
+						{"origin": [-11, 2, 12], "size": [4, 14, 4], "uv": [51, 97]},
+						{"origin": [-12, 0, 9], "size": [5, 2, 7], "uv": [129, 152]}
+					]
+				},
+				{
+					"name": "left_leg",
+					"parent": "downtorso",
+					"pivot": [8, 16, 9],
+					"cubes": [
+						{"origin": [6, 7, 5], "size": [6, 13, 9], "uv": [148, 39]}
+					]
+				},
+				{
+					"name": "boneleft",
+					"parent": "left_leg",
+					"pivot": [9, 14, 13],
+					"cubes": [
+						{"origin": [7, 2, 12], "size": [4, 14, 4], "uv": [112, 152]},
+						{"origin": [7, 0, 9], "size": [5, 2, 7], "uv": [154, 152]}
+					]
+				},
+				{
+					"name": "tail",
+					"parent": "downtorso",
+					"pivot": [0, 19, 13],
+					"cubes": [
+						{"origin": [0, 14, 10], "size": [0, 12, 26], "uv": [103, 0]},
+						{"origin": [-3, 16, 13], "size": [6, 6, 23], "uv": [112, 122]}
+					]
+				},
+				{
+					"name": "tailbone",
+					"parent": "tail",
+					"pivot": [0, 19, 34],
+					"cubes": [
+						{"origin": [0, 14, 36], "size": [0, 11, 28], "uv": [69, 82]}
+					]
+				}
+			]
+		}
+	]
+}

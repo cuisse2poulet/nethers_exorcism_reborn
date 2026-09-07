@@ -2,6 +2,7 @@ package net.enorme.NER.event;
 
 import net.enorme.NER.block.ModBlocks;
 import net.enorme.NER.entity.custom.indigo_salamander.IndigoSalamanderEntity;
+import net.enorme.NER.entity.custom.monarch_salamander.MonarchSalamanderEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -83,6 +84,10 @@ public class ModEvents {
         event.put(
                 ModEntities.SALAMANDER.get(),
                 IndigoSalamanderEntity.createAttributes().build()
+        );
+        event.put(
+                ModEntities.MONARCHSALAMANDER.get(),
+                MonarchSalamanderEntity.createAttributes().build()
         );
     }
 }

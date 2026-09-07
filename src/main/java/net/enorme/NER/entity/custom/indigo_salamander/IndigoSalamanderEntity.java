@@ -69,7 +69,6 @@ public IndigoSalamanderEntity(EntityType<? extends TamableAnimal> entityType, Le
                     .thenLoop("sleep_loop2"));
             wasSleeping = true;
         } else if (wasSleeping) {
-            // Just woke up — play wake-up once, then fall through to idle after
             state.getController().setAnimationSpeed(1.0);
             state.setAnimation(RawAnimation.begin()
                     .then("sleep_stop2", Animation.LoopType.PLAY_ONCE));
@@ -138,19 +137,38 @@ public IndigoSalamanderEntity(EntityType<? extends TamableAnimal> entityType, Le
         return this.entityData.get(PANICKING);
     }
     @Override
-    protected void registerGoals()
-{ super.registerGoals();
-  this.goalSelector.addGoal(0,new FloatGoal(this));
-    this.goalSelector.addGoal(1, new SalamanderFleePlayerGoal(this, 1.6, 4.0));
-    this.goalSelector.addGoal(4,new BreedGoal(this,1.0));
-    this.goalSelector.addGoal(5,new TemptGoal(this,0.65, stack -> stack.is(ModBlocks.INDIGO_FUNGUS.asItem()),false));
-    this.goalSelector.addGoal(6,new FollowParentGoal(this,1.0));
-    this.goalSelector.addGoal(7,new LookAtPlayerGoal(this,Player.class,6.0F));
-    this.goalSelector.addGoal(8,new RandomLookAroundGoal(this));
-    this.goalSelector.addGoal(9,new RandomStrollGoal(this,1.0));
-    this.goalSelector.addGoal(2, new NapTimeGoal(this));
-    this.goalSelector.addGoal(3, new NapCycleGoal(this));
-}
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new SalamanderFleePlayerGoal(this, 1.6, 4.0));
+        this.goalSelector.addGoal(4, new BreedGoal(this, 1.0));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 0.65, stack -> stack.is(ModBlocks.INDIGO_FUNGUS.asItem()), false));
+        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.0));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F) {
+            @Override
+            public boolean canUse() {
+                return !isNapping() && super.canUse();
+            }
+            @Override
+            public boolean canContinueToUse() {
+                return !isNapping() && super.canContinueToUse();
+            }
+        });
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this) {
+            @Override
+            public boolean canUse() {
+                return !isNapping() && super.canUse();
+            }
+        });
+        this.goalSelector.addGoal(9, new RandomStrollGoal(this, 1.0) {
+            @Override
+            public boolean canUse() {
+                return !isNapping() && super.canUse();
+            }
+        });
+        this.goalSelector.addGoal(2, new NapTimeGoal(this));
+        this.goalSelector.addGoal(3, new NapCycleGoal(this));
+    }
 
     @Override
     protected EntityDimensions getDefaultDimensions(Pose pose) {

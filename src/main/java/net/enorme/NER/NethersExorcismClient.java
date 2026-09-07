@@ -4,6 +4,7 @@ import net.enorme.NER.block.ModBlocks;
 import net.enorme.NER.entity.ModEntities;
 import net.enorme.NER.entity.client.indigo_salamander.IndigoSalamanderRenderer;
 import net.enorme.NER.entity.client.indigoscyphozoa.IndigoScyphozoaRenderer;
+import net.enorme.NER.entity.client.monarch_salamander.MonarchSalamanderRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.neoforged.api.distmarker.Dist;
@@ -33,6 +34,8 @@ public class NethersExorcismClient {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.SALAMANDER.get(), IndigoSalamanderRenderer::new);
-        event.registerEntityRenderer(ModEntities.SCYPHOZOA.get(), IndigoScyphozoaRenderer::new); // <-- check this one specifically
+        event.registerEntityRenderer(ModEntities.SCYPHOZOA.get(), IndigoScyphozoaRenderer::new);
+        event.registerEntityRenderer(ModEntities.MONARCHSALAMANDER.get(), MonarchSalamanderRenderer::new);
+
     }
 }

@@ -1,52 +1,66 @@
-package net.enorme.NER.entity.client.indigo_salamander;
+package net.enorme.NER.entity.client.monarch_salamander;
 
 import net.enorme.NER.NethersExorcismMod;
 import net.enorme.NER.entity.custom.indigo_salamander.IndigoSalamanderEntity;
+import net.enorme.NER.entity.custom.monarch_salamander.MonarchSalamanderEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class IndigoSalamanderModel extends GeoModel<IndigoSalamanderEntity> {
+public class MonarchSalamanderModel extends GeoModel<MonarchSalamanderEntity> {
 
     private static final ResourceLocation MODEL =
             ResourceLocation.fromNamespaceAndPath(
                     NethersExorcismMod.MODID,
-                    "geo/indigo_salamander.geo.json");
+                    "geo/monarch_salamander.geo.json");
 
 
     private static final ResourceLocation BABY_MODEL =
             ResourceLocation.fromNamespaceAndPath(
                     NethersExorcismMod.MODID,
-                    "geo/baby_salamander.geo.json");
+                    "geo/monarch_salamander.geo.json");
 
     private static final ResourceLocation ANIMATION =
             ResourceLocation.fromNamespaceAndPath(
                     NethersExorcismMod.MODID,
-                    "animations/indigo_salamander.animation.json");
+                    "animations/monarch_salamander.animation.json");
 
     private static final ResourceLocation BABY_ANIMATION =
             ResourceLocation.fromNamespaceAndPath(
                     NethersExorcismMod.MODID,
-                    "animations/baby_salamander.animation.json");
+                    "animations/monarch_salamander.animation.json");
 
     private static final ResourceLocation TEXTURE =
             ResourceLocation.fromNamespaceAndPath(
                     NethersExorcismMod.MODID,
-                    "textures/entity/indigo_salamander.png");
+                    "textures/entity/monarch_salamander.png");
 
     private static final ResourceLocation BABY_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(
                     NethersExorcismMod.MODID,
-                    "textures/entity/baby_salamander.png");
+                    "textures/entity/monarch_salamander.png");
 
     @Override
-    public void setCustomAnimations(IndigoSalamanderEntity animatable, long instanceId, AnimationState<IndigoSalamanderEntity> animationState) {
+    public ResourceLocation getModelResource(MonarchSalamanderEntity entity) {
+        return entity.isBaby() ? BABY_MODEL : MODEL;
+    }
+
+    @Override
+    public ResourceLocation getAnimationResource(MonarchSalamanderEntity entity) {
+        return entity.isBaby() ? BABY_ANIMATION : ANIMATION;
+    }
+
+    @Override
+    public ResourceLocation getTextureResource(MonarchSalamanderEntity entity) {
+        return entity.isBaby() ? BABY_TEXTURE : TEXTURE;
+    }
+
+    @Override
+    public void setCustomAnimations(MonarchSalamanderEntity animatable, long instanceId, AnimationState<MonarchSalamanderEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
 
         if (animatable.isNapping()) {
@@ -64,20 +78,5 @@ public class IndigoSalamanderModel extends GeoModel<IndigoSalamanderEntity> {
             head.setRotY(yaw * Mth.DEG_TO_RAD);
         }
     }
-
-    @Override
-    public ResourceLocation getModelResource(IndigoSalamanderEntity entity) {
-        return entity.isBaby() ? BABY_MODEL : MODEL;
-    }
-
-    @Override
-    public ResourceLocation getAnimationResource(IndigoSalamanderEntity entity) {
-        return entity.isBaby() ? BABY_ANIMATION : ANIMATION;
-    }
-
-    @Override
-    public ResourceLocation getTextureResource(IndigoSalamanderEntity entity) {
-        return entity.isBaby() ? BABY_TEXTURE : TEXTURE;
-        }
 
     }

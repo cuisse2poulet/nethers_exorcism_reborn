@@ -55,6 +55,10 @@ public class ModItems {
             () -> new DeferredSpawnEggItem(ModEntities.SALAMANDER, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
+    public static final DeferredItem<Item> MONARCH_SALAMANDER_SPAWN_EGG = ITEMS.register("monarch_salamander_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.MONARCHSALAMANDER, 0xFFFFFF, 0xFFFFFF,
+                    new Item.Properties()));
+
 
     public static final DeferredItem<Item> GENETIC_MIRACLE_MUSIC_DISC = ITEMS.register("genetic_miracle_music_disc",
             () -> new Item(new Item.Properties().jukeboxPlayable(ModSound.GENETIC_MIRACLE_KEY).stacksTo(1).rarity(Rarity.RARE)));
