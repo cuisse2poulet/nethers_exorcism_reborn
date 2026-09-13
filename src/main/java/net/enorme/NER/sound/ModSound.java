@@ -1,6 +1,7 @@
 package net.enorme.NER.sound;
 
 import net.enorme.NER.NethersExorcismMod;
+import net.enorme.NER.utils.CommonUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -23,11 +24,11 @@ public class ModSound {
     public static final ResourceKey<JukeboxSong> GENETIC_MIRACLE_KEY = createSong("genetic_miracle");
 
     private static ResourceKey<JukeboxSong> createSong(String name) {
-        return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID, name));
+        return ResourceKey.create(Registries.JUKEBOX_SONG, CommonUtils.resourcePath(name));
     }
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {
-        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID, name);
+        ResourceLocation id = CommonUtils.resourcePath(name);
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(id));
     }
 

@@ -2,13 +2,7 @@ package net.enorme.NER.block;
 
 import net.enorme.NER.NethersExorcismMod;
 import net.enorme.NER.block.custom.*;
-import net.enorme.NER.block.custom.plants.IndigoRootsBlock;
-import net.enorme.NER.block.custom.plants.IndigoSproutsBlock;
-import net.enorme.NER.block.custom.plants.IndigoCandleSpire;
-import net.enorme.NER.block.custom.plants.CoilSproutBlock;
-import net.enorme.NER.block.custom.plants.CoilSproutTopBlock;
-import net.enorme.NER.block.custom.plants.DNAVinesBlock;
-import net.enorme.NER.block.custom.plants.DNAVinesPointBlock;
+import net.enorme.NER.block.custom.plants.*;
 import net.enorme.NER.item.ModItems;
 import net.enorme.NER.worldgen.ModConfiguredFeatures;
 import net.minecraft.world.item.BlockItem;
@@ -19,10 +13,8 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.Properties;
 import java.util.function.Supplier;
 
 public class ModBlocks {

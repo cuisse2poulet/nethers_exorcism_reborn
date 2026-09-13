@@ -4,8 +4,6 @@ import net.enorme.NER.entity.custom.indigoscyphozoa.IndigoScyphozoaEntity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 
-import java.util.List;
-
 public class GroupDefendGoal extends TargetGoal {
 
     private LivingEntity attacker;

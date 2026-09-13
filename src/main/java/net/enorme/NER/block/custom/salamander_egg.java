@@ -2,11 +2,12 @@ package net.enorme.NER.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import net.enorme.NER.block.ModBlocks;
+import net.enorme.NER.entity.ModEntities;
+import net.enorme.NER.entity.custom.indigo_salamander.IndigoSalamanderEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -27,12 +28,8 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
-
-import net.enorme.NER.entity.ModEntities;
-import net.enorme.NER.entity.custom.indigo_salamander.IndigoSalamanderEntity;
 
 public class salamander_egg extends TurtleEggBlock {
     public static final MapCodec<TurtleEggBlock> CODEC = simpleCodec(TurtleEggBlock::new);

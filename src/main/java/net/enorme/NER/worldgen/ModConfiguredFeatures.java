@@ -1,12 +1,11 @@
 package net.enorme.NER.worldgen;
 
-import net.enorme.NER.NethersExorcismMod;
 import net.enorme.NER.block.ModBlocks;
+import net.enorme.NER.utils.CommonUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,7 +17,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlac
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
-import net.neoforged.fml.common.Mod;
 
 public class ModConfiguredFeatures {
 
@@ -92,6 +90,6 @@ public class ModConfiguredFeatures {
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE,
-                ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID, name));
+                CommonUtils.resourcePath(name));
     }
 }

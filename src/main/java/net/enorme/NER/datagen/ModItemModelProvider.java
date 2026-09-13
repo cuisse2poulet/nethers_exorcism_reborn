@@ -3,8 +3,8 @@ package net.enorme.NER.datagen;
 import net.enorme.NER.NethersExorcismMod;
 import net.enorme.NER.block.ModBlocks;
 import net.enorme.NER.item.ModItems;
+import net.enorme.NER.utils.CommonUtils;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -31,13 +31,13 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     public void buttonItem(DeferredBlock<?> block, DeferredBlock<Block> baseBlock) {
         this.withExistingParent(block.getId().getPath(), mcLoc("block/button_inventory"))
-                .texture("texture", ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID,
+                .texture("texture", CommonUtils.resourcePath(
                         "block/" + baseBlock.getId().getPath()));
     }
 
     public void fenceItem(DeferredBlock<?> block, DeferredBlock<Block> baseBlock) {
         this.withExistingParent(block.getId().getPath(), mcLoc("block/fence_inventory"))
-                .texture("texture", ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID,
+                .texture("texture", CommonUtils.resourcePath(
                         "block/" + baseBlock.getId().getPath()));
     }
 }

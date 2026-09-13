@@ -1,10 +1,7 @@
 package net.enorme.NER.entity.custom.indigo_salamander.goal;
 
 import net.enorme.NER.entity.custom.indigo_salamander.IndigoSalamanderEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.player.Player;

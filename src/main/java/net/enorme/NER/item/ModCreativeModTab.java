@@ -2,9 +2,9 @@ package net.enorme.NER.item;
 
 import net.enorme.NER.NethersExorcismMod;
 import net.enorme.NER.block.ModBlocks;
+import net.enorme.NER.utils.CommonUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
@@ -20,7 +20,7 @@ public class ModCreativeModTab {
     public static final Supplier<CreativeModeTab> DNA_FOREST_TAB = CREATIVE_MOD_TAB.register("dna_forest_tab",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ModItems.RAW_INDIGO_SALAMANDER_TAIL.get()))
-                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID, "bio_deltas_tab"))
+                    .withTabsBefore(CommonUtils.resourcePath( "bio_deltas_tab"))
                     .title(Component.translatable("creativetab.nethers_exorcism_reborn.dna_forest_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(ModItems.RAW_INDIGO_SALAMANDER_TAIL);

@@ -2,7 +2,6 @@ package net.enorme.NER.item;
 
 import net.enorme.NER.entity.ModEntities;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

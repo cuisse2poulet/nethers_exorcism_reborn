@@ -4,13 +4,11 @@ import net.enorme.NER.NethersExorcismMod;
 import net.enorme.NER.entity.custom.indigo_salamander.IndigoSalamanderEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class IndigoSalamanderModel extends GeoModel<IndigoSalamanderEntity> {
 

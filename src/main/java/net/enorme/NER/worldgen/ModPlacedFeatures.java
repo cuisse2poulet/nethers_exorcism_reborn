@@ -1,14 +1,13 @@
 package net.enorme.NER.worldgen;
 
-import net.enorme.NER.NethersExorcismMod;
 import net.enorme.NER.block.ModBlocks;
+import net.enorme.NER.utils.CommonUtils;
 import net.enorme.NER.worldgen.placement.EvenSpreadPlacement;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -58,7 +57,7 @@ public class ModPlacedFeatures {
 
     private static ResourceKey<PlacedFeature> registerKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE,
-                ResourceLocation.fromNamespaceAndPath(NethersExorcismMod.MODID, name));
+                CommonUtils.resourcePath(name));
     }
 
     private static void register(BootstrapContext<PlacedFeature> context,

@@ -1,13 +1,13 @@
 package net.enorme.NER.item;
 
 import net.enorme.NER.NethersExorcismMod;
-import net.enorme.NER.block.ModBlocks;
 import net.enorme.NER.entity.ModEntities;
 import net.enorme.NER.sound.ModSound;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;

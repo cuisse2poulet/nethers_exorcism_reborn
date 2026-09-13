@@ -1,8 +1,6 @@
 package net.enorme.NER.entity.client.monarch_salamander;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.enorme.NER.entity.client.indigo_salamander.IndigoSalamanderModel;
-import net.enorme.NER.entity.custom.indigo_salamander.IndigoSalamanderEntity;
 import net.enorme.NER.entity.custom.monarch_salamander.MonarchSalamanderEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

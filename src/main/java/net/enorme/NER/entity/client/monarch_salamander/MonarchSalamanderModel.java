@@ -1,7 +1,6 @@
 package net.enorme.NER.entity.client.monarch_salamander;
 
 import net.enorme.NER.NethersExorcismMod;
-import net.enorme.NER.entity.custom.indigo_salamander.IndigoSalamanderEntity;
 import net.enorme.NER.entity.custom.monarch_salamander.MonarchSalamanderEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;

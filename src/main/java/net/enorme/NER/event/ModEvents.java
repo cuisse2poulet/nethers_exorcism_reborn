@@ -1,7 +1,9 @@
 package net.enorme.NER.event;
 
 import net.enorme.NER.block.ModBlocks;
+import net.enorme.NER.entity.ModEntities;
 import net.enorme.NER.entity.custom.indigo_salamander.IndigoSalamanderEntity;
+import net.enorme.NER.entity.custom.indigoscyphozoa.IndigoScyphozoaEntity;
 import net.enorme.NER.entity.custom.monarch_salamander.MonarchSalamanderEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -12,12 +14,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.player.BonemealEvent;
-import net.enorme.NER.entity.ModEntities;
-import net.enorme.NER.entity.custom.indigoscyphozoa.IndigoScyphozoaEntity;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.player.BonemealEvent;
 
 @EventBusSubscriber
 public class ModEvents {

@@ -1,8 +1,8 @@
 package net.enorme.NER.entity.custom.monarch_salamander;
 
-import net.enorme.NER.entity.custom.indigo_salamander.IndigoSalamanderEntity;
 import net.enorme.NER.entity.custom.monarch_salamander.goal.MonarchNapCycleGoal;
 import net.enorme.NER.entity.custom.monarch_salamander.goal.MonarchNapTimeGoal;
+import net.enorme.NER.utils.CommonUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -31,7 +31,6 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 public class MonarchSalamanderEntity extends Animal implements GeoAnimatable {
 
     private boolean wasSleeping = false;
-
 
 
     @Override
@@ -101,6 +100,7 @@ public class MonarchSalamanderEntity extends Animal implements GeoAnimatable {
 
     private static final EntityDataAccessor<Boolean> SLEEPING =
             SynchedEntityData.defineId(MonarchSalamanderEntity.class, EntityDataSerializers.BOOLEAN);
+
     private static final EntityDataAccessor<Boolean> HAS_TARGET =
             SynchedEntityData.defineId(MonarchSalamanderEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -114,12 +114,15 @@ public class MonarchSalamanderEntity extends Animal implements GeoAnimatable {
     @Override
     public void setTarget(@Nullable LivingEntity target) {
         super.setTarget(target);
+
         if (!this.level().isClientSide) {
             this.entityData.set(HAS_TARGET, target != null);
 
             var speedAttr = this.getAttribute(Attributes.MOVEMENT_SPEED);
+
             if (speedAttr != null) {
                 speedAttr.removeModifier(CHASE_SPEED_MODIFIER_ID);
+
                 if (target != null) {
                     speedAttr.addTransientModifier(CHASE_SPEED_MODIFIER);
                 }
@@ -149,14 +152,13 @@ public class MonarchSalamanderEntity extends Animal implements GeoAnimatable {
         this.refreshDimensions();
     }
 
-    public static AttributeSupplier.Builder createAttributes(){
+    public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH,40d)
-                .add(Attributes.MOVEMENT_SPEED,0.15d)
-                .add(Attributes.FOLLOW_RANGE,48d)
-                .add(Attributes.ATTACK_DAMAGE,4d);
+                .add(Attributes.MAX_HEALTH, 40d)
+                .add(Attributes.MOVEMENT_SPEED, 0.15d)
+                .add(Attributes.FOLLOW_RANGE, 48d)
+                .add(Attributes.ATTACK_DAMAGE, 4d);
     }
-
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
@@ -171,34 +173,20 @@ public class MonarchSalamanderEntity extends Animal implements GeoAnimatable {
     private final AnimatableInstanceCache cache =
             GeckoLibUtil.createInstanceCache(this);
 
-
-    private boolean isAttacking = false;
-    private int attackAnimTicks = 0;
-    private static final int ATTACK_ANIM_DURATION_TICKS = 24; // ~1.2s at 20 ticks/sec, matches attack1 length
-
     @Override
     public boolean doHurtTarget(Entity entity) {
         boolean result = super.doHurtTarget(entity);
+
         if (result) {
-            isAttacking = true;
-            attackAnimTicks = ATTACK_ANIM_DURATION_TICKS;
-            AnimatableManager<?> manager = this.getAnimatableInstanceCache().getManagerForId(this.getId());
+            AnimatableManager<?> manager =
+                    this.getAnimatableInstanceCache().getManagerForId(this.getId());
+
             if (manager != null) {
                 manager.tryTriggerAnimation("attack");
             }
         }
-        return result;
-    }
 
-    @Override
-    public void tick() {
-        super.tick();
-        if (isAttacking) {
-            attackAnimTicks--;
-            if (attackAnimTicks <= 0) {
-                isAttacking = false;
-            }
-        }
+        return result;
     }
 
     @Override
@@ -211,24 +199,27 @@ public class MonarchSalamanderEntity extends Animal implements GeoAnimatable {
                         this::predicate
                 )
         );
+
         controllers.add(
-                new AnimationController<>(this, "attackController", 0, state -> PlayState.CONTINUE)
-                        .triggerableAnim("attack", RawAnimation.begin().then("attack1", Animation.LoopType.PLAY_ONCE))
+                new AnimationController<>(
+                        this,
+                        "attackController",
+                        0,
+                        state -> PlayState.STOP
+                ).triggerableAnim(
+                        "attack",
+                        RawAnimation.begin()
+                                .then("attack1", Animation.LoopType.PLAY_ONCE)
+                )
         );
     }
 
-
-    private static final ResourceLocation CHASE_SPEED_MODIFIER_ID =
-            ResourceLocation.fromNamespaceAndPath("nethers_exorcism_reborn", "chase_speed_boost");
+    private static final ResourceLocation CHASE_SPEED_MODIFIER_ID = CommonUtils.resourcePath("chase_speed_boost");
 
     private static final AttributeModifier CHASE_SPEED_MODIFIER =
             new AttributeModifier(CHASE_SPEED_MODIFIER_ID, 1.3, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
     private PlayState predicate(AnimationState<MonarchSalamanderEntity> state) {
-        if (isAttacking) {
-            return PlayState.CONTINUE;
-        }
-
         float animSpeedValue = state.getAnimatable().walkAnimation.speed();
         boolean sleepingNow = isNapping();
 
@@ -259,5 +250,4 @@ public class MonarchSalamanderEntity extends Animal implements GeoAnimatable {
 
         return PlayState.CONTINUE;
     }
-
 }
