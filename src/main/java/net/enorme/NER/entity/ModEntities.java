@@ -37,7 +37,7 @@ public class ModEntities {
                     () -> EntityType.Builder.of(
                                     MonarchSalamanderEntity::new,
                                     MobCategory.CREATURE)
-                            .sized(0.5F, 0.5F)
+                            .sized(5.8F, 2.7F)
                             .build("monarch_salamander"));
 
     public static void register(IEventBus eventBus) {

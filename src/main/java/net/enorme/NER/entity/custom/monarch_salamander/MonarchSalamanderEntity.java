@@ -22,13 +22,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MonarchSalamanderEntity extends Animal implements GeoAnimatable {
+public class MonarchSalamanderEntity extends Animal implements GeoEntity {
 
     private boolean wasSleeping = false;
 
@@ -92,10 +92,11 @@ public class MonarchSalamanderEntity extends Animal implements GeoAnimatable {
 
     @Override
     protected EntityDimensions getDefaultDimensions(Pose pose) {
+        EntityDimensions dimensions = super.getDefaultDimensions(pose);
         if (isNapping()) {
-            return EntityDimensions.fixed(this.getBbWidth() * 1.5f, this.getBbHeight() * 0.8f);
+            return EntityDimensions.fixed(dimensions.width() * 1.5f, dimensions.height() * 0.8f);
         }
-        return super.getDefaultDimensions(pose);
+        return dimensions;
     }
 
     private static final EntityDataAccessor<Boolean> SLEEPING =
@@ -178,12 +179,7 @@ public class MonarchSalamanderEntity extends Animal implements GeoAnimatable {
         boolean result = super.doHurtTarget(entity);
 
         if (result) {
-            AnimatableManager<?> manager =
-                    this.getAnimatableInstanceCache().getManagerForId(this.getId());
-
-            if (manager != null) {
-                manager.tryTriggerAnimation("attack");
-            }
+            this.triggerAnim("attackController", "attack");
         }
 
         return result;
