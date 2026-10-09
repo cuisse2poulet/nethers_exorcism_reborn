@@ -29,7 +29,7 @@ public class ModEntities {
                     () -> EntityType.Builder.of(
                                     IndigoSalamanderEntity::new,
                                     MobCategory.CREATURE)
-                            .sized(0.5F, 0.5F)
+                            .sized(0.9F, 0.7F)
                             .build("indigo_salamander"));
 
     public static final Supplier<EntityType<MonarchSalamanderEntity>> MONARCHSALAMANDER =
@@ -37,7 +37,7 @@ public class ModEntities {
                     () -> EntityType.Builder.of(
                                     MonarchSalamanderEntity::new,
                                     MobCategory.CREATURE)
-                            .sized(5.8F, 2.7F)
+                            .sized(2.5F, 2F)
                             .build("monarch_salamander"));
 
     public static void register(IEventBus eventBus) {
