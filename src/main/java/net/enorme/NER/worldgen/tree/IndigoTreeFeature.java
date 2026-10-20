@@ -19,6 +19,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public class IndigoTreeFeature extends Feature<TreeConfiguration> {
+    private static final int MAX_TREE_TOP_Y = 120;
+
     public IndigoTreeFeature(Codec<TreeConfiguration> codec) {
         super(codec);
     }
@@ -34,7 +36,13 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
             return false;
         }
 
-        int minHeight = 32, maxHeight = 64;
+        int minHeight = 32;
+        int maxHeight = Math.min(64, Math.min(
+                level.getMaxBuildHeight() - base.getY() - 2,
+                MAX_TREE_TOP_Y - base.getY() - 1));
+        if (maxHeight < minHeight) {
+            return false;
+        }
         int height = minHeight + random.nextInt(maxHeight - minHeight + 1);
 
         int turns = 2 + random.nextInt(4);
@@ -171,13 +179,11 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
                 BlobCandidate bestBottom = placeCandidates(level, wart, placedBottom);
 
                 BlobCandidate anchor = bestTop != null ? bestTop : (bestMain != null ? bestMain : bestBottom);
-                if (anchor != null) {
+                if (anchor != null && yForBlob >= height / 4) {
                     placeShroomlightAttached(level, base, trunk, wart, shroomLight, anchor, xCenter, zCenter);
                 }
             }
         }
-        level.setBlock(base, Blocks.AIR.defaultBlockState(), 2);
-
         return true;
     }
 
@@ -348,9 +354,6 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
             return;
         }
 
-        if (!level.isOutsideBuildHeight(anchor.pos)) {
-            level.setBlock(anchor.pos, shroomLight, 2);
-        }
     }
 
     private boolean touchesFace(WorldGenLevel level, BlockPos pos, BlockState state) {

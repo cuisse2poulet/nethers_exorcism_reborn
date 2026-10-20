@@ -1449,7 +1449,7 @@
 						},
 						"4.5": {
 							"post": {
-								"vector": [2.5, 0, -5]
+								"vector": [4.5, 0, -5]
 							},
 							"lerp_mode": "catmullrom"
 						}
