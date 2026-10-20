@@ -28,12 +28,21 @@ public class MonarchNapCycleGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return monarchSalamander.level().dimension() == Level.NETHER
+        return monarchSalamander.canNap()
+                && monarchSalamander.level().dimension() == Level.NETHER
                 && isOnValidSleepBlock();
     }
 
     @Override
     public boolean canContinueToUse() {
+        // Hurt / has a target: give up the cycle so combat goals take over
+        if (monarchSalamander.getTarget() != null) {
+            return false;
+        }
+        // Woken by something else (e.g. hurt()) while we were supposed to be sleeping
+        if (phase == Phase.SLEEPING && !monarchSalamander.isNapping()) {
+            return false;
+        }
         if (isPlayerTooClose()) {
             return false;
         }
@@ -58,6 +67,10 @@ public class MonarchNapCycleGoal extends Goal {
         BlockPos belowPos = monarchSalamander.blockPosition().below();
         BlockState belowState = monarchSalamander.level().getBlockState(belowPos);
         return belowState.is(Blocks.NETHERRACK);
+    }
+
+    private boolean canSleepHere() {
+        return monarchSalamander.canNap() && isOnValidSleepBlock() && !isPlayerTooClose();
     }
 
     @Override
@@ -91,8 +104,8 @@ public class MonarchNapCycleGoal extends Goal {
                 }
             }
             case WANDERING -> {
-                if (isOnValidSleepBlock() && !isPlayerTooClose()) {
-                    // trouvé du netherrack en errant — on adopte ce nouvel emplacement
+                if (canSleepHere()) {
+                    // found netherrack while wandering: adopt it as the new nest
                     monarchSalamander.setNestPos(monarchSalamander.blockPosition().below());
                     monarchSalamander.startNapping();
                     phase = Phase.SLEEPING;
@@ -109,14 +122,14 @@ public class MonarchNapCycleGoal extends Goal {
             }
             case RETURNING -> {
                 BlockPos nest = monarchSalamander.getNestPos();
-                if (isOnValidSleepBlock() && !isPlayerTooClose()) {
-                    // arrivée sur du netherrack valide, même si ce n'est plus exactement le nid d'origine
+                if (canSleepHere()) {
+                    // arrived on valid netherrack, even if it's not the original nest
                     monarchSalamander.setNestPos(monarchSalamander.blockPosition().below());
                     monarchSalamander.startNapping();
                     phase = Phase.SLEEPING;
                     timer = 0;
                 } else if (nest != null && monarchSalamander.blockPosition().closerThan(nest, 1.5)) {
-                    // arrivée au nid, mais bloc cassé entre-temps -> repart errer plutôt que dormir dans le vide
+                    // reached the nest but the block is gone: wander again instead of sleeping in the void
                     phase = Phase.WANDERING;
                     timer = 0;
                     wanderStep();

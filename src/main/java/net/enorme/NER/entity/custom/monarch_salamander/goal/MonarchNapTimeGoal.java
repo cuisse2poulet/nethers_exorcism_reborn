@@ -23,13 +23,23 @@ public class MonarchNapTimeGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        if (!monarchSalamander.canNap()) {
+            return false; // cooldown after being hurt, or has a target
+        }
         if (isPlayerTooClose()) {
             return false;
         }
-        boolean result = isOnValidSleepBlock() || isNightInOverworld();
-        return result;
+        return isOnValidSleepBlock() || isNightInOverworld();
     }
 
+    @Override
+    public boolean canContinueToUse() {
+        // If something else woke it (like hurt()), end the goal
+        if (!monarchSalamander.isNapping()) {
+            return false;
+        }
+        return canUse();
+    }
     private boolean isOnValidSleepBlock() {
         if (monarchSalamander.level().dimension() != Level.OVERWORLD) {
             return false;
@@ -37,14 +47,6 @@ public class MonarchNapTimeGoal extends Goal {
         BlockPos belowPos = monarchSalamander.blockPosition().below();
         BlockState belowState = monarchSalamander.level().getBlockState(belowPos);
         return belowState.is(Blocks.NETHERRACK);
-    }
-
-    @Override
-    public boolean canContinueToUse() {
-        if (isPlayerTooClose()) {
-            return false;
-        }
-        return canUse();
     }
 
     private boolean isPlayerTooClose() {

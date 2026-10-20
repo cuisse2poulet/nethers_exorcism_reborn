@@ -2,9 +2,11 @@ package net.enorme.NER.entity.custom.indigo_salamander;
 
 import net.enorme.NER.block.ModBlocks;
 import net.enorme.NER.entity.ModEntities;
+import net.enorme.NER.entity.custom.indigo_salamander.goal.FollowInLineGoal;
 import net.enorme.NER.entity.custom.indigo_salamander.goal.NapCycleGoal;
 import net.enorme.NER.entity.custom.indigo_salamander.goal.NapTimeGoal;
 import net.enorme.NER.entity.custom.indigo_salamander.goal.SalamanderFleePlayerGoal;
+import net.enorme.NER.entity.custom.monarch_salamander.MonarchSalamanderEntity;
 import net.enorme.NER.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -32,7 +34,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
@@ -40,16 +41,16 @@ import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 
-public class IndigoSalamanderEntity extends TamableAnimal implements GeoEntity, Bucketable {
+public class IndigoSalamanderEntity extends TamableAnimal implements GeoEntity, Bucketable, ChainFollower {
 
     private boolean fromBucket = false;
 
-public IndigoSalamanderEntity(EntityType<? extends TamableAnimal> entityType, Level level){
+public IndigoSalamanderEntity (EntityType<? extends TamableAnimal> entityType, Level level) {
     super(entityType, level);
 }
 
 
-
+    private LivingEntity chainTarget;
     private boolean wasSleeping = false;
 
     private PlayState predicate(AnimationState<IndigoSalamanderEntity> state) {
@@ -135,10 +136,10 @@ public IndigoSalamanderEntity(EntityType<? extends TamableAnimal> entityType, Le
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SalamanderFleePlayerGoal(this, 1.6, 4.0));
-        this.goalSelector.addGoal(4, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(5, new TemptGoal(this, 0.65, stack -> stack.is(ModBlocks.INDIGO_FUNGUS.asItem()), false));
-        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.0));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F) {
+        this.goalSelector.addGoal(5, new BreedGoal(this, 1.0));
+        this.goalSelector.addGoal(6, new TemptGoal(this, 0.65, stack -> stack.is(ModBlocks.INDIGO_FUNGUS.asItem()), false));
+        this.goalSelector.addGoal(7, new FollowParentGoal(this, 1.0));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F) {
             @Override
             public boolean canUse() {
                 return !isNapping() && super.canUse();
@@ -160,8 +161,18 @@ public IndigoSalamanderEntity(EntityType<? extends TamableAnimal> entityType, Le
                 return !isNapping() && super.canUse();
             }
         });
-        this.goalSelector.addGoal(2, new NapTimeGoal(this));
-        this.goalSelector.addGoal(3, new NapCycleGoal(this));
+        this.goalSelector.addGoal(3, new NapTimeGoal(this));
+        this.goalSelector.addGoal(2, new NapCycleGoal(this));
+        this.goalSelector.addGoal(4, new FollowInLineGoal<>(this, MonarchSalamanderEntity.class,0.9D, 1.0F, 32.0F));
+    }
+
+
+    @Override
+    public void push(Entity entity) {
+        if (entity instanceof MonarchSalamanderEntity) {
+            return; // the leader walks through us
+        }
+        super.push(entity);
     }
 
     @Override
@@ -272,6 +283,16 @@ public static AttributeSupplier.Builder createAttributes(){
         }
 
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public @Nullable LivingEntity getChainTarget() {
+        return this.chainTarget;
+    }
+
+    @Override
+    public void setChainTarget(@Nullable LivingEntity target) {
+        this.chainTarget = target;
     }
 }
 
