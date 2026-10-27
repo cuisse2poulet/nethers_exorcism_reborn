@@ -58,12 +58,14 @@ public IndigoSalamanderEntity (EntityType<? extends TamableAnimal> entityType, L
         boolean sleepingNow = isNapping();
 
         if (sleepingNow) {
+            state.getController().transitionLength(0);
             state.getController().setAnimationSpeed(1.0);
             state.setAnimation(RawAnimation.begin()
                     .then("to_sleep", Animation.LoopType.PLAY_ONCE)
                     .thenLoop("sleep_loop2"));
             wasSleeping = true;
         } else if (wasSleeping) {
+            state.getController().transitionLength(5);
             state.getController().setAnimationSpeed(1.0);
             state.setAnimation(RawAnimation.begin()
                     .then("sleep_stop2", Animation.LoopType.PLAY_ONCE));

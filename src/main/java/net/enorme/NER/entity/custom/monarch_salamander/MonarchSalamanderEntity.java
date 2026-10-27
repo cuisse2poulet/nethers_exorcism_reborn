@@ -305,12 +305,14 @@ public class MonarchSalamanderEntity extends Animal implements GeoEntity {
         boolean idleNow = !sleepingNow && !wasSleeping && !state.isMoving();
 
         if (sleepingNow) {
+            state.getController().transitionLength(0);
             state.getController().setAnimationSpeed(0.5);
             state.setAnimation(RawAnimation.begin()
                     .then("go_sleep", Animation.LoopType.PLAY_ONCE)
                     .thenLoop("sleep_loop"));
             wasSleeping = true;
         } else if (wasSleeping) {
+            state.getController().transitionLength(5);
             state.getController().setAnimationSpeed(1.0);
             state.setAnimation(RawAnimation.begin()
                     .then("waking_up", Animation.LoopType.PLAY_ONCE));
