@@ -47,7 +47,6 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
     public static final int MIN_HOVER_HEIGHT = 1;
     public static final int MAX_HOVER_HEIGHT = 5;
     private static final int SAD_TICKS = 600;
-    private static final int LONELY_TICKS_BEFORE_SAD = 400;
     public static final int MOOD_TRANSITION_LENGTH = 20;
 
     private final AnimatableInstanceCache cache =
@@ -55,7 +54,7 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
 
     private int cryingTicks;
     private int moodTicks;
-    private int lonelyTicks;
+    private int jellyLayTicks;
     private long jellyReadyAt;
 
     private static final long JELLY_REGROW_TICKS = 6000L;
@@ -78,12 +77,14 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putLong("JellyReadyAt", jellyReadyAt);
+        tag.putInt("JellyLayTicks", jellyLayTicks);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         jellyReadyAt = tag.getLong("JellyReadyAt");
+        jellyLayTicks = tag.getInt("JellyLayTicks");
     }
 
     @Override
@@ -153,18 +154,31 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
         this.cryingTicks = ticks;
     }
 
-    public boolean isGrouped() {
+    public int getJellyLayTicks() {
+        return jellyLayTicks;
+    }
+
+    public void setJellyLayTicks(int ticks) {
+        jellyLayTicks = ticks;
+    }
+
+    public void dropGlowingJelly() {
+        spawnAtLocation(ModItems.GLOWING_JELLY.get());
+    }
+
+    public int getNearbyScyphozoaCount() {
         return level().getEntitiesOfClass(
                 IndigoScyphozoaEntity.class,
                 getBoundingBox().inflate(GROUP_RADIUS)
-        ).size() >= 2;
+        ).size();
+    }
+
+    public boolean isGrouped() {
+        return getNearbyScyphozoaCount() >= 2;
     }
 
     public boolean isAlone() {
-        return level().getEntitiesOfClass(
-                IndigoScyphozoaEntity.class,
-                getBoundingBox().inflate(GROUP_RADIUS)
-        ).size() == 1;
+        return getNearbyScyphozoaCount() == 1;
     }
 
     @Override
@@ -183,8 +197,6 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
             }
         }
 
-        updateLonelyMood();
-
         if (moodTicks > 0) {
             moodTicks--;
 
@@ -195,37 +207,7 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
                 setMood(Mood.CALM);
             }
         }
-    }
 
-    private void updateLonelyMood() {
-        if (level().dimension() != Level.OVERWORLD) {
-            lonelyTicks = 0;
-            if (getMood() == Mood.SAD) {
-                setCryingTicks(0);
-                setMood(Mood.CALM);
-            }
-            return;
-        }
-
-        if (isGrouped()) {
-            lonelyTicks = 0;
-            if (getMood() == Mood.SAD) {
-                setCryingTicks(0);
-                setMood(Mood.CALM);
-            }
-            return;
-        }
-
-        if (getTarget() != null || getMood() == Mood.ANGRY || getMood() == Mood.HURT || getMood() == Mood.SAD) {
-            return;
-        }
-
-        lonelyTicks++;
-        if (lonelyTicks >= LONELY_TICKS_BEFORE_SAD) {
-            setMood(Mood.SAD, SAD_TICKS);
-            setCryingTicks(SAD_TICKS);
-            lonelyTicks = 0;
-        }
     }
 
     @Override
@@ -254,6 +236,8 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
         goalSelector.addGoal(3, new HomingInGoal(this));
         goalSelector.addGoal(4, new CryingGoal(this));
         goalSelector.addGoal(5, new LowFlyingWanderGoal(this));
+        goalSelector.addGoal(6, new GroupJellyLayingGoal(this));
+        goalSelector.addGoal(7, new LonelyMoodGoal(this));
     }
 
     @Override
@@ -275,6 +259,9 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
                             IndigoScyphozoaEntity.class,
                             getBoundingBox().inflate(GROUP_RADIUS))) {
 
+                if (jelly == this) {
+                    continue;
+                }
                 jelly.setMood(Mood.ANGRY, 200);
                 jelly.setTarget(living);
             }
