@@ -5,6 +5,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 
+import java.util.ArrayList;
 
 // adds a new Instant Cure Effect
 public class InstantCureEffect extends MobEffect {
@@ -15,7 +16,7 @@ public class InstantCureEffect extends MobEffect {
     // Makes Instant cure do something on tick
     @Override
     public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        for (MobEffectInstance effect : livingEntity.getActiveEffects()) {
+        for (MobEffectInstance effect : new ArrayList<>(livingEntity.getActiveEffects())) {
             if (!effect.getEffect().value().isBeneficial()) {
                 livingEntity.removeEffect(effect.getEffect());
                 //System.out.println(effect.getEffect().value().getDisplayName());

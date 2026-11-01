@@ -5,12 +5,15 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.EnumSet;
+
 public class FleeWhenAloneGoal extends Goal {
 
     private final IndigoScyphozoaEntity mob;
 
     public FleeWhenAloneGoal(IndigoScyphozoaEntity mob) {
         this.mob = mob;
+        setFlags(EnumSet.of(Flag.MOVE));
     }
 
     @Override

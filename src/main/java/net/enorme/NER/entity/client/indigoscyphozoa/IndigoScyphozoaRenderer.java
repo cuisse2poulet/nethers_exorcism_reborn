@@ -8,7 +8,7 @@ public class IndigoScyphozoaRenderer extends GeoEntityRenderer<IndigoScyphozoaEn
 
     public IndigoScyphozoaRenderer(EntityRendererProvider.Context context) {
         super(context, new IndigoScyphozoaModel());
-
+        addRenderLayer(new ScyphozoaMoodTransitionLayer(this));
         this.shadowRadius = 0.25F;
     }
 }

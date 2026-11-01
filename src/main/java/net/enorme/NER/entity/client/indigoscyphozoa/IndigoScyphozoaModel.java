@@ -29,7 +29,14 @@ public class IndigoScyphozoaModel extends GeoModel<IndigoScyphozoaEntity> {
 
     @Override
     public ResourceLocation getTextureResource(IndigoScyphozoaEntity entity) {
-        return switch (entity.getMood()) {
+        IndigoScyphozoaEntity.Mood mood = entity.getMoodTransitionTicks() > 0
+                ? entity.getPreviousMood()
+                : entity.getMood();
+        return getMoodTexture(mood);
+    }
+
+    public ResourceLocation getMoodTexture(IndigoScyphozoaEntity.Mood mood) {
+        return switch (mood) {
             case LOVE -> ResourceLocation.fromNamespaceAndPath(
                     NethersExorcismMod.MODID,
                     "textures/entity/indigoscyphozoa/scyphozoa_inlove.png");

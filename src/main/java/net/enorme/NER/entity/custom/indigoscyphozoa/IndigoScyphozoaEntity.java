@@ -1,6 +1,8 @@
 package net.enorme.NER.entity.custom.indigoscyphozoa;
 
+import net.enorme.NER.item.ModItems;
 import net.enorme.NER.entity.custom.indigoscyphozoa.goal.*;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -15,6 +17,11 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -27,12 +34,21 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
             SynchedEntityData.defineId(
                     IndigoScyphozoaEntity.class,
                     EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> PREVIOUS_MOOD =
+            SynchedEntityData.defineId(
+                    IndigoScyphozoaEntity.class,
+                    EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> MOOD_TRANSITION_TICKS =
+            SynchedEntityData.defineId(
+                    IndigoScyphozoaEntity.class,
+                    EntityDataSerializers.INT);
 
     public static final int GROUP_RADIUS = 12;
     public static final int MIN_HOVER_HEIGHT = 1;
     public static final int MAX_HOVER_HEIGHT = 5;
     private static final int SAD_TICKS = 600;
     private static final int LONELY_TICKS_BEFORE_SAD = 400;
+    public static final int MOOD_TRANSITION_LENGTH = 20;
 
     private final AnimatableInstanceCache cache =
             GeckoLibUtil.createInstanceCache(this);
@@ -40,6 +56,9 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
     private int cryingTicks;
     private int moodTicks;
     private int lonelyTicks;
+    private long jellyReadyAt;
+
+    private static final long JELLY_REGROW_TICKS = 6000L;
 
     public enum Mood {
         CALM,
@@ -56,9 +75,40 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
     }
 
     @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putLong("JellyReadyAt", jellyReadyAt);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        jellyReadyAt = tag.getLong("JellyReadyAt");
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack tool = player.getItemInHand(hand);
+        if (!tool.is(Items.SHEARS)) {
+            return super.mobInteract(player, hand);
+        }
+
+        if (!level().isClientSide && level().getGameTime() >= jellyReadyAt) {
+            jellyReadyAt = level().getGameTime() + JELLY_REGROW_TICKS;
+            spawnAtLocation(ModItems.GLOWING_JELLY.get());
+            tool.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+            playSound(SoundEvents.SHEEP_SHEAR, 0.8F, 1.1F);
+        }
+
+        return InteractionResult.sidedSuccess(level().isClientSide);
+    }
+
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(MOOD, Mood.CALM.ordinal());
+        builder.define(PREVIOUS_MOOD, Mood.CALM.ordinal());
+        builder.define(MOOD_TRANSITION_TICKS, 0);
     }
 
     public Mood getMood() {
@@ -70,11 +120,29 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
     }
 
     public void setMood(Mood mood, int ticks) {
-        entityData.set(MOOD, mood.ordinal());
+        int moodId = mood.ordinal();
+        if (entityData.get(MOOD) != moodId) {
+            entityData.set(PREVIOUS_MOOD, entityData.get(MOOD));
+            entityData.set(MOOD, moodId);
+            entityData.set(MOOD_TRANSITION_TICKS, MOOD_TRANSITION_LENGTH);
+        }
 
         if (ticks > 0) {
             this.moodTicks = ticks;
         }
+    }
+
+    public Mood getPreviousMood() {
+        return Mood.values()[entityData.get(PREVIOUS_MOOD)];
+    }
+
+    public int getMoodTransitionTicks() {
+        return entityData.get(MOOD_TRANSITION_TICKS);
+    }
+
+    public float getMoodTransitionProgress(float partialTick) {
+        return 1.0F - Math.clamp(
+                (getMoodTransitionTicks() - partialTick) / (float) MOOD_TRANSITION_LENGTH, 0.0F, 1.0F);
     }
 
     public int getCryingTicks() {
@@ -102,6 +170,10 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
     @Override
     public void tick() {
         super.tick();
+
+        if (!level().isClientSide && getMoodTransitionTicks() > 0) {
+            entityData.set(MOOD_TRANSITION_TICKS, getMoodTransitionTicks() - 1);
+        }
 
         LivingEntity target = getTarget();
         if (target instanceof Player player && (player.isCreative() || player.isSpectator())) {

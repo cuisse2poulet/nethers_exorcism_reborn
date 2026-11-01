@@ -98,7 +98,7 @@ public class EvenSpreadPlacement extends PlacementModifier {
     }
 
     private void addGroundPositions(PlacementContext context, Stream.Builder<BlockPos> positions, int x, int z) {
-        int top = context.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z);
+        int top = Math.min(context.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z), 87);
         BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos(x, top, z);
         BlockState above = context.getBlockState(cursor);
         int found = 0;
