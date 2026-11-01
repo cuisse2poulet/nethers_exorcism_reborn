@@ -46,5 +46,8 @@
   "item.nethers_exorcism_reborn.salamander_spawn_egg": "Indigo Salamander Spawn Egg",
   "item.nethers_exorcism_reborn.indigo_salamander_bucket": "Bucket of Indigo Salamander ",
   "block.nethers_exorcism_reborn.salamander_egg": "Indigo Salamander Egg",
-  "block.nethers_exorcism_reborn.glowing_jelly_block": "Glowing Jelly Block"
+  "block.nethers_exorcism_reborn.glowing_jelly_block": "Glowing Jelly Block",
+  "sounds.nethers_exorcism_reborn.scyphozoa_idle": "Scyphozoa wails",
+  "sounds.nethers_exorcism_reborn.scyphozoa_death": "Scyphozoa dies",
+  "sounds.nethers_exorcism_reborn.scyphozoa_hurt": "Scyphozoa hurts"
 }

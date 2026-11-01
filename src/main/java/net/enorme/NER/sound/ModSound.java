@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.JukeboxSong;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.util.DeferredSoundType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
@@ -26,6 +27,15 @@ public class ModSound {
     private static ResourceKey<JukeboxSong> createSong(String name) {
         return ResourceKey.create(Registries.JUKEBOX_SONG, CommonUtils.resourcePath(name));
     }
+/// //////////////////////////////////////////////
+///
+///
+
+public static Supplier<SoundEvent> SCYPHOZOA_IDLE =registerSoundEvent("scyphozoa_idle");
+    public static Supplier<SoundEvent> SCYPHOZOA_DEATH =registerSoundEvent("scyphozoa_death");
+    public static Supplier<SoundEvent> SCYPHOZOA_MOVE =registerSoundEvent("scyphozoa_move");
+    public static Supplier<SoundEvent> SCYPHOZOA_HURT =registerSoundEvent("scyphozoa_hurt");
+
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {
         ResourceLocation id = CommonUtils.resourcePath(name);

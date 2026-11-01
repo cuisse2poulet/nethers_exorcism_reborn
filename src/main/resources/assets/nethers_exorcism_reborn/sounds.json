@@ -6,5 +6,29 @@
         "stream": true
       }
     ]
+  },
+  "scyphozoa_idle": {
+    "subtitle": "sounds.nethers_exorcism_reborn.scyphozoa_idle",
+    "sounds": [
+      "nethers_exorcism_reborn:scyphozoa_idle1",
+      "nethers_exorcism_reborn:scyphozoa_idle2",
+      "nethers_exorcism_reborn:scyphozoa_idle3",
+      "nethers_exorcism_reborn:scyphozoa_idle4"
+    ]
+  },
+  "scyphozoa_death": {
+    "subtitle": "sounds.nethers_exorcism_reborn.scyphozoa_death",
+    "sounds": [
+      "nethers_exorcism_reborn:scyphozoa_death1",
+      "nethers_exorcism_reborn:scyphozoa_death2"
+
+    ]
+  },
+  "scyphozoa_hurt": {
+    "subtitle": "sounds.nethers_exorcism_reborn.scyphozoa_hurt",
+    "sounds": [
+      "nethers_exorcism_reborn:scyphozoa_hurt1",
+      "nethers_exorcism_reborn:scyphozoa_hurt2"
+    ]
   }
 }

@@ -2,10 +2,13 @@ package net.enorme.NER.entity.custom.indigoscyphozoa;
 
 import net.enorme.NER.item.ModItems;
 import net.enorme.NER.entity.custom.indigoscyphozoa.goal.*;
+import net.enorme.NER.sound.ModSound;
+import net.minecraft.client.resources.sounds.SoundEventRegistration;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -27,6 +30,8 @@ import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+import javax.annotation.Nullable;
 
 public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
 
@@ -326,6 +331,23 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
         return cache;
     }
 
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return ModSound.SCYPHOZOA_HURT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSound.SCYPHOZOA_IDLE.get();
+    }
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSound.SCYPHOZOA_DEATH.get();
+    }
     @Override
     public double getTick(Object object) {
         return tickCount;
