@@ -1,7 +1,7 @@
 package net.enorme.NER.block.custom;
 
 import com.mojang.serialization.MapCodec;
-import net.enorme.NER.worldgen.ModConfiguredFeatures;
+import net.enorme.NER.worldgen.NERConfiguredFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
@@ -67,7 +67,7 @@ public class IndigoNyliumBlock extends Block implements BonemealableBlock {
         Registry<ConfiguredFeature<?, ?>> registry =
                 level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE);
 
-        place(registry, ModConfiguredFeatures.DNA_FOREST_VEGETATION_BONEMEAL,
+        place(registry, NERConfiguredFeatures.DNA_FOREST_VEGETATION_BONEMEAL,
                 level, chunkGen, random, abovePos);
     }
     private void place(

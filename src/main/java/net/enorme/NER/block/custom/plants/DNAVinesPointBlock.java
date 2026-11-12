@@ -1,7 +1,7 @@
 package net.enorme.NER.block.custom.plants;
 
 import com.mojang.serialization.MapCodec;
-import net.enorme.NER.block.ModBlocks;
+import net.enorme.NER.block.NERBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
@@ -21,7 +21,7 @@ public class DNAVinesPointBlock extends GrowingPlantHeadBlock {
 
     @Override
     protected Block getBodyBlock() {
-        return ModBlocks.DNA_VINE.get();
+        return NERBlocks.DNA_VINE.get();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class DNAVinesPointBlock extends GrowingPlantHeadBlock {
 
     @Override
     protected GrowingPlantHeadBlock getHeadBlock() {
-        return ModBlocks.DNA_VINE_POINT.get();
+        return NERBlocks.DNA_VINE_POINT.get();
     }
 
     @Override

@@ -1,7 +1,7 @@
 package net.enorme.NER.block.custom.plants;
 
 import com.mojang.serialization.MapCodec;
-import net.enorme.NER.block.ModBlocks;
+import net.enorme.NER.block.NERBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.GrowingPlantBodyBlock;
@@ -24,11 +24,11 @@ public class CoilSproutBlock extends GrowingPlantBodyBlock {
 
     @Override
     protected GrowingPlantHeadBlock getHeadBlock() {
-        return ModBlocks.INDIGO_COILSPROUT_TOP.get();
+        return NERBlocks.INDIGO_COILSPROUT_TOP.get();
     }
 
     @Override
     protected Block getBodyBlock() {
-        return ModBlocks.INDIGO_COILSPROUT.get();
+        return NERBlocks.INDIGO_COILSPROUT.get();
     }
 }

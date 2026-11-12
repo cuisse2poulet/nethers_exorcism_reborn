@@ -1,6 +1,6 @@
 package net.enorme.NER.item;
 
-import net.enorme.NER.entity.ModEntities;
+import net.enorme.NER.entity.NEREntities;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -37,7 +37,7 @@ public class CustomBucketItem extends Item {
         var spawnPos = blockHit.getBlockPos().relative(blockHit.getDirection());
 
         if (level instanceof ServerLevel serverLevel) {
-            var entity = ModEntities.SALAMANDER.get().spawn(
+            var entity = NEREntities.SALAMANDER.get().spawn(
                     serverLevel, stack, player, spawnPos,
                     MobSpawnType.BUCKET, true, false
             );

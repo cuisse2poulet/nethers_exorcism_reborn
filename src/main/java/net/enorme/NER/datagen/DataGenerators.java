@@ -27,18 +27,19 @@ public class DataGenerators {
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
         generator.addProvider(event.includeServer(), new LootTableProvider(packOutput, Collections.emptySet(),
-                List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTableProvider::new, LootContextParamSets.BLOCK)), lookupProvider));
+                List.of(new LootTableProvider.SubProviderEntry(NERBlockLootTableProvider::new, LootContextParamSets.BLOCK),
+                        new LootTableProvider.SubProviderEntry(NEREntityLootTableProvider::new, LootContextParamSets.ENTITY)), lookupProvider));
 
-        BlockTagsProvider blockTagsProvider = new ModBlockTagProvider(packOutput, lookupProvider, existingFileHelper);
+        BlockTagsProvider blockTagsProvider = new NERBlockTagProvider(packOutput, lookupProvider, existingFileHelper);
         generator.addProvider(event.includeServer(), blockTagsProvider);
 
 
-        generator.addProvider(event.includeClient(), new ModItemModelProvider(packOutput, existingFileHelper));
-        generator.addProvider(event.includeServer(), new ModItemTagProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
-        generator.addProvider(event.includeClient(), new ModBlockStateProvider(packOutput, existingFileHelper));
-        generator.addProvider(event.includeServer(), new ModRecipeProvider(packOutput, lookupProvider));
+        generator.addProvider(event.includeClient(), new NERItemModelProvider(packOutput, existingFileHelper));
+        generator.addProvider(event.includeServer(), new NERItemTagProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        generator.addProvider(event.includeClient(), new NERBlockStateProvider(packOutput, existingFileHelper));
+        generator.addProvider(event.includeServer(), new NERRecipeProvider(packOutput, lookupProvider));
 
-        generator.addProvider(event.includeServer(), new ModDatapackProvider(packOutput, lookupProvider));
+        generator.addProvider(event.includeServer(), new NERDatapackProvider(packOutput, lookupProvider));
     }
 
 }

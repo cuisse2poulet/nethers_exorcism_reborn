@@ -1,7 +1,7 @@
 package net.enorme.NER.worldgen.vegetation;
 
 import com.mojang.serialization.Codec;
-import net.enorme.NER.block.ModBlocks;
+import net.enorme.NER.block.NERBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -25,7 +25,7 @@ public class IndigoForestVegetationFeature extends Feature<NetherForestVegetatio
         NetherForestVegetationConfig config = context.config();
         RandomSource random = context.random();
 
-        if (!state.is(ModBlocks.INDIGO_NYLIUM.get())) {
+        if (!state.is(NERBlocks.INDIGO_NYLIUM.get())) {
             return false;
         }
 

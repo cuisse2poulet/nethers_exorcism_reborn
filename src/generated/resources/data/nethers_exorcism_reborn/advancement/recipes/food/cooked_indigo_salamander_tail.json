@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_raw_indigo_salamander_tail": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nethers_exorcism_reborn:raw_indigo_salamander_tail"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nethers_exorcism_reborn:cooked_indigo_salamander_tail"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_raw_indigo_salamander_tail"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nethers_exorcism_reborn:cooked_indigo_salamander_tail"
+    ]
+  }
+}

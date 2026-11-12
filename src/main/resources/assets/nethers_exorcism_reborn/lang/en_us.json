@@ -49,5 +49,6 @@
   "block.nethers_exorcism_reborn.glowing_jelly_block": "Glowing Jelly Block",
   "sounds.nethers_exorcism_reborn.scyphozoa_idle": "Scyphozoa wails",
   "sounds.nethers_exorcism_reborn.scyphozoa_death": "Scyphozoa dies",
-  "sounds.nethers_exorcism_reborn.scyphozoa_hurt": "Scyphozoa hurts"
+  "sounds.nethers_exorcism_reborn.scyphozoa_hurt": "Scyphozoa hurts",
+  "sounds.nethers_exorcism_reborn.scyphozoa_move": "Scyphozoa propels"
 }

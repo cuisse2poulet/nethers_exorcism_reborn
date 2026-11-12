@@ -3,7 +3,7 @@ package net.enorme.NER.worldgen.placement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.enorme.NER.worldgen.ModPlacementModifiers;
+import net.enorme.NER.worldgen.NERPlacementModifiers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
@@ -80,7 +80,7 @@ public class EvenSpreadPlacement extends PlacementModifier {
 
     @Override
     public PlacementModifierType<?> type() {
-        return ModPlacementModifiers.EVEN_SPREAD.get();
+        return NERPlacementModifiers.EVEN_SPREAD.get();
     }
 
     private long cellSeed(long levelSeed, int cellX, int cellZ) {

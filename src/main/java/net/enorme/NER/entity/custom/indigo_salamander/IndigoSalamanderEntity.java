@@ -1,13 +1,13 @@
 package net.enorme.NER.entity.custom.indigo_salamander;
 
-import net.enorme.NER.block.ModBlocks;
-import net.enorme.NER.entity.ModEntities;
+import net.enorme.NER.block.NERBlocks;
+import net.enorme.NER.entity.NEREntities;
 import net.enorme.NER.entity.custom.indigo_salamander.goal.FollowInLineGoal;
 import net.enorme.NER.entity.custom.indigo_salamander.goal.NapCycleGoal;
 import net.enorme.NER.entity.custom.indigo_salamander.goal.NapTimeGoal;
 import net.enorme.NER.entity.custom.indigo_salamander.goal.SalamanderFleePlayerGoal;
 import net.enorme.NER.entity.custom.monarch_salamander.MonarchSalamanderEntity;
-import net.enorme.NER.item.ModItems;
+import net.enorme.NER.item.NERItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -139,7 +139,7 @@ public IndigoSalamanderEntity (EntityType<? extends TamableAnimal> entityType, L
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SalamanderFleePlayerGoal(this, 1.6, 4.0));
         this.goalSelector.addGoal(5, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(6, new TemptGoal(this, 0.65, stack -> stack.is(ModBlocks.INDIGO_FUNGUS.asItem()), false));
+        this.goalSelector.addGoal(6, new TemptGoal(this, 0.65, stack -> stack.is(NERBlocks.INDIGO_FUNGUS.asItem()), false));
         this.goalSelector.addGoal(7, new FollowParentGoal(this, 1.0));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F) {
             @Override
@@ -197,12 +197,12 @@ public static AttributeSupplier.Builder createAttributes(){
 }
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(ModBlocks.INDIGO_FUNGUS.asItem());
+        return stack.is(NERBlocks.INDIGO_FUNGUS.asItem());
     }
 
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return ModEntities.SALAMANDER.get().create(serverLevel);
+        return NEREntities.SALAMANDER.get().create(serverLevel);
     }
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
@@ -255,7 +255,7 @@ public static AttributeSupplier.Builder createAttributes(){
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(ModItems.INDIGO_SALAMANDER_BUCKET.get());
+        return new ItemStack(NERItems.INDIGO_SALAMANDER_BUCKET.get());
     }
 
     @Override

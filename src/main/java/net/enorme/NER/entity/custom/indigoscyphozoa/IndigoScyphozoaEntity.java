@@ -1,9 +1,8 @@
 package net.enorme.NER.entity.custom.indigoscyphozoa;
 
-import net.enorme.NER.item.ModItems;
+import net.enorme.NER.item.NERItems;
 import net.enorme.NER.entity.custom.indigoscyphozoa.goal.*;
-import net.enorme.NER.sound.ModSound;
-import net.minecraft.client.resources.sounds.SoundEventRegistration;
+import net.enorme.NER.sound.NERSound;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -25,6 +24,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -64,6 +64,12 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
 
     private static final long JELLY_REGROW_TICKS = 6000L;
 
+    private static final int LEAP_MIN_COOLDOWN = 160;
+    private static final int LEAP_RANDOM_COOLDOWN = 240;
+    private static final double LEAP_UP_STRENGTH = 0.45D;
+    private static final double LEAP_FORWARD_STRENGTH = 0.15D;
+    private int leapCooldown = LEAP_MIN_COOLDOWN;
+
     public enum Mood {
         CALM,
         LOVE,
@@ -101,7 +107,7 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
 
         if (!level().isClientSide && level().getGameTime() >= jellyReadyAt) {
             jellyReadyAt = level().getGameTime() + JELLY_REGROW_TICKS;
-            spawnAtLocation(ModItems.GLOWING_JELLY.get());
+            spawnAtLocation(NERItems.GLOWING_JELLY.get());
             tool.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
             playSound(SoundEvents.SHEEP_SHEAR, 0.8F, 1.1F);
         }
@@ -168,7 +174,7 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
     }
 
     public void dropGlowingJelly() {
-        spawnAtLocation(ModItems.GLOWING_JELLY.get());
+        spawnAtLocation(NERItems.GLOWING_JELLY.get());
     }
 
     public int getNearbyScyphozoaCount() {
@@ -213,6 +219,29 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
             }
         }
 
+        if (!level().isClientSide) {
+            tickLeap();
+        }
+    }
+
+    private void tickLeap() {
+        if (--leapCooldown > 0) {
+            return;
+        }
+        leapCooldown = LEAP_MIN_COOLDOWN + random.nextInt(LEAP_RANDOM_COOLDOWN);
+
+        if (getTarget() != null || cryingTicks > 0 || isInWaterOrBubble()
+                || !level().noCollision(this, getBoundingBox().move(0, 2.0D, 0))) {
+            return;
+        }
+
+        float yawRad = getYRot() * Mth.DEG_TO_RAD;
+        double forwardX = -Mth.sin(yawRad) * LEAP_FORWARD_STRENGTH;
+        double forwardZ = Mth.cos(yawRad) * LEAP_FORWARD_STRENGTH;
+
+        setDeltaMovement(getDeltaMovement().add(forwardX, LEAP_UP_STRENGTH, forwardZ));
+        hasImpulse = true;
+        playSound(NERSound.SCYPHOZOA_MOVE.get(), 0.8F, 0.9F + random.nextFloat() * 0.3F);
     }
 
     @Override
@@ -335,18 +364,18 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return ModSound.SCYPHOZOA_HURT.get();
+        return NERSound.SCYPHOZOA_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSound.SCYPHOZOA_IDLE.get();
+        return NERSound.SCYPHOZOA_IDLE.get();
     }
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSound.SCYPHOZOA_DEATH.get();
+        return NERSound.SCYPHOZOA_DEATH.get();
     }
     @Override
     public double getTick(Object object) {

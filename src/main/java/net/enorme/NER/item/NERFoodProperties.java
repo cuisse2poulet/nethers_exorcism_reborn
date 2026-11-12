@@ -1,0 +1,17 @@
+package net.enorme.NER.item;
+
+import net.enorme.NER.effect.NEREffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
+
+public class NERFoodProperties {
+    public static final FoodProperties RAW_INDIGO_SALAMANDER_TAIL = (new FoodProperties.Builder().nutrition(4)
+            .saturationModifier(0.45f).effect(() -> new MobEffectInstance(MobEffects.POISON, 160, 1), 1.0f)).build();
+
+    public static final FoodProperties COOKED_INDIGO_SALAMANDER_TAIL = (new FoodProperties.Builder().nutrition(6).saturationModifier(0.55f)
+            .effect(() -> new MobEffectInstance(NEREffect.INSTANT_CURE_EFFECT, 180, 0), 1.0f)).build();
+
+    public static final FoodProperties GLOWING_JELLY = (new FoodProperties.Builder().nutrition(4).saturationModifier(0.25f)
+            .effect(() -> new MobEffectInstance(MobEffects.GLOWING, 140, 0), 1.0f)).build();
+}

@@ -1,7 +1,7 @@
 package net.enorme.NER.block.custom.plants;
 
 import com.mojang.serialization.MapCodec;
-import net.enorme.NER.block.ModBlocks;
+import net.enorme.NER.block.NERBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.BlockGetter;
@@ -32,7 +32,7 @@ public class IndigoCandleSpire extends DoublePlantBlock {
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.is(BlockTags.NYLIUM)  || state.is(Blocks.SOUL_SOIL) || state.is(ModBlocks.INDIGO_NYLIUM.get()) || super.mayPlaceOn(state, level, pos);
+        return state.is(BlockTags.NYLIUM)  || state.is(Blocks.SOUL_SOIL) || state.is(NERBlocks.INDIGO_NYLIUM.get()) || super.mayPlaceOn(state, level, pos);
     }
 
     @Override

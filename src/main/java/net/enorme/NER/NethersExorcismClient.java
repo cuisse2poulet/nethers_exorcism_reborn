@@ -1,7 +1,7 @@
 package net.enorme.NER;
 
-import net.enorme.NER.block.ModBlocks;
-import net.enorme.NER.entity.ModEntities;
+import net.enorme.NER.block.NERBlocks;
+import net.enorme.NER.entity.NEREntities;
 import net.enorme.NER.entity.client.indigo_salamander.IndigoSalamanderRenderer;
 import net.enorme.NER.entity.client.indigoscyphozoa.IndigoScyphozoaRenderer;
 import net.enorme.NER.entity.client.monarch_salamander.MonarchSalamanderRenderer;
@@ -27,15 +27,15 @@ public class NethersExorcismClient {
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            ItemBlockRenderTypes.setRenderLayer(ModBlocks.DNA_VINE.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(ModBlocks.DNA_VINE_POINT.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(NERBlocks.DNA_VINE.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(NERBlocks.DNA_VINE_POINT.get(), RenderType.cutout());
         });
     }
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModEntities.SALAMANDER.get(), IndigoSalamanderRenderer::new);
-        event.registerEntityRenderer(ModEntities.SCYPHOZOA.get(), IndigoScyphozoaRenderer::new);
-        event.registerEntityRenderer(ModEntities.MONARCHSALAMANDER.get(), MonarchSalamanderRenderer::new);
+        event.registerEntityRenderer(NEREntities.SALAMANDER.get(), IndigoSalamanderRenderer::new);
+        event.registerEntityRenderer(NEREntities.SCYPHOZOA.get(), IndigoScyphozoaRenderer::new);
+        event.registerEntityRenderer(NEREntities.MONARCHSALAMANDER.get(), MonarchSalamanderRenderer::new);
 
     }
 }

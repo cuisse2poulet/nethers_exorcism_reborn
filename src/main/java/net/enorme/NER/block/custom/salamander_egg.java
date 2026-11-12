@@ -1,8 +1,8 @@
 package net.enorme.NER.block.custom;
 
 import com.mojang.serialization.MapCodec;
-import net.enorme.NER.block.ModBlocks;
-import net.enorme.NER.entity.ModEntities;
+import net.enorme.NER.block.NERBlocks;
+import net.enorme.NER.entity.NEREntities;
 import net.enorme.NER.entity.custom.indigo_salamander.IndigoSalamanderEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -84,7 +84,7 @@ public class salamander_egg extends TurtleEggBlock {
 
                 for(int j = 0; j < (Integer)state.getValue(EGGS); ++j) {
                     level.levelEvent(2001, pos, Block.getId(state));
-                    IndigoSalamanderEntity salamander = ModEntities.SALAMANDER.get().create(level);
+                    IndigoSalamanderEntity salamander = NEREntities.SALAMANDER.get().create(level);
                     if (salamander != null) {
                         salamander.setAge(-24000);
                         salamander.setNestPos(pos);
@@ -139,7 +139,7 @@ public class salamander_egg extends TurtleEggBlock {
     }
 
     public static boolean isSand(BlockGetter reader, BlockPos pos) {
-        return reader.getBlockState(pos).is(ModBlocks.INDIGO_WART_BLOCK);
+        return reader.getBlockState(pos).is(NERBlocks.INDIGO_WART_BLOCK);
     }
 
     @Override

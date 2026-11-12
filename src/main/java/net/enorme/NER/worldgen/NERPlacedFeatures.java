@@ -1,0 +1,69 @@
+package net.enorme.NER.worldgen;
+
+import net.enorme.NER.block.NERBlocks;
+import net.enorme.NER.utils.CommonUtils;
+import net.enorme.NER.worldgen.placement.EvenSpreadPlacement;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.placement.*;
+
+import java.util.List;
+
+public class NERPlacedFeatures {
+
+    public static final ResourceKey<PlacedFeature> INDIGO_VEGETATION =
+            registerKey("indigo_vegetation");
+
+    public static final ResourceKey<PlacedFeature> INDIGO_TREES =
+            registerKey("indigo_trees");
+
+    public static void bootstrap(BootstrapContext<PlacedFeature> context) {
+        var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
+
+        // Ground vegetation - covers the forest floor
+        register(context, INDIGO_VEGETATION,
+                configuredFeatures.getOrThrow(NERConfiguredFeatures.DNA_FOREST_VEGETATION_WORLDGEN),
+                List.of(
+                        CountOnEveryLayerPlacement.of(5),
+                        BlockPredicateFilter.forPredicate(
+                                BlockPredicate.matchesBlocks(
+                                        BlockPos.ZERO.below(),
+                                        NERBlocks.INDIGO_NYLIUM.get()
+                                )
+                        ),
+                        BiomeFilter.biome()
+                )
+        );
+
+        register(context, INDIGO_TREES,
+                configuredFeatures.getOrThrow(NERConfiguredFeatures.INDIGO_TREES),
+                List.of(
+                        EvenSpreadPlacement.of(20, 13),
+                        BlockPredicateFilter.forPredicate(
+                                BlockPredicate.matchesBlocks(
+                                        BlockPos.ZERO.below(),
+                                        NERBlocks.INDIGO_NYLIUM.get()
+                                )
+                        ),
+                        BiomeFilter.biome()
+                )
+        );
+    }
+
+    private static ResourceKey<PlacedFeature> registerKey(String name) {
+        return ResourceKey.create(Registries.PLACED_FEATURE,
+                CommonUtils.resourcePath(name));
+    }
+
+    private static void register(BootstrapContext<PlacedFeature> context,
+                                 ResourceKey<PlacedFeature> key,
+                                 Holder<ConfiguredFeature<?, ?>> configuration,
+                                 List<PlacementModifier> modifiers) {
+        context.register(key, new PlacedFeature(configuration, List.copyOf(modifiers)));
+    }
+}

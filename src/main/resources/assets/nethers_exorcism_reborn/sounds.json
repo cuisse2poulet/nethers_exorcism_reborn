@@ -30,5 +30,11 @@
       "nethers_exorcism_reborn:scyphozoa_hurt1",
       "nethers_exorcism_reborn:scyphozoa_hurt2"
     ]
+  },
+  "scyphozoa_move": {
+    "subtitle": "sounds.nethers_exorcism_reborn.scyphozoa_move",
+    "sounds": [
+      "minecraft:entity/squid/squirt1"
+    ]
   }
 }

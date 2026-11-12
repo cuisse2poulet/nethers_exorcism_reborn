@@ -1,6 +1,6 @@
 package net.enorme.NER.entity.custom.indigoscyphozoa.goal;
 
-import net.enorme.NER.effect.ModEffect;
+import net.enorme.NER.effect.NEREffect;
 import net.enorme.NER.entity.custom.indigoscyphozoa.IndigoScyphozoaEntity;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.server.level.ServerLevel;
@@ -71,7 +71,7 @@ public class HallucinationDefenseGoal extends Goal {
 
         attacker.addEffect(
                 new MobEffectInstance(
-                        ModEffect.HALLUCINATION,
+                        NEREffect.HALLUCINATION,
                         200,
                         amplifier
                 )

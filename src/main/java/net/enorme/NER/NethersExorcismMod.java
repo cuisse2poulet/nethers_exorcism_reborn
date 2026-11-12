@@ -1,15 +1,15 @@
 package net.enorme.NER;
 
 import com.mojang.logging.LogUtils;
-import net.enorme.NER.block.ModBlocks;
-import net.enorme.NER.effect.ModEffect;
-import net.enorme.NER.entity.ModEntities;
-import net.enorme.NER.item.ModCreativeModTab;
-import net.enorme.NER.item.ModItems;
-import net.enorme.NER.potion.ModPotions;
-import net.enorme.NER.sound.ModSound;
-import net.enorme.NER.worldgen.ModFeatures;
-import net.enorme.NER.worldgen.ModPlacementModifiers;
+import net.enorme.NER.block.NERBlocks;
+import net.enorme.NER.effect.NEREffect;
+import net.enorme.NER.entity.NEREntities;
+import net.enorme.NER.item.NERCreativeModTab;
+import net.enorme.NER.item.NERItems;
+import net.enorme.NER.potion.NERPotions;
+import net.enorme.NER.sound.NERSound;
+import net.enorme.NER.worldgen.NERFeatures;
+import net.enorme.NER.worldgen.NERPlacementModifiers;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.alchemy.PotionBrewing;
@@ -28,8 +28,8 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
 
-import static net.enorme.NER.potion.ModPotions.INSTANT_CURE_POTION;
-import static net.enorme.NER.potion.ModPotions.JELLYCIOUS_BREW_POTION;
+import static net.enorme.NER.potion.NERPotions.INSTANT_CURE_POTION;
+import static net.enorme.NER.potion.NERPotions.JELLYCIOUS_BREW_POTION;
 import static net.minecraft.world.item.alchemy.Potions.POISON;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
@@ -46,18 +46,18 @@ public class NethersExorcismMod {
         modEventBus.addListener(this::commonSetup);
         NeoForge.EVENT_BUS.register(this);
         NeoForge.EVENT_BUS.addListener(NethersExorcismMod::registerBrewingRecipes);
-        ModCreativeModTab.register(modEventBus);
+        NERCreativeModTab.register(modEventBus);
 
-        ModItems.register(modEventBus);
-        ModBlocks.register(modEventBus);
-        ModEffect.register(modEventBus);
-        ModPotions.register(modEventBus);
+        NERItems.register(modEventBus);
+        NERBlocks.register(modEventBus);
+        NEREffect.register(modEventBus);
+        NERPotions.register(modEventBus);
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
-        ModSound.register(modEventBus);
-        ModEntities.register(modEventBus);
-        ModFeatures.register(modEventBus);
-        ModPlacementModifiers.register(modEventBus);
+        NERSound.register(modEventBus);
+        NEREntities.register(modEventBus);
+        NERFeatures.register(modEventBus);
+        NERPlacementModifiers.register(modEventBus);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
@@ -72,36 +72,36 @@ public class NethersExorcismMod {
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
-            event.accept(ModItems.RAW_INDIGO_SALAMANDER_TAIL);
-            event.accept(ModItems.COOKED_INDIGO_SALAMANDER_TAIL);
+            event.accept(NERItems.RAW_INDIGO_SALAMANDER_TAIL);
+            event.accept(NERItems.COOKED_INDIGO_SALAMANDER_TAIL);
         }
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(ModBlocks.INDIGO_PLANKS);
-            event.accept(ModBlocks.INDIGO_STEM);
-            event.accept(ModBlocks.STRIPPED_INDIGO_STEM);
-            event.accept(ModBlocks.INDIGO_HYPHAE);
-            event.accept(ModBlocks.STRIPPED_INDIGO_HYPHAE);
-            event.accept(ModBlocks.INDIGO_STAIRS);
-            event.accept(ModBlocks.INDIGO_SlAB);
-            event.accept(ModBlocks.INDIGO_DOOR);
-            event.accept(ModBlocks.INDIGO_TRAPDOOR);
-            event.accept(ModBlocks.INDIGO_FENCE);
-            event.accept(ModBlocks.INDIGO_FENCE_GATE);
-            event.accept(ModBlocks.INDIGO_BUTTON);
-            event.accept(ModBlocks.INDIGO_PRESSURE_PLATE);
+            event.accept(NERBlocks.INDIGO_PLANKS);
+            event.accept(NERBlocks.INDIGO_STEM);
+            event.accept(NERBlocks.STRIPPED_INDIGO_STEM);
+            event.accept(NERBlocks.INDIGO_HYPHAE);
+            event.accept(NERBlocks.STRIPPED_INDIGO_HYPHAE);
+            event.accept(NERBlocks.INDIGO_STAIRS);
+            event.accept(NERBlocks.INDIGO_SlAB);
+            event.accept(NERBlocks.INDIGO_DOOR);
+            event.accept(NERBlocks.INDIGO_TRAPDOOR);
+            event.accept(NERBlocks.INDIGO_FENCE);
+            event.accept(NERBlocks.INDIGO_FENCE_GATE);
+            event.accept(NERBlocks.INDIGO_BUTTON);
+            event.accept(NERBlocks.INDIGO_PRESSURE_PLATE);
         }
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ModItems.GENETIC_MIRACLE_MUSIC_DISC);
+            event.accept(NERItems.GENETIC_MIRACLE_MUSIC_DISC);
         }
         if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
-            event.accept(ModBlocks.INDIGO_NYLIUM);
-            event.accept(ModBlocks.VERDANT_SHROOMLIGHT);
-            event.accept(ModBlocks.INDIGO_FUNGUS);
-            event.accept(ModBlocks.INDIGO_ROOTS);
-            event.accept(ModBlocks.INDIGO_SPROUTS);
-            event.accept(ModBlocks.INDIGO_CANDLESPIRE);
-            event.accept(ModBlocks.INDIGO_COILSPROUT_TOP);
-            event.accept(ModBlocks.DNA_VINE_POINT);
+            event.accept(NERBlocks.INDIGO_NYLIUM);
+            event.accept(NERBlocks.VERDANT_SHROOMLIGHT);
+            event.accept(NERBlocks.INDIGO_FUNGUS);
+            event.accept(NERBlocks.INDIGO_ROOTS);
+            event.accept(NERBlocks.INDIGO_SPROUTS);
+            event.accept(NERBlocks.INDIGO_CANDLESPIRE);
+            event.accept(NERBlocks.INDIGO_COILSPROUT_TOP);
+            event.accept(NERBlocks.DNA_VINE_POINT);
         }
     }
 
@@ -122,7 +122,7 @@ public class NethersExorcismMod {
                 // The initial potion to apply to
                 Potions.MUNDANE,
                 // The brewing ingredient. This is the item at the top of the brewing stand.
-                ModItems.COOKED_INDIGO_SALAMANDER_TAIL.get(),
+                NERItems.COOKED_INDIGO_SALAMANDER_TAIL.get(),
                         // The resulting potion
                         INSTANT_CURE_POTION
         );
@@ -130,7 +130,7 @@ public class NethersExorcismMod {
                         // The initial potion to apply to
                         Potions.AWKWARD,
                 // The brewing ingredient. This is the item at the top of the brewing stand.
-                ModItems.GLOWING_JELLY.get(),
+                NERItems.GLOWING_JELLY.get(),
                 // The resulting potion
                 JELLYCIOUS_BREW_POTION
         );
@@ -138,7 +138,7 @@ public class NethersExorcismMod {
                 // The initial potion to apply to
                 Potions.AWKWARD,
                 // The brewing ingredient. This is the item at the top of the brewing stand.
-                ModItems.RAW_INDIGO_SALAMANDER_TAIL.get(),
+                NERItems.RAW_INDIGO_SALAMANDER_TAIL.get(),
                 // The resulting potion
                 POISON
         );

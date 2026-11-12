@@ -3,7 +3,7 @@ package net.enorme.NER.worldgen.tree;
 
 
 import com.mojang.serialization.Codec;
-import net.enorme.NER.block.ModBlocks;
+import net.enorme.NER.block.NERBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
@@ -50,9 +50,9 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         double radius = 2.1;
         double thickness = 1.1; // trunk
 
-        BlockState wart = ModBlocks.INDIGO_WART_BLOCK.get().defaultBlockState();
-        BlockState trunk = ModBlocks.INDIGO_STEM.get().defaultBlockState();
-        BlockState shroomLight = ModBlocks.VERDANT_SHROOMLIGHT.get().defaultBlockState();
+        BlockState wart = NERBlocks.INDIGO_WART_BLOCK.get().defaultBlockState();
+        BlockState trunk = NERBlocks.INDIGO_STEM.get().defaultBlockState();
+        BlockState shroomLight = NERBlocks.VERDANT_SHROOMLIGHT.get().defaultBlockState();
 
         for (int y = 0; y < height; y++) {
             double t = (double) y / (height - 1);
@@ -372,7 +372,7 @@ public class IndigoTreeFeature extends Feature<TreeConfiguration> {
         BlockState s = level.getBlockState(pos);
         return s.getBlock() == Blocks.GRASS_BLOCK || s.getBlock() == Blocks.DIRT
                 || s.getBlock() == Blocks.COARSE_DIRT || s.getBlock() == Blocks.ROOTED_DIRT
-                || s.is(ModBlocks.INDIGO_NYLIUM.get());
+                || s.is(NERBlocks.INDIGO_NYLIUM.get());
     }
 
     private boolean canOverwriteForStructure(WorldGenLevel level, BlockPos pos) {
