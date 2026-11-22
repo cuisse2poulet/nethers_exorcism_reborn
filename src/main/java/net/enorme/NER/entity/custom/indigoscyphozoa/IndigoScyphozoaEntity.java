@@ -1,5 +1,6 @@
 package net.enorme.NER.entity.custom.indigoscyphozoa;
 
+import net.enorme.NER.Config;
 import net.enorme.NER.item.NERItems;
 import net.enorme.NER.entity.custom.indigoscyphozoa.goal.*;
 import net.enorme.NER.sound.NERSound;
@@ -64,11 +65,12 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
 
     private static final long JELLY_REGROW_TICKS = 6000L;
 
-    private static final int LEAP_MIN_COOLDOWN = 160;
-    private static final int LEAP_RANDOM_COOLDOWN = 240;
-    private static final double LEAP_UP_STRENGTH = 0.45D;
-    private static final double LEAP_FORWARD_STRENGTH = 0.15D;
-    private int leapCooldown = LEAP_MIN_COOLDOWN;
+    private static final double LEAP_UP_STRENGTH = 0.12D;
+    private static final double LEAP_FORWARD_STRENGTH = 0.6D;
+    public static final int LEAP_TILT_DURATION = 30;
+    private static final byte LEAP_EVENT_ID = 100;
+    private int leapCooldown = 160;
+    private int leapTiltTicks;
 
     public enum Mood {
         CALM,
@@ -221,6 +223,8 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
 
         if (!level().isClientSide) {
             tickLeap();
+        } else if (leapTiltTicks > 0) {
+            leapTiltTicks--;
         }
     }
 
@@ -228,20 +232,47 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
         if (--leapCooldown > 0) {
             return;
         }
-        leapCooldown = LEAP_MIN_COOLDOWN + random.nextInt(LEAP_RANDOM_COOLDOWN);
+        int randomCooldown = Config.SCYPHOZOA_LEAP_RANDOM_COOLDOWN.get();
+        leapCooldown = Config.SCYPHOZOA_LEAP_MIN_COOLDOWN.get()
+                + (randomCooldown > 0 ? random.nextInt(randomCooldown + 1) : 0);
 
-        if (getTarget() != null || cryingTicks > 0 || isInWaterOrBubble()
-                || !level().noCollision(this, getBoundingBox().move(0, 2.0D, 0))) {
+        if (!Config.SCYPHOZOA_LEAP_ENABLED.get()) {
             return;
         }
 
         float yawRad = getYRot() * Mth.DEG_TO_RAD;
-        double forwardX = -Mth.sin(yawRad) * LEAP_FORWARD_STRENGTH;
-        double forwardZ = Mth.cos(yawRad) * LEAP_FORWARD_STRENGTH;
+        double dirX = -Mth.sin(yawRad);
+        double dirZ = Mth.cos(yawRad);
 
-        setDeltaMovement(getDeltaMovement().add(forwardX, LEAP_UP_STRENGTH, forwardZ));
+        if (getTarget() != null || cryingTicks > 0 || isInWaterOrBubble()
+                || !level().noCollision(this, getBoundingBox().move(dirX * 3.0D, 1.0D, dirZ * 3.0D))) {
+            return;
+        }
+
+        setDeltaMovement(getDeltaMovement().add(
+                dirX * LEAP_FORWARD_STRENGTH, LEAP_UP_STRENGTH, dirZ * LEAP_FORWARD_STRENGTH));
         hasImpulse = true;
+        level().broadcastEntityEvent(this, LEAP_EVENT_ID);
         playSound(NERSound.SCYPHOZOA_MOVE.get(), 0.8F, 0.9F + random.nextFloat() * 0.3F);
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == LEAP_EVENT_ID) {
+            leapTiltTicks = LEAP_TILT_DURATION;
+        } else {
+            super.handleEntityEvent(id);
+        }
+    }
+
+    public float getLeapTilt(float partialTick) {
+        if (leapTiltTicks <= 0) {
+            return 0.0F;
+        }
+        float progress = 1.0F - (leapTiltTicks - partialTick) / LEAP_TILT_DURATION;
+        float envelope = progress < 0.15F ? progress / 0.15F : (1.0F - progress) / 0.85F;
+        envelope = Math.clamp(envelope, 0.0F, 1.0F);
+        return envelope * envelope * (3.0F - 2.0F * envelope);
     }
 
     @Override
