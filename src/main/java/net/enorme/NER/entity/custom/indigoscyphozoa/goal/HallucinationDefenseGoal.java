@@ -17,6 +17,7 @@ public class HallucinationDefenseGoal extends Goal {
 
     private final IndigoScyphozoaEntity mob;
     private int cooldown;
+    private int lastHandledHurt;
 
     public HallucinationDefenseGoal(IndigoScyphozoaEntity mob) {
         this.mob = mob;
@@ -28,13 +29,23 @@ public class HallucinationDefenseGoal extends Goal {
     }
 
     @Override
+    public boolean requiresUpdateEveryTick() {
+        return true;
+    }
+
+    @Override
     public void tick() {
 
         if (cooldown > 0) {
             cooldown--;
         }
 
-        if (mob.hurtTime != 10 || cooldown > 0)
+        int hurtTimestamp = mob.getLastHurtByMobTimestamp();
+        if (hurtTimestamp == lastHandledHurt)
+            return;
+        lastHandledHurt = hurtTimestamp;
+
+        if (cooldown > 0)
             return;
 
         LivingEntity attacker = mob.getLastHurtByMob();

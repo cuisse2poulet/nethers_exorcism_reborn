@@ -103,7 +103,7 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack tool = player.getItemInHand(hand);
-        if (!tool.is(Items.SHEARS)) {
+        if (!tool.is(Items.SHEARS) || getMood() != Mood.LOVE) {
             return super.mobInteract(player, hand);
         }
 
@@ -214,7 +214,7 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
             moodTicks--;
 
             if (moodTicks <= 0 && cryingTicks <= 0) {
-                if (getMood() == Mood.ANGRY) {
+                if (getMood() == Mood.ANGRY || getMood() == Mood.HURT) {
                     setTarget(null);
                 }
                 setMood(Mood.CALM);

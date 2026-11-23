@@ -20,6 +20,11 @@ public class GroupJellyLayingGoal extends Goal {
     }
 
     @Override
+    public boolean requiresUpdateEveryTick() {
+        return true;
+    }
+
+    @Override
     public void tick() {
         boolean largeGroup = jelly.getNearbyScyphozoaCount() >= MIN_GROUP_SIZE;
         if (largeGroup && jelly.getMood() == IndigoScyphozoaEntity.Mood.CALM) {
