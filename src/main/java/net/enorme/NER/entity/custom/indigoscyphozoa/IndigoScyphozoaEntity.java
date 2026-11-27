@@ -63,8 +63,6 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
     private int jellyLayTicks;
     private long jellyReadyAt;
 
-    private static final long JELLY_REGROW_TICKS = 6000L;
-
     private static final double LEAP_UP_STRENGTH = 0.12D;
     private static final double LEAP_FORWARD_STRENGTH = 0.6D;
     public static final int LEAP_TILT_DURATION = 30;
@@ -108,7 +106,7 @@ public class IndigoScyphozoaEntity extends FlyingMob implements GeoAnimatable {
         }
 
         if (!level().isClientSide && level().getGameTime() >= jellyReadyAt) {
-            jellyReadyAt = level().getGameTime() + JELLY_REGROW_TICKS;
+            jellyReadyAt = level().getGameTime() + Config.SCYPHOZOA_SHEAR_REGROW_TICKS.get();
             spawnAtLocation(NERItems.GLOWING_JELLY.get());
             tool.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
             playSound(SoundEvents.SHEEP_SHEAR, 0.8F, 1.1F);

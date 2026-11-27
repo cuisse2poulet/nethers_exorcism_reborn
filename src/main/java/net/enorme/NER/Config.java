@@ -22,6 +22,10 @@ public class Config {
             .comment("Extra random ticks added on top of the minimum cooldown (0 = always exactly the minimum)")
             .defineInRange("leapRandomCooldown", 240, 0, 72000);
 
+    public static final ModConfigSpec.IntValue SCYPHOZOA_SHEAR_REGROW_TICKS = BUILDER
+            .comment("Ticks before a sheared Indigo Scyphozoa can be sheared again (20 ticks = 1 second)")
+            .defineInRange("shearRegrowTicks", 6000, 0, 1728000);
+
     static {
         BUILDER.pop();
     }
